@@ -1,0 +1,6 @@
+export enum API_PROCESS {
+  INITIAL = 'INITIAL',
+  LOADING = 'LOADING',
+  SUCCESS = 'SUCCESS',
+  FAIL = 'FAIL',
+}
