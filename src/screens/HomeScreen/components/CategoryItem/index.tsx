@@ -3,11 +3,23 @@ import {FC} from 'react';
 import {CategoryItemProps} from './CategoryItem.type';
 import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {colors} from '../../../../constants/colors';
+import TabNavigation from '../../../../config/stack/tabNavigationService';
+import convertHttp from '../../../../utils/convertHttp';
 
 const CategoryItem: FC<CategoryItemProps> = ({category}) => {
   return (
-    <TouchableOpacity activeOpacity={1} style={styles.wrapper}>
-      <Image style={styles.img} source={{uri: category.imageUrl}} />
+    <TouchableOpacity
+      onPress={() => {
+        TabNavigation.push('Explore', {
+          category: category,
+        });
+      }}
+      activeOpacity={1}
+      style={styles.wrapper}>
+      <Image
+        style={styles.img}
+        source={{uri: convertHttp(category.imageUrl)}}
+      />
       <View style={styles.nameWrapper}>
         <Text style={styles.name}>{category.name}</Text>
       </View>
@@ -19,21 +31,24 @@ export default CategoryItem;
 
 const styles = StyleSheet.create({
   wrapper: {
-    width: 200,
-    height: 200,
+    width: 150,
+    height: 150,
     position: 'relative',
     justifyContent: 'flex-end',
     borderRadius: 15,
+    elevation: 10,
+    backgroundColor: 'white',
     overflow: 'hidden',
+    borderStartColor: 'red',
+    alignItems: 'center',
   },
   img: {
-    position: 'absolute',
-    top: 0,
-    bottom: 0,
-    left: 0,
-    right: 0,
+    width: '70%',
+    aspectRatio: 1,
+    resizeMode: 'contain',
   },
   nameWrapper: {
+    width: '100%',
     backgroundColor: '#000000',
     opacity: 0.43,
   },

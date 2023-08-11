@@ -1,4 +1,5 @@
 import {API_PROCESS} from '../../enum';
+import {IProduct} from '../category/category.type';
 
 export interface ICategory {
   id: string;
@@ -22,7 +23,7 @@ export interface INewArrivals {
 export interface CategoryState {
   categories: ICategory[];
   getCategoriesStatus: API_PROCESS;
-  bestSeller: IBestSeller[];
+  bestSeller: IProduct[];
   getBestSellerStatus: API_PROCESS;
   newArrivals: IBestSeller[];
   getNewArrivalsStatus: API_PROCESS;

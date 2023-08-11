@@ -9,32 +9,50 @@ import React, {FC} from 'react';
 import {BestSellerItemProps} from './BestSeller.type';
 import {colors} from '../../../../constants/colors';
 import CartIcon from '../../../../assets/svgs/cart_white.svg';
+import {useReduxDispatch} from '../../../../redux/store';
+import {selectProduct} from '../../../../redux/slices/category/categorySlice';
+import NavigationService from '../../../../config/stack/navigationService';
+import useAddToCart from '../../../../hooks/useAddToCart';
+import convertHttp from '../../../../utils/convertHttp';
 
 const BestSellerItem: FC<BestSellerItemProps> = ({object}) => {
+  const dispatch = useReduxDispatch();
+  const {addToCart} = useAddToCart();
   return (
-    <View style={styles.wrapper}>
-      <View style={styles.container}>
-        <View style={styles.imgSwrapper}>
-          <Image style={styles.img} source={{uri: object.imageUrls[0]}}></Image>
-        </View>
-        <View style={styles.content}>
-          <Text ellipsizeMode="tail" numberOfLines={2} style={styles.name}>
-            {object.name}
-          </Text>
-          <Text style={styles.price}>
-            {Number(object.price).toLocaleString()} UED
-          </Text>
-        </View>
-        <View style={styles.btnWrp}>
-          <TouchableWithoutFeedback>
-            <View style={styles.btn}>
-              <CartIcon width={16} />
-              <Text style={styles.btnText}>Add to cart</Text>
-            </View>
-          </TouchableWithoutFeedback>
+    <TouchableWithoutFeedback
+      onPress={() => {
+        dispatch(selectProduct({product: object}));
+        NavigationService.push('ProductDetail', {productId: object.id});
+      }}>
+      <View style={styles.wrapper}>
+        <View style={styles.container}>
+          <View style={styles.imgSwrapper}>
+            <Image
+              style={styles.img}
+              source={{uri: convertHttp(object.imageUrls[0])}}></Image>
+          </View>
+          <View style={styles.content}>
+            <Text ellipsizeMode="tail" numberOfLines={2} style={styles.name}>
+              {object.name}
+            </Text>
+            <Text style={styles.price}>
+              {Number(object.price).toLocaleString()} UED
+            </Text>
+          </View>
+          <View style={styles.btnWrp}>
+            <TouchableWithoutFeedback
+              onPress={() => {
+                addToCart(object);
+              }}>
+              <View style={styles.btn}>
+                <CartIcon width={16} />
+                <Text style={styles.btnText}>Add to cart</Text>
+              </View>
+            </TouchableWithoutFeedback>
+          </View>
         </View>
       </View>
-    </View>
+    </TouchableWithoutFeedback>
   );
 };
 
@@ -52,12 +70,19 @@ const styles = StyleSheet.create({
   imgSwrapper: {
     position: 'absolute',
     zIndex: 100,
-  },
-  img: {
+    elevation: 10,
     width: 136,
     height: 136,
+    backgroundColor: colors.white,
+    borderRadius: 9,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  img: {
     zIndex: 100,
-    borderRadius: 16,
+    overflow: 'hidden',
+    width: '70%',
+    aspectRatio: 1,
   },
   content: {
     paddingTop: 85,

@@ -24,6 +24,8 @@ const Categories = () => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+  console.log(categories.map(c => c.name));
+
   const handleJum = useCallback(
     (isIncrement?: boolean) => {
       if (isIncrement && scrollRef && itemSelected + 1 < categories.length) {

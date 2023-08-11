@@ -9,6 +9,7 @@ import {colors} from '../../constants/colors';
 import {fonts} from '../../constants/fonts';
 import TabNavigation from '../../config/stack/tabNavigationService';
 import NavigationService from '../../config/stack/navigationService';
+import {useReduxSelector} from '../../redux/store';
 
 const Header: FC<HeaderProps> = ({isCanBack = true, startIcon, title}) => {
   const handleBack = () => {
@@ -16,6 +17,7 @@ const Header: FC<HeaderProps> = ({isCanBack = true, startIcon, title}) => {
       NavigationService.goBack();
     }
   };
+  const {products} = useReduxSelector(state => state.cart);
   return (
     <View style={styles.wrapper}>
       <View style={styles.leftContainer}>
@@ -46,7 +48,7 @@ const Header: FC<HeaderProps> = ({isCanBack = true, startIcon, title}) => {
           style={[styles.iconWrap, styles.cartIcon]}>
           <CartIcon />
           <View style={styles.cartCount}>
-            <Text style={styles.cartCountText}>2</Text>
+            <Text style={styles.cartCountText}>{products.length}</Text>
           </View>
         </TouchableOpacity>
       </View>

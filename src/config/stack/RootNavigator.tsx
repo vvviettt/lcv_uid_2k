@@ -30,6 +30,7 @@ import TabNavigation from './tabNavigationService';
 import {colors} from '../../constants/colors';
 import ExploreScreen from '../../screens/ExploreScreen';
 import ProductDetail from '../../screens/ProductDetailtScreen';
+import {useReduxSelector} from '../../redux/store';
 
 const Stack = createNativeStackNavigator<StackParams>();
 const Tab = createBottomTabNavigator();
@@ -65,6 +66,7 @@ const RootNavigation: FC = () => {
 
 const TabNavigator: FC = (props: any) => {
   TabNavigation.initialize(props.navigation);
+  const {products} = useReduxSelector(state => state.cart);
 
   return (
     <Tab.Navigator
@@ -80,14 +82,9 @@ const TabNavigator: FC = (props: any) => {
               paddingBottom: 20,
               paddingTop: 10,
               paddingHorizontal: 20,
-              ...(Platform.OS === 'ios'
-                ? {
-                    shadowColor: 'black',
-                    shadowOffset: {width: 0, height: 2},
-                    shadowOpacity: 0.5,
-                    shadowRadius: 4,
-                  }
-                : {elevation: 10}),
+              elevation: 9,
+              borderTopWidth: 1,
+              borderTopColor: 'rgba(0,0,0,0.1)',
             }}>
             {state.routes.map((route, index) => {
               const isFocused = state.index === index;
@@ -121,12 +118,35 @@ const TabNavigator: FC = (props: any) => {
                   onLongPress={onLongPress}>
                   <View
                     style={{justifyContent: 'center', alignItems: 'center'}}>
-                    {options.tabBarIcon!({
-                      focused: isFocused,
-                      color: '',
-                      size: 0,
-                    })}
-                    <Text style={{color: isFocused ? colors.green : undefined}}>
+                    <View>
+                      {options.tabBarIcon!({
+                        focused: isFocused,
+                        color: '',
+                        size: 0,
+                      })}
+                      {route.name === 'Cart' && products.length > 0 && (
+                        <View
+                          style={{
+                            position: 'absolute',
+                            left: '70%',
+                            bottom: '50%',
+                            backgroundColor: colors.cartCount,
+                            width: 20,
+                            height: 20,
+                            borderRadius: 24,
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                          }}>
+                          <Text style={{fontSize: 12, color: colors.white}}>
+                            {products.length}
+                          </Text>
+                        </View>
+                      )}
+                    </View>
+                    <Text
+                      style={{
+                        color: isFocused ? colors.green : colors.description,
+                      }}>
                       {route.name}
                     </Text>
                   </View>
@@ -203,7 +223,14 @@ const TabNavigator: FC = (props: any) => {
       />
       <Tab.Screen
         options={{
-          headerShown: false,
+          // headerShown: false,
+          title: 'My Cart',
+          headerTitleAlign: 'center',
+          headerTitleStyle: {
+            color: colors.green,
+            fontSize: 20,
+            fontWeight: '500',
+          },
           tabBarIcon: ({focused}) =>
             focused ? (
               <View
@@ -265,7 +292,13 @@ const TabNavigator: FC = (props: any) => {
       />
       <Tab.Screen
         options={{
-          headerShown: false,
+          title: 'Settings',
+          headerTitleAlign: 'center',
+          headerTitleStyle: {
+            color: colors.green,
+            fontSize: 20,
+            fontWeight: '500',
+          },
           tabBarIcon: ({focused}) =>
             focused ? (
               <View
@@ -291,7 +324,7 @@ const TabNavigator: FC = (props: any) => {
               </View>
             ),
         }}
-        name="Setting"
+        name="Settings"
         component={SettingScreen}
       />
     </Tab.Navigator>

@@ -5,7 +5,10 @@ export interface IProduct {
   id: string;
   name: string;
   imageUrls: string[];
+  imageUrl: string;
   price: string;
+  description?: string;
+  count?: number;
 }
 
 export interface CategoryState {
@@ -15,4 +18,7 @@ export interface CategoryState {
   categorySelectedId: string;
   categorySelected?: ICategory;
   productSelected?: IProduct;
+  isGetAll: boolean;
+  totalRecord: number;
+  isLoadMore: API_PROCESS;
 }

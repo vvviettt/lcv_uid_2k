@@ -48,8 +48,6 @@ export const getNewArrivals = createAsyncThunk<
   {rejectValue: string}
 >('static/getNewArrivals', async (unknown, {rejectWithValue}) => {
   try {
-    console.log('anhanh');
-
     return await getNewArrivalsApi();
   } catch (error) {
     rejectWithValue((error as any).message);
@@ -67,6 +65,7 @@ const staticSlice = createSlice({
     });
     builder.addCase(getAllCategories.fulfilled, (state, {payload}) => {
       state.getCategoriesStatus = API_PROCESS.SUCCESS;
+      console.log('changes');
       state.categories = payload;
     });
     builder.addCase(getAllCategories.rejected, state => {
@@ -89,8 +88,6 @@ const staticSlice = createSlice({
     });
     builder.addCase(getNewArrivals.fulfilled, (state, {payload}) => {
       state.getNewArrivalsStatus = API_PROCESS.SUCCESS;
-      console.log(payload);
-
       state.newArrivals = payload;
     });
     builder.addCase(getNewArrivals.rejected, state => {

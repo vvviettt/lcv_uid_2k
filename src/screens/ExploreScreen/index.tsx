@@ -12,21 +12,34 @@ import {useReduxDispatch, useReduxSelector} from '../../redux/store';
 import {StyleSheet} from 'react-native';
 import {Dimensions} from 'react-native';
 import {TouchableWithoutFeedback} from 'react-native';
-import {chooseCategory} from '../../redux/slices/category/categorySlice';
+import {
+  chooseCategory,
+  getAll,
+  loadMore,
+} from '../../redux/slices/category/categorySlice';
 import ListProducts from './components/ListProduct';
 import CategoryHeader from './components/CategoryHeader';
+import {API_PROCESS} from '../../redux/enum';
 
-const ExploreScreen = () => {
+const ExploreScreen = ({route}) => {
   const {categories} = useReduxSelector(state => state.static);
-  const {categorySelected} = useReduxSelector(state => state.category);
+  const {
+    categorySelected,
+    isGetAll,
+    totalRecord,
+    products,
+    getListProductsStatus,
+  } = useReduxSelector(state => state.category);
   const dispatch = useReduxDispatch();
   const [modalVisible, setModalVisible] = useState(false);
   useEffect(() => {
-    if (categories.length > 0) {
-      dispatch(chooseCategory({categoryId: categories[0].id}));
+    if (route?.params?.category) {
+      dispatch(chooseCategory({categoryId: route?.params?.category.id}));
+    } else if (categories.length > 0) {
+      dispatch(getAll());
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [categories]);
+  }, [categories, route]);
   const renderNavIcon = useCallback(() => {
     return (
       <View style={{position: 'relative'}}>
@@ -39,6 +52,17 @@ const ExploreScreen = () => {
         {modalVisible && (
           <View style={styles.modalContainer}>
             <View style={styles.modalWrp}>
+              <TouchableOpacity
+                onPress={() => {
+                  setModalVisible(false);
+                  if (!isGetAll) {
+                    dispatch(getAll());
+                  }
+                }}>
+                <View style={styles.modalItem}>
+                  <Text style={styles.modalName}>ALL PRODUCTS</Text>
+                </View>
+              </TouchableOpacity>
               {categories.map(category => {
                 return (
                   <TouchableOpacity
@@ -64,14 +88,31 @@ const ExploreScreen = () => {
     );
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [modalVisible]);
+  const isCloseToBottom = ({layoutMeasurement, contentOffset, contentSize}) => {
+    const paddingToBottom = 20;
+    return (
+      layoutMeasurement.height + contentOffset.y >=
+      contentSize.height - paddingToBottom
+    );
+  };
   return (
     <SafeAreaView style={{paddingBottom: 68}}>
       <Header
-        title={categorySelected?.name ?? ''}
+        title={isGetAll ? 'ALL PRODUCTS' : categorySelected?.name ?? ''}
         isCanBack={false}
         startIcon={renderNavIcon()}
       />
-      <ScrollView>
+      <ScrollView
+        onScroll={({nativeEvent}) => {
+          if (isCloseToBottom(nativeEvent)) {
+            if (
+              products.length < totalRecord &&
+              getListProductsStatus !== API_PROCESS.LOADING
+            ) {
+              dispatch(loadMore());
+            }
+          }
+        }}>
         <CategoryHeader category={categorySelected} />
         <ListProducts />
       </ScrollView>

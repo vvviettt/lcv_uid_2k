@@ -4,4 +4,5 @@ export const colors = {
   description: '#878686',
   cartCount: '#EF5D5D',
   white: '#fff',
+  mainTxt: '#020202',
 };

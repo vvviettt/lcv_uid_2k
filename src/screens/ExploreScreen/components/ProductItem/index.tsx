@@ -8,18 +8,24 @@ import {convertPrice} from '../../../../utils/convertPrice';
 import NavigationService from '../../../../config/stack/navigationService';
 import {useReduxDispatch} from '../../../../redux/store';
 import {selectProduct} from '../../../../redux/slices/category/categorySlice';
+import convertHttp from '../../../../utils/convertHttp';
 
 const ProductItem: FC<ProductItemProps> = ({product}) => {
   const dispatch = useReduxDispatch();
   return (
     <TouchableWithoutFeedback
       onPress={() => {
-        NavigationService.push('ProductDetail', {productId: product.id});
         dispatch(selectProduct({product: product}));
+        NavigationService.push('ProductDetail', {productId: product.id});
       }}>
       <View style={styles.wrapper}>
         <View style={styles.imgWrapper}>
-          <Image style={styles.img} source={{uri: product.imageUrls[0]}} />
+          <Image
+            style={styles.img}
+            source={{
+              uri: convertHttp(product.imageUrls[0]),
+            }}
+          />
         </View>
         <View style={styles.contentWrapper}>
           <Text style={styles.name}>{product.name}</Text>
@@ -47,10 +53,12 @@ const styles = StyleSheet.create({
     borderWidth: 0.5,
     borderColor: colors.description,
     borderRadius: 10,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   img: {
-    width: '100%',
-    aspectRatio: 12 / 9,
+    width: '70%',
+    aspectRatio: 1,
     borderRadius: 10,
   },
   contentWrapper: {

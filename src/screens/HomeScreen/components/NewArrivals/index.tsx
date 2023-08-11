@@ -5,6 +5,7 @@ import {useReduxDispatch, useReduxSelector} from '../../../../redux/store';
 import {getNewArrivals} from '../../../../redux/slices/static/staticSlice';
 import Carousel, {Pagination} from 'react-native-snap-carousel';
 import {colors} from '../../../../constants/colors';
+import convertHttp from '../../../../utils/convertHttp';
 
 const NewArrivals = () => {
   const dispatch = useReduxDispatch();
@@ -25,10 +26,10 @@ const NewArrivals = () => {
             <Carousel
               renderItem={({item, index}) => {
                 return (
-                  <View key={index}>
+                  <View style={styles.silderWrapper} key={index}>
                     <Image
                       style={styles.imageSlider}
-                      source={{uri: item.imageUrls[0]}}
+                      source={{uri: convertHttp(item.imageUrls[0])}}
                     />
                   </View>
                 );
@@ -64,10 +65,19 @@ const styles = StyleSheet.create({
   ph18: {
     paddingHorizontal: 18,
   },
-  imageSlider: {
+  silderWrapper: {
     width: '100%',
+    justifyContent: 'center',
     aspectRatio: 16 / 9,
+    alignItems: 'center',
+    // elevation: 2,
+    borderRadius: 9,
+  },
+  imageSlider: {
+    width: '35%',
+    aspectRatio: 1,
     borderRadius: 16,
+    resizeMode: 'contain',
   },
   styleWrp: {
     position: 'relative',
