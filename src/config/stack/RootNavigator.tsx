@@ -3,7 +3,7 @@
 /* eslint-disable react/no-unstable-nested-components */
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {StackParams} from './type';
-import {FC, useRef} from 'react';
+import {FC, useEffect, useRef} from 'react';
 import {
   NavigationContainer,
   NavigationContainerRef,
@@ -30,12 +30,27 @@ import TabNavigation from './tabNavigationService';
 import {colors} from '../../constants/colors';
 import ExploreScreen from '../../screens/ExploreScreen';
 import ProductDetail from '../../screens/ProductDetailtScreen';
-import {useReduxSelector} from '../../redux/store';
+import {useReduxDispatch, useReduxSelector} from '../../redux/store';
+import TermsOfServiceScreen from '../../screens/TermsOfServices';
+import BackIcon from '../../assets/svgs/back.svg';
+import CheckOutScreen from '../../screens/CheckOutScreen';
+import jwtDecode from 'jwt-decode';
+import {logout} from '../../redux/slices/user/userSlice';
 
 const Stack = createNativeStackNavigator<StackParams>();
 const Tab = createBottomTabNavigator();
 
 const RootNavigation: FC = () => {
+  const {user} = useReduxSelector(state => state.user);
+  const dispatch = useReduxDispatch();
+  useEffect(() => {
+    if (user?.token) {
+      const {exp} = jwtDecode(user.token);
+      if (exp < (new Date().getTime() + 1) / 1000) {
+        dispatch(logout());
+      }
+    }
+  }, []);
   const navigationRef = useRef<NavigationContainerRef<StackParams>>(null);
   NavigationService.initialize(navigationRef);
   const MyTheme = {
@@ -58,6 +73,49 @@ const RootNavigation: FC = () => {
           options={{headerShown: false}}
           name="ProductDetail"
           component={ProductDetail}
+        />
+        <Stack.Screen
+          options={{
+            headerTitle: 'Terms Of Services',
+            headerTitleAlign: 'center',
+            headerTitleStyle: {
+              color: colors.green,
+              fontSize: 20,
+              fontWeight: '500',
+            },
+            // headerBackVisible: false,
+            headerLeft: () => {
+              return (
+                <TouchableOpacity onPress={() => NavigationService.goBack()}>
+                  <BackIcon />
+                </TouchableOpacity>
+              );
+            },
+          }}
+          name="TermsOfService"
+          component={TermsOfServiceScreen}
+        />
+        <Stack.Screen
+          options={{
+            headerTitle: 'Checkout',
+            headerTitleAlign: 'center',
+            headerTitleStyle: {
+              color: colors.green,
+              fontSize: 20,
+              fontWeight: '500',
+            },
+            headerShadowVisible: false,
+            // headerBackVisible: false,
+            headerLeft: () => {
+              return (
+                <TouchableOpacity onPress={() => NavigationService.goBack()}>
+                  <BackIcon />
+                </TouchableOpacity>
+              );
+            },
+          }}
+          name="Checkout"
+          component={CheckOutScreen}
         />
       </Stack.Navigator>
     </NavigationContainer>
@@ -261,7 +319,13 @@ const TabNavigator: FC = (props: any) => {
       />
       <Tab.Screen
         options={{
-          headerShown: false,
+          title: 'Wishlist',
+          headerTitleAlign: 'center',
+          headerTitleStyle: {
+            color: colors.green,
+            fontSize: 20,
+            fontWeight: '500',
+          },
           tabBarIcon: ({focused}) =>
             focused ? (
               <View

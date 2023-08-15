@@ -1,22 +1,35 @@
-import {PayloadAction, createSlice} from '@reduxjs/toolkit';
+import {PayloadAction, createAsyncThunk, createSlice} from '@reduxjs/toolkit';
 import {CartState} from './cart.type';
 import {IProduct} from '../category/category.type';
+import {OderFormProps} from '../../../components/forms/OderForm/OderForm.type';
+import {checkoutAPI} from '../../../services/category';
+import {RootState} from '../../store';
+import {API_PROCESS} from '../../enum';
+import {ToastAndroid} from 'react-native';
 
-// export const chooseCategory = createAsyncThunk<
-//   any,
-//   {categoryId: string},
-//   {rejectValue: string}
-// >('category/choose', async ({categoryId}, {rejectWithValue}) => {
-//   try {
-//     return await getProductCategory(categoryId, 1);
-//   } catch (error) {
-//     rejectWithValue((error as any).message);
-//     return;
-//   }
-// });
+export const checkout = createAsyncThunk<
+  any,
+  OderFormProps,
+  {rejectValue: string}
+>('cart/order', async (order, {rejectWithValue, getState}) => {
+  try {
+    const products = (getState() as RootState).cart.products.map(product => {
+      return {
+        productId: product.id,
+        quantity: `${product.count ?? 1}`,
+      };
+    });
+
+    return await checkoutAPI(order, products);
+  } catch (error) {
+    rejectWithValue((error as any).message);
+    return;
+  }
+});
 
 const initialState: CartState = {
   products: [],
+  orderStatus: API_PROCESS.INITIAL,
 };
 
 const categorySlice = createSlice({
@@ -56,9 +69,28 @@ const categorySlice = createSlice({
         return product;
       });
     },
+    clearCartForm: state => {
+      state.orderStatus = API_PROCESS.INITIAL;
+    },
+  },
+  extraReducers: builder => {
+    builder.addCase(checkout.pending, state => {
+      state.orderStatus = API_PROCESS.LOADING;
+    });
+    builder.addCase(checkout.fulfilled, state => {
+      state.orderStatus = API_PROCESS.SUCCESS;
+      state.products = [];
+    });
+    builder.addCase(checkout.rejected, (state, {payload}) => {
+      state.orderStatus = API_PROCESS.FAIL;
+      ToastAndroid.show(
+        payload ?? 'Order fail! Please try again after.',
+        ToastAndroid.LONG,
+      );
+    });
   },
 });
 
-export const {addToCart, removeCount, addCount, removeToCart} =
+export const {addToCart, removeCount, addCount, removeToCart, clearCartForm} =
   categorySlice.actions;
 export default categorySlice.reducer;

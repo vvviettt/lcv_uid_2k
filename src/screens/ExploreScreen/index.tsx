@@ -1,11 +1,5 @@
-import {
-  View,
-  Text,
-  SafeAreaView,
-  TouchableOpacity,
-  ScrollView,
-} from 'react-native';
-import React, {useCallback, useEffect, useState} from 'react';
+import {View, Text, SafeAreaView, TouchableOpacity} from 'react-native';
+import React, {useCallback, useEffect, useRef, useState} from 'react';
 import Header from '../../components/Header';
 import NavIcon from '../../assets/svgs/nav.svg';
 import {useReduxDispatch, useReduxSelector} from '../../redux/store';
@@ -20,9 +14,16 @@ import {
 import ListProducts from './components/ListProduct';
 import CategoryHeader from './components/CategoryHeader';
 import {API_PROCESS} from '../../redux/enum';
+import FilterIcon from '../../assets/svgs/fillter.svg';
+import {BottomSheetBackdrop, BottomSheetModal} from '@gorhom/bottom-sheet';
+import {colors} from '../../constants/colors';
+import {ScrollView} from 'react-native-gesture-handler';
 
 const ExploreScreen = ({route}) => {
+  const [filter, setFilter] = useState<any>(undefined);
   const {categories} = useReduxSelector(state => state.static);
+  const bottomSheetModalRef = useRef<BottomSheetModal>(null);
+
   const {
     categorySelected,
     isGetAll,
@@ -34,12 +35,32 @@ const ExploreScreen = ({route}) => {
   const [modalVisible, setModalVisible] = useState(false);
   useEffect(() => {
     if (route?.params?.category) {
-      dispatch(chooseCategory({categoryId: route?.params?.category.id}));
+      dispatch(
+        chooseCategory({
+          categoryId: route?.params?.category.id,
+        }),
+      );
     } else if (categories.length > 0) {
       dispatch(getAll());
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [categories, route]);
+  useEffect(() => {
+    if (filter) {
+      if (categorySelected) {
+        dispatch(
+          chooseCategory({
+            categoryId: categorySelected.id,
+            filter: filter,
+          }),
+        );
+      } else {
+        dispatch(getAll({filter}));
+      }
+      bottomSheetModalRef.current?.close();
+      setFilter(undefined);
+    }
+  }, [filter]);
   const renderNavIcon = useCallback(() => {
     return (
       <View style={{position: 'relative'}}>
@@ -56,7 +77,7 @@ const ExploreScreen = ({route}) => {
                 onPress={() => {
                   setModalVisible(false);
                   if (!isGetAll) {
-                    dispatch(getAll());
+                    dispatch(getAll({}));
                   }
                 }}>
                 <View style={styles.modalItem}>
@@ -89,18 +110,122 @@ const ExploreScreen = ({route}) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [modalVisible]);
   const isCloseToBottom = ({layoutMeasurement, contentOffset, contentSize}) => {
-    const paddingToBottom = 20;
+    const paddingToBottom = 100;
     return (
       layoutMeasurement.height + contentOffset.y >=
       contentSize.height - paddingToBottom
     );
   };
+
+  const renderBackdrop = useCallback(
+    props => (
+      <BottomSheetBackdrop
+        {...props}
+        disappearsOnIndex={-1}
+        appearsOnIndex={2}
+      />
+    ),
+    [],
+  );
+
+  const renderFilter = useCallback(() => {
+    const filter = [
+      {
+        text: 'Less than 1,000 AED',
+        filter: {
+          priceFrom: '0',
+          priceTo: '1000',
+        },
+      },
+      {
+        text: '1,000-5,000 AED',
+        filter: {
+          priceFrom: '1000',
+          priceTo: '5000',
+        },
+      },
+      {
+        text: 'More than 5,000 AED',
+        filter: {
+          priceFrom: '5000',
+        },
+      },
+      {
+        text: 'Low to high price',
+        filter: {
+          isLowToHigh: true,
+        },
+      },
+      {
+        text: 'Low to high price',
+        filter: {
+          isHightToLow: true,
+        },
+      },
+      {
+        text: 'Promotion',
+        filter: {
+          isPromotion: true,
+        },
+      },
+      {
+        text: 'New Arrivals',
+        filter: {
+          isNewArrival: true,
+        },
+      },
+    ];
+    return (
+      <BottomSheetModal
+        ref={bottomSheetModalRef}
+        bottomInset={20}
+        index={1}
+        snapPoints={['25%', '70%']}
+        style={{
+          marginHorizontal: 18,
+        }}
+        backdropComponent={renderBackdrop}
+        handleStyle={
+          {
+            // backgroundColor: colors.green,
+          }
+        }>
+        <ScrollView showsVerticalScrollIndicator={false}>
+          <View>
+            <Text style={styles.title}>Alahas Diamante</Text>
+            <Text style={styles.titleFilter}>Filter</Text>
+          </View>
+          {filter.map((item, index) => {
+            return (
+              <TouchableOpacity
+                onPress={() => {
+                  setFilter(item.filter);
+                }}
+                key={index}>
+                <View style={styles.filterItemWrapper}>
+                  <Text style={styles.fitterText}>{item.text}</Text>
+                </View>
+              </TouchableOpacity>
+            );
+          })}
+        </ScrollView>
+      </BottomSheetModal>
+    );
+  }, [bottomSheetModalRef]);
   return (
     <SafeAreaView style={{paddingBottom: 68}}>
       <Header
         title={isGetAll ? 'ALL PRODUCTS' : categorySelected?.name ?? ''}
         isCanBack={false}
         startIcon={renderNavIcon()}
+        subFeature={
+          <TouchableOpacity
+            onPress={() => {
+              bottomSheetModalRef.current?.present();
+            }}>
+            <FilterIcon />
+          </TouchableOpacity>
+        }
       />
       <ScrollView
         onScroll={({nativeEvent}) => {
@@ -116,6 +241,7 @@ const ExploreScreen = ({route}) => {
         <CategoryHeader category={categorySelected} />
         <ListProducts />
       </ScrollView>
+      {renderFilter()}
     </SafeAreaView>
   );
 };
@@ -153,5 +279,26 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: '500',
     color: 'rgba(0,0,0,0.7)',
+  },
+
+  filterItemWrapper: {
+    paddingVertical: 12,
+    borderTopWidth: 0.5,
+    borderColor: colors.description,
+  },
+  fitterText: {
+    textAlign: 'center',
+    fontSize: 18,
+    color: colors.greenBlue,
+  },
+  title: {
+    fontSize: 18,
+    textAlign: 'center',
+    color: colors.description,
+  },
+  titleFilter: {
+    textAlign: 'center',
+    marginBottom: 12,
+    color: colors.description,
   },
 });

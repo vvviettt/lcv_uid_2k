@@ -7,16 +7,25 @@ import {colors} from '../constants/colors';
 import {ScrollView} from 'react-native-gesture-handler';
 import RegisterForm from '../components/forms/RegisterForm';
 import {useEffect, useRef} from 'react';
-import {useReduxDispatch} from '../redux/store';
+import {useReduxDispatch, useReduxSelector} from '../redux/store';
 import {clearStatus} from '../redux/slices/user/userSlice';
+import {API_PROCESS} from '../redux/enum';
 
 export default function useAuthBottomSheet(ref: any) {
   const registerRef = useRef<BottomSheetModal>(null);
   const {dismissAll: dismissAllModals} = useBottomSheetModal();
   const dispatch = useReduxDispatch();
+  const {registerStatus} = useReduxSelector(state => state.user);
   useEffect(() => {
     dispatch(clearStatus());
-  });
+  }, []);
+
+  useEffect(() => {
+    if (registerStatus === API_PROCESS.SUCCESS) {
+      dispatch(clearStatus());
+      registerRef.current?.forceClose({duration: 500});
+    }
+  }, [registerStatus]);
   const closeAll = () => {
     ref.current?.forceClose({duration: 500});
     registerRef.current?.forceClose({duration: 500});

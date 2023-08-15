@@ -23,7 +23,6 @@ const LoginForm = () => {
   });
   const onSubmit = (data: LoginFormField) => {
     dispatch(login(data));
-    console.log(data);
   };
   return (
     <View style={styles.wrapper}>

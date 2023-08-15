@@ -4,7 +4,7 @@ import {
   TouchableWithoutFeedback,
   View,
 } from 'react-native';
-import React, {useCallback, useEffect, useState} from 'react';
+import React, {memo, useCallback, useEffect, useState} from 'react';
 import SectionTitle from '../SectionTitle';
 import {useReduxDispatch, useReduxSelector} from '../../../../redux/store';
 import {getAllCategories} from '../../../../redux/slices/static/staticSlice';
@@ -24,7 +24,6 @@ const Categories = () => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-  console.log(categories.map(c => c.name));
 
   const handleJum = useCallback(
     (isIncrement?: boolean) => {
@@ -83,7 +82,7 @@ const Categories = () => {
   );
 };
 
-export default Categories;
+export default memo(Categories);
 
 const styles = StyleSheet.create({
   wrapper: {},

@@ -65,7 +65,6 @@ const staticSlice = createSlice({
     });
     builder.addCase(getAllCategories.fulfilled, (state, {payload}) => {
       state.getCategoriesStatus = API_PROCESS.SUCCESS;
-      console.log('changes');
       state.categories = payload;
     });
     builder.addCase(getAllCategories.rejected, state => {

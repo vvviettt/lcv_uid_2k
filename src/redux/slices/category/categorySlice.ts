@@ -4,26 +4,28 @@ import {API_PROCESS} from '../../enum';
 import {
   getAllProductCategory,
   getProductCategory,
+  getWishListApi,
+  likeOrUnlikeApi,
 } from '../../../services/category';
 import {RootState} from '../../store';
 
 export const chooseCategory = createAsyncThunk<
   any,
-  {categoryId: string},
+  {categoryId: string; filter?: any},
   {rejectValue: string}
->('category/choose', async ({categoryId}, {rejectWithValue}) => {
+>('category/choose', async ({categoryId, filter}, {rejectWithValue}) => {
   try {
-    return await getProductCategory(categoryId, 1);
+    return await getProductCategory(categoryId, 1, filter ?? {});
   } catch (error) {
     rejectWithValue((error as any).message);
     return;
   }
 });
-export const getAll = createAsyncThunk<any, undefined, {rejectValue: string}>(
+export const getAll = createAsyncThunk<any, any, {rejectValue: string}>(
   'category/getAllProducts',
-  async (_, {rejectWithValue}) => {
+  async (value, {rejectWithValue}) => {
     try {
-      return await getAllProductCategory(1);
+      return await getAllProductCategory(1, value?.filter ?? {});
     } catch (error) {
       rejectWithValue((error as any).message);
       return;
@@ -53,6 +55,42 @@ export const loadMore = createAsyncThunk<any, undefined, {rejectValue: string}>(
     }
   },
 );
+export const likeOrUnlike = createAsyncThunk<
+  any,
+  {productId: string},
+  {rejectValue: string}
+>('product/likeOrUnlike', async ({productId}, {rejectWithValue}) => {
+  try {
+    return await likeOrUnlikeApi(productId);
+  } catch (error) {
+    return rejectWithValue(error as string);
+  }
+});
+
+export const getWishList = createAsyncThunk<
+  any,
+  undefined,
+  {rejectValue: string}
+>('product/getWishList', async (_, {rejectWithValue}) => {
+  try {
+    return await getWishListApi(1);
+  } catch (error) {
+    return rejectWithValue(error as string);
+  }
+});
+
+export const getMoreWishList = createAsyncThunk<
+  any,
+  undefined,
+  {rejectValue: string}
+>('product/getMoreWishList', async (_, {rejectWithValue, getState}) => {
+  try {
+    const page = (getState() as RootState).category.wishlistCurrentPage + 1;
+    return await getWishListApi(page);
+  } catch (error) {
+    return rejectWithValue(error as string);
+  }
+});
 
 const initialState: CategoryState = {
   categorySelectedId: '',
@@ -60,9 +98,15 @@ const initialState: CategoryState = {
   products: [],
   isGetAll: false,
   currentPage: 1,
+  wishlistCurrentPage: 1,
   getListProductsStatus: API_PROCESS.INITIAL,
   totalRecord: 0,
+  wishListTotalRecord: 0,
   isLoadMore: API_PROCESS.INITIAL,
+  isWishlistLoadMore: API_PROCESS.INITIAL,
+  wishList: [],
+  wishListId: [],
+  getWishListStatus: API_PROCESS.INITIAL,
 };
 
 const categorySlice = createSlice({
@@ -128,6 +172,65 @@ const categorySlice = createSlice({
     });
     builder.addCase(loadMore.pending, state => {
       state.isLoadMore = API_PROCESS.LOADING;
+    });
+
+    builder.addCase(likeOrUnlike.pending, (state, {meta}) => {
+      state.products = state.products.map(product => {
+        if (product.id === meta.arg.productId) {
+          return {...product, isLiked: !product.isLiked};
+        }
+        return product;
+      });
+      if (meta.arg.productId === state.productSelected?.id) {
+        state.productSelected = {
+          ...state.productSelected,
+          isLiked: !state.productSelected.isLiked,
+        };
+      }
+      state.wishList = state.wishList.map(product => {
+        if (product.id === meta.arg.productId) {
+          return {...product, isLiked: !product.isLiked};
+        }
+        return product;
+      });
+    });
+
+    builder.addCase(getWishList.pending, state => {
+      state.getWishListStatus = API_PROCESS.LOADING;
+      state.wishList = [];
+      state.wishListTotalRecord = 0;
+      state.wishlistCurrentPage = 1;
+    });
+    builder.addCase(getWishList.fulfilled, (state, {payload}) => {
+      state.getWishListStatus = API_PROCESS.SUCCESS;
+      state.wishList = payload.products;
+      state.wishListTotalRecord = payload.totalPage;
+    });
+    builder.addCase(getWishList.rejected, state => {
+      state.getWishListStatus = API_PROCESS.FAIL;
+    });
+    builder.addCase(getMoreWishList.pending, state => {
+      state.isWishlistLoadMore = API_PROCESS.LOADING;
+    });
+    builder.addCase(getMoreWishList.fulfilled, (state, {payload}) => {
+      state.wishlistCurrentPage = state.wishlistCurrentPage + 1;
+      state.isWishlistLoadMore = API_PROCESS.SUCCESS;
+
+      const wishlist = [...state.wishList, ...payload.products];
+      const resultArray = [];
+      const seen = new Set();
+      for (const item of wishlist) {
+        if (!seen.has(item.id)) {
+          seen.add(item.id);
+          resultArray.push({...item, imageUrls: item.imageUrls ?? []});
+        }
+      }
+      console.log(payload.products[1]);
+
+      state.wishList = resultArray;
+    });
+    builder.addCase(getMoreWishList.rejected, state => {
+      state.isWishlistLoadMore = API_PROCESS.FAIL;
     });
   },
 });

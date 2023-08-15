@@ -1,4 +1,10 @@
-import {View, Text, TouchableWithoutFeedback, Image} from 'react-native';
+import {
+  View,
+  Text,
+  TouchableWithoutFeedback,
+  Image,
+  Linking,
+} from 'react-native';
 import React from 'react';
 import {StyleSheet} from 'react-native';
 import facebook from '../../assets/images/facebook.png';
@@ -10,11 +16,23 @@ const Media = () => {
   const icons = [
     {
       icon: facebook,
-      handle: () => {},
+      handle: () => {
+        Linking.openURL('fb://profile/61550271264740/').catch(() => {
+          Linking.openURL(
+            'https://www.facebook.com/profile.php?id=61550271264740',
+          );
+        });
+      },
     },
     {
       icon: instagram,
-      handle: () => {},
+      handle: () => {
+        Linking.openURL('instagram://user?username=alahasdiamante').catch(
+          () => {
+            Linking.openURL('https://www.instagram.com/alahasdiamante');
+          },
+        );
+      },
     },
     {
       icon: whatsapp,
@@ -22,14 +40,16 @@ const Media = () => {
     },
     {
       icon: mail,
-      handle: () => {},
+      handle: () => {
+        Linking.openURL('mailto:info@alahasdiamante.com');
+      },
     },
   ];
   return (
     <View style={styles.wrapper}>
       {icons.map((item, index) => {
         return (
-          <TouchableWithoutFeedback key={index}>
+          <TouchableWithoutFeedback onPress={item.handle} key={index}>
             <Image style={styles.icon} source={item.icon} />
           </TouchableWithoutFeedback>
         );

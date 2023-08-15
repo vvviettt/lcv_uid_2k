@@ -10,6 +10,7 @@ import {
 export const getCategories = async (): Promise<ICategory[]> => {
   try {
     const res = await httpClient.get(staticEndpoint.getAll);
+
     return Object.values(res.data.results) as ICategory[];
   } catch (error) {
     if (axios.isAxiosError(error)) {

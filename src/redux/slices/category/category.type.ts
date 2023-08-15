@@ -9,6 +9,7 @@ export interface IProduct {
   price: string;
   description?: string;
   count?: number;
+  isLiked?: boolean;
 }
 
 export interface CategoryState {
@@ -21,4 +22,10 @@ export interface CategoryState {
   isGetAll: boolean;
   totalRecord: number;
   isLoadMore: API_PROCESS;
+  wishList: IProduct[];
+  getWishListStatus: API_PROCESS;
+  wishListId: string[];
+  wishListTotalRecord: number;
+  wishlistCurrentPage: number;
+  isWishlistLoadMore: API_PROCESS;
 }

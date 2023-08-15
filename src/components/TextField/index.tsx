@@ -17,6 +17,7 @@ const TextField: FC<TextFieldProps> = ({
           secureTextEntry={isHidden}
           placeholder={placeholder}
           onChangeText={onTextChange}
+          placeholderTextColor={colors.description}
         />
       </View>
       {error && <Text style={styles.errorMessage}>{error}</Text>}
@@ -40,6 +41,7 @@ const styles = StyleSheet.create({
     height: 50,
     fontSize: 16,
     paddingHorizontal: 16,
+    color: colors.mainTxt,
   },
   errorMessage: {
     fontSize: 14,

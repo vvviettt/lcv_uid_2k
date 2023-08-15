@@ -19,6 +19,8 @@ export type StackParams = {
   Login: undefined;
   Register: undefined;
   ProductDetail: {productId: string};
+  TermsOfService: undefined;
+  Checkout: undefined;
 };
 
 export type NavigatorScreenParams<

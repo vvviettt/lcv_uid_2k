@@ -4,6 +4,7 @@ import {
   Text,
   TouchableOpacity,
   StyleSheet,
+  ToastAndroid,
 } from 'react-native';
 import React from 'react';
 import {useReduxSelector} from '../../redux/store';
@@ -11,6 +12,7 @@ import CartItem from './components/CartItem';
 import useCheckout from '../../hooks/useCheckout';
 import {convertPrice} from '../../utils/convertPrice';
 import {colors} from '../../constants/colors';
+import NavigationService from '../../config/stack/navigationService';
 
 const CartScreen = () => {
   const {products} = useReduxSelector(state => state.cart);
@@ -34,7 +36,17 @@ const CartScreen = () => {
             {convertPrice(getTotalPrice().toString())} AED
           </Text>
         </View>
-        <TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => {
+            if (products.length > 0) {
+              NavigationService.push('Checkout');
+            } else {
+              ToastAndroid.show(
+                'Please add product to cart to checkout',
+                ToastAndroid.LONG,
+              );
+            }
+          }}>
           <View style={styles.checkoutBtn}>
             <Text style={styles.checkoutText}>Check Out</Text>
           </View>

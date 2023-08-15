@@ -30,5 +30,5 @@ export type AppDispatch = typeof store.dispatch;
 export const useReduxDispatch = (): AppDispatch => useDispatch<AppDispatch>();
 export const useReduxSelector: TypedUseSelectorHook<RootState> = useSelector;
 export default store;
-
+export const getState = store.getState;
 export const persistor = persistStore(store);

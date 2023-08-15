@@ -11,8 +11,6 @@ const ListProducts = () => {
     state => state.category,
   );
 
-  console.log(products.length);
-
   return (
     <View style={styles.wrapper}>
       {getListProductsStatus === API_PROCESS.LOADING && (
@@ -26,7 +24,6 @@ const ListProducts = () => {
       {isLoadMore === API_PROCESS.LOADING && (
         <Text style={styles.loadMore}>Loading more ...</Text>
       )}
-
       {getListProductsStatus !== API_PROCESS.LOADING && <Media />}
     </View>
   );

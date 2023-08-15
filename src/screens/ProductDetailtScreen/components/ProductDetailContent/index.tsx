@@ -1,20 +1,41 @@
-import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  ToastAndroid,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import React, {FC, useState} from 'react';
 import {ProductDetailContentProps} from './ProductDetailContent.type';
 import LoveIcon from '../../../../assets/svgs/wishlist_selection.svg';
+import LovedIcon from '../../../../assets/svgs/loved.svg';
 import CartIcon from '../../../../assets/svgs/cart_white.svg';
-import CheckoutIcon from '../../../../assets/svgs/check_out.svg';
 import DropdownIcon from '../../../../assets/svgs/dropdown.svg';
 import {convertPrice} from '../../../../utils/convertPrice';
 import {colors} from '../../../../constants/colors';
 import SelectDropdown from 'react-native-select-dropdown';
 import useAddToCart from '../../../../hooks/useAddToCart';
+import {debounce} from 'lodash';
+import {useReduxDispatch, useReduxSelector} from '../../../../redux/store';
+import {likeOrUnlike} from '../../../../redux/slices/category/categorySlice';
 
 const ProductDetailContent: FC<ProductDetailContentProps> = ({product}) => {
   const sizes = ['20 cm', '25 cm', '30 cm'];
   const [selectSize, setSelectSize] = useState<number | undefined>(undefined);
   const sizesGuide = ['20uS', '25uS', '30uS'];
   const {addToCart} = useAddToCart();
+  const {user} = useReduxSelector(state => state.user);
+  const dispatch = useReduxDispatch();
+  const loveHandle = debounce(() => {
+    if (user) {
+      dispatch(likeOrUnlike({productId: product.id}));
+    } else {
+      ToastAndroid.show(
+        'Please sign in before add to wishlist',
+        ToastAndroid.CENTER,
+      );
+    }
+  }, 500);
   return (
     <View style={styles.wrapper}>
       <View style={styles.nameContainer}>
@@ -23,8 +44,8 @@ const ProductDetailContent: FC<ProductDetailContentProps> = ({product}) => {
         </Text>
 
         <View style={styles.futureCtn}>
-          <TouchableOpacity style={styles.futureBtn}>
-            <LoveIcon />
+          <TouchableOpacity onPress={loveHandle} style={styles.futureBtn}>
+            {product.isLiked ? <LovedIcon /> : <LoveIcon />}
           </TouchableOpacity>
         </View>
       </View>

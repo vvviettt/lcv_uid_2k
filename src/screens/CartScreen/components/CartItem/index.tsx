@@ -31,7 +31,11 @@ const CartItem: FC<CartItemProps> = ({product}) => {
         style={styles.img}
       />
       <View style={styles.contentWrapper}>
-        <Text style={styles.name}>{product.name}</Text>
+        {/* <View style={styles.n}> */}
+        <Text ellipsizeMode="tail" numberOfLines={1} style={styles.name}>
+          {product.name}
+        </Text>
+        {/* </View> */}
         <View style={styles.bottomContent}>
           <Text style={styles.price}>{convertPrice(product.price)} AED</Text>
           <View style={styles.countCtn}>
@@ -103,6 +107,7 @@ const styles = StyleSheet.create({
   },
   contentWrapper: {
     flexGrow: 1,
+    flex: 1,
     justifyContent: 'space-between',
     paddingVertical: 9,
   },

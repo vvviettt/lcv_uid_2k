@@ -16,9 +16,12 @@ export const registerApi = async (
     return false;
   } catch (error) {
     if (axios.isAxiosError(error)) {
-      throw Error(((error as AxiosError).response?.data as any)?.message ?? '');
+      throw (
+        ((error as AxiosError).response?.data as any)?.messageContent ??
+        'Unknown  error.'
+      );
     }
-    throw new Error('Unknown  error.');
+    throw 'Unknown  error.';
   }
 };
 
@@ -28,12 +31,6 @@ export const loginApi = async (data: LoginFormField): Promise<IUser> => {
     return res.data.results as IUser;
   } catch (error) {
     if (axios.isAxiosError(error)) {
-      console.log(
-        new Error(
-          ((error as AxiosError).response?.data as any)?.messageContent ?? '',
-        ).message,
-      );
-
       throw new Error(
         ((error as AxiosError).response?.data as any)?.messageContent ?? '',
       );

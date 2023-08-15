@@ -11,7 +11,12 @@ import TabNavigation from '../../config/stack/tabNavigationService';
 import NavigationService from '../../config/stack/navigationService';
 import {useReduxSelector} from '../../redux/store';
 
-const Header: FC<HeaderProps> = ({isCanBack = true, startIcon, title}) => {
+const Header: FC<HeaderProps> = ({
+  isCanBack = true,
+  startIcon,
+  title,
+  subFeature,
+}) => {
   const handleBack = () => {
     if (NavigationService.canGoBack()) {
       NavigationService.goBack();
@@ -36,21 +41,27 @@ const Header: FC<HeaderProps> = ({isCanBack = true, startIcon, title}) => {
         )}
       </View>
       <View style={styles.rightContainer}>
-        <View style={[styles.iconWrap, styles.searchIcon]}>
-          <SearchIcon />
-        </View>
-        <TouchableOpacity
-          onPress={() => {
-            TabNavigation.push('Cart', {
-              screen: 'CartTab',
-            });
-          }}
-          style={[styles.iconWrap, styles.cartIcon]}>
-          <CartIcon />
-          <View style={styles.cartCount}>
-            <Text style={styles.cartCountText}>{products.length}</Text>
-          </View>
-        </TouchableOpacity>
+        {subFeature ? (
+          <View style={[styles.iconWrap, styles.searchIcon]}>{subFeature}</View>
+        ) : (
+          <>
+            <View style={[styles.iconWrap, styles.searchIcon]}>
+              <SearchIcon />
+            </View>
+            <TouchableOpacity
+              onPress={() => {
+                TabNavigation.push('Cart', {
+                  screen: 'CartTab',
+                });
+              }}
+              style={[styles.iconWrap, styles.cartIcon]}>
+              <CartIcon />
+              <View style={styles.cartCount}>
+                <Text style={styles.cartCountText}>{products.length}</Text>
+              </View>
+            </TouchableOpacity>
+          </>
+        )}
       </View>
     </View>
   );

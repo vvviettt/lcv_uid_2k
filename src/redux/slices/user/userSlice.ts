@@ -20,7 +20,7 @@ export const register = createAsyncThunk<
   try {
     return await registerApi(data);
   } catch (error) {
-    return rejectWithValue((error as any).message);
+    return rejectWithValue(error as string);
   }
 });
 
@@ -52,9 +52,9 @@ const userSlice = createSlice({
     builder.addCase(register.pending, state => {
       state.registerStatus = API_PROCESS.LOADING;
     });
-    builder.addCase(register.rejected, state => {
+    builder.addCase(register.rejected, (state, {payload}) => {
       state.registerStatus = API_PROCESS.FAIL;
-      ToastAndroid.show('A pikachu appeared nearby !', ToastAndroid.SHORT);
+      ToastAndroid.show(payload ?? "Can't sign up.", ToastAndroid.SHORT);
     });
     builder.addCase(register.fulfilled, state => {
       state.registerStatus = API_PROCESS.SUCCESS;
@@ -64,9 +64,7 @@ const userSlice = createSlice({
     });
     builder.addCase(login.rejected, (state, {payload}) => {
       state.loginStatus = API_PROCESS.FAIL;
-      console.log(payload);
-
-      ToastAndroid.show(payload ?? "Can't sign up.", ToastAndroid.SHORT);
+      ToastAndroid.show(payload ?? "Can't sign in.", ToastAndroid.SHORT);
     });
     builder.addCase(login.fulfilled, (state, {payload}) => {
       state.loginStatus = API_PROCESS.SUCCESS;

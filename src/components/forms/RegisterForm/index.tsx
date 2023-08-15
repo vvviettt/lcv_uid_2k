@@ -28,6 +28,7 @@ const RegisterForm = () => {
   const onSubmit = (data: RegisterFormField) => {
     dispatch(register(data));
   };
+
   return (
     <View style={styles.wrapper}>
       <Controller

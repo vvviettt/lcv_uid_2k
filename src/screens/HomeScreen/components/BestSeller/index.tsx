@@ -1,16 +1,19 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import {View, StyleSheet, ScrollView} from 'react-native';
-import React, {useEffect} from 'react';
+import React, {memo, useEffect} from 'react';
 import SectionTitle from '../SectionTitle';
 import {useReduxDispatch, useReduxSelector} from '../../../../redux/store';
 import {getBestSeller} from '../../../../redux/slices/static/staticSlice';
 import BestSellerItem from '../BestSellerItem';
+import {API_PROCESS} from '../../../../redux/enum';
 
 const BestSeller = () => {
   const dispatch = useReduxDispatch();
-  const {bestSeller} = useReduxSelector(state => state.static);
+  const {bestSeller, getBestSellerStatus} = useReduxSelector(
+    state => state.static,
+  );
   useEffect(() => {
-    if (bestSeller.length <= 0) {
+    if (bestSeller.length <= 0 && getBestSellerStatus !== API_PROCESS.SUCCESS) {
       dispatch(getBestSeller());
     }
   }, []);
@@ -31,7 +34,7 @@ const BestSeller = () => {
   );
 };
 
-export default BestSeller;
+export default memo(BestSeller);
 
 const styles = StyleSheet.create({
   ph18: {
