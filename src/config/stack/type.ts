@@ -14,12 +14,16 @@ export type RootTabParamList = {
   Setting: undefined;
 };
 
+export type PrivacyType = {
+  type: 'privacy' | 'shipping' | 'refund';
+};
+
 export type StackParams = {
   Root: NavigatorScreenParams<RootTabParamList> | undefined;
   Login: undefined;
   Register: undefined;
   ProductDetail: {productId: string};
-  TermsOfService: undefined;
+  TermsOfService: PrivacyType;
   Checkout: undefined;
 };
 

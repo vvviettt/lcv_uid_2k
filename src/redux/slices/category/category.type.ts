@@ -10,6 +10,7 @@ export interface IProduct {
   description?: string;
   count?: number;
   isLiked?: boolean;
+  discount?: string;
 }
 
 export interface CategoryState {

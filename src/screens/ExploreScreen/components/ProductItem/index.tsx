@@ -14,6 +14,7 @@ import {
 } from '../../../../redux/slices/category/categorySlice';
 import convertHttp from '../../../../utils/convertHttp';
 import {ToastAndroid} from 'react-native';
+import getDiscount from '../../../../utils/getDiscount';
 
 const ProductItem: FC<ProductItemProps> = ({product}) => {
   const dispatch = useReduxDispatch();
@@ -34,24 +35,39 @@ const ProductItem: FC<ProductItemProps> = ({product}) => {
               }}
             />
           )}
+          {product.discount && (
+            <View style={styles.offWrapper}>
+              <Text style={styles.offText}>{product.discount}% OFF</Text>
+            </View>
+          )}
         </View>
         <View style={styles.contentWrapper}>
           <Text style={styles.name}>{product.name}</Text>
-          <Text style={styles.price}>{convertPrice(product.price)} AED</Text>
-          <View style={styles.love}>
-            <TouchableWithoutFeedback
-              onPress={() => {
-                if (user) {
-                  dispatch(likeOrUnlike({productId: product.id}));
-                } else {
-                  ToastAndroid.show(
-                    'Please sign in before add to wishlist',
-                    ToastAndroid.CENTER,
-                  );
-                }
-              }}>
-              {product.isLiked ? <LovedIcon /> : <HeartIcon />}
-            </TouchableWithoutFeedback>
+          <View>
+            <Text style={styles.price}>
+              {getDiscount(Number(product.price), product.discount)} AED
+            </Text>
+            {product.discount && (
+              <Text style={[styles.price, styles.oldPrice]}>
+                {convertPrice(product.price)} AED
+              </Text>
+            )}
+
+            <View style={styles.love}>
+              <TouchableWithoutFeedback
+                onPress={() => {
+                  if (user) {
+                    dispatch(likeOrUnlike({productId: product.id}));
+                  } else {
+                    ToastAndroid.show(
+                      'Please sign in before add to wishlist',
+                      ToastAndroid.CENTER,
+                    );
+                  }
+                }}>
+                {product.isLiked ? <LovedIcon /> : <HeartIcon />}
+              </TouchableWithoutFeedback>
+            </View>
           </View>
         </View>
       </View>
@@ -82,6 +98,8 @@ const styles = StyleSheet.create({
   },
   contentWrapper: {
     paddingTop: 12,
+    flexGrow: 1,
+    justifyContent: 'space-between',
   },
   name: {
     textAlign: 'center',
@@ -89,13 +107,26 @@ const styles = StyleSheet.create({
     lineHeight: 22,
     height: 44,
     color: '#000000',
+    marginBottom: 10,
   },
   price: {
     textAlign: 'center',
     fontSize: 16,
     color: colors.green,
-    paddingBottom: 14,
-    paddingTop: 6,
+    fontWeight: '600',
   },
-  love: {alignItems: 'center'},
+  oldPrice: {
+    textDecorationLine: 'line-through',
+  },
+  love: {alignItems: 'center', paddingTop: 14},
+  offWrapper: {
+    position: 'absolute',
+    left: 10,
+    bottom: 10,
+  },
+  offText: {
+    fontSize: 16,
+    fontWeight: '700',
+    color: colors.cartCount,
+  },
 });

@@ -14,6 +14,8 @@ import {selectProduct} from '../../../../redux/slices/category/categorySlice';
 import NavigationService from '../../../../config/stack/navigationService';
 import useAddToCart from '../../../../hooks/useAddToCart';
 import convertHttp from '../../../../utils/convertHttp';
+import {convertPrice} from '../../../../utils/convertPrice';
+import getDiscount from '../../../../utils/getDiscount';
 
 const BestSellerItem: FC<BestSellerItemProps> = ({object}) => {
   const dispatch = useReduxDispatch();
@@ -30,14 +32,26 @@ const BestSellerItem: FC<BestSellerItemProps> = ({object}) => {
             <Image
               style={styles.img}
               source={{uri: convertHttp(object.imageUrls[0])}}></Image>
+            {object.discount && (
+              <View style={styles.offWrapper}>
+                <Text style={styles.offText}>{object.discount}% OFF</Text>
+              </View>
+            )}
           </View>
           <View style={styles.content}>
             <Text ellipsizeMode="tail" numberOfLines={2} style={styles.name}>
               {object.name}
             </Text>
-            <Text style={styles.price}>
-              {Number(object.price).toLocaleString()} UED
-            </Text>
+            <View>
+              <Text style={styles.price}>
+                {getDiscount(Number(object.price), object.discount)} UED
+              </Text>
+              {object.discount && (
+                <Text style={[styles.price, styles.oldPrice]}>
+                  {convertPrice(object.price)} UED
+                </Text>
+              )}
+            </View>
           </View>
           <View style={styles.btnWrp}>
             <TouchableWithoutFeedback
@@ -65,7 +79,7 @@ const styles = StyleSheet.create({
   container: {
     position: 'relative',
     alignItems: 'center',
-    // alignContent: ',
+    flexGrow: 1,
   },
   imgSwrapper: {
     position: 'absolute',
@@ -93,6 +107,8 @@ const styles = StyleSheet.create({
     paddingHorizontal: 12,
     borderTopLeftRadius: 30,
     borderTopRightRadius: 30,
+    flexGrow: 1,
+    justifyContent: 'space-between',
   },
   name: {
     fontSize: 16,
@@ -126,5 +142,19 @@ const styles = StyleSheet.create({
   },
   btnText: {
     color: colors.white,
+  },
+  oldPrice: {
+    textDecorationLine: 'line-through',
+  },
+  offWrapper: {
+    position: 'absolute',
+    left: 10,
+    zIndex: 100000,
+    bottom: 10,
+  },
+  offText: {
+    fontSize: 16,
+    fontWeight: '700',
+    color: colors.cartCount,
   },
 });

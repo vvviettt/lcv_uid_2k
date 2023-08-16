@@ -20,16 +20,24 @@ import {
   removeToCart,
 } from '../../../../redux/slices/cart/cartSlice';
 import convertHttp from '../../../../utils/convertHttp';
+import getDiscount from '../../../../utils/getDiscount';
 
 const CartItem: FC<CartItemProps> = ({product}) => {
   const dispatch = useReduxDispatch();
 
   return (
     <View style={styles.wrapper}>
-      <Image
-        source={{uri: convertHttp(product.imageUrls[0])}}
-        style={styles.img}
-      />
+      <View style={styles.imageWrapper}>
+        <Image
+          source={{uri: convertHttp(product.imageUrls[0])}}
+          style={styles.img}
+        />
+        {product.discount && (
+          <View style={styles.offWrapper}>
+            <Text style={styles.offText}>{product.discount}% OFF</Text>
+          </View>
+        )}
+      </View>
       <View style={styles.contentWrapper}>
         {/* <View style={styles.n}> */}
         <Text ellipsizeMode="tail" numberOfLines={1} style={styles.name}>
@@ -37,7 +45,16 @@ const CartItem: FC<CartItemProps> = ({product}) => {
         </Text>
         {/* </View> */}
         <View style={styles.bottomContent}>
-          <Text style={styles.price}>{convertPrice(product.price)} AED</Text>
+          <View>
+            <Text style={styles.price}>
+              {getDiscount(Number(product.price), product.discount)} AED
+            </Text>
+            {product.discount && (
+              <Text style={[styles.price, styles.oldPrice]}>
+                {convertPrice(product.price)} AED
+              </Text>
+            )}
+          </View>
           <View style={styles.countCtn}>
             <TouchableOpacity
               onPress={() => dispatch(removeCount({productId: product.id}))}
@@ -109,7 +126,6 @@ const styles = StyleSheet.create({
     flexGrow: 1,
     flex: 1,
     justifyContent: 'space-between',
-    paddingVertical: 9,
   },
   name: {
     fontSize: 16,
@@ -144,5 +160,22 @@ const styles = StyleSheet.create({
     fontSize: 21,
     fontWeight: '600',
     color: colors.white,
+  },
+  oldPrice: {
+    textDecorationLine: 'line-through',
+  },
+
+  imageWrapper: {
+    position: 'relative',
+  },
+  offWrapper: {
+    position: 'absolute',
+    bottom: 5,
+    left: 5,
+  },
+  offText: {
+    fontSize: 16,
+    fontWeight: '700',
+    color: colors.cartCount,
   },
 });

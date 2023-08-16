@@ -1,5 +1,4 @@
-import {IBestSeller} from '../../../../redux/slices/static.type';
-
+import {IProduct} from '../../../../redux/slices/category/category.type';
 export interface BestSellerItemProps {
-  object: IBestSeller;
+  object: IProduct;
 }

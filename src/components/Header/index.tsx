@@ -25,7 +25,7 @@ const Header: FC<HeaderProps> = ({
   const {products} = useReduxSelector(state => state.cart);
   return (
     <View style={styles.wrapper}>
-      <View style={styles.leftContainer}>
+      <View style={[styles.leftContainer]}>
         {isCanBack && (
           <TouchableOpacity
             onPress={handleBack}
@@ -76,6 +76,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     marginHorizontal: 18,
     paddingBottom: 10,
+    paddingTop: 10,
   },
   rightContainer: {
     flexDirection: 'row',
