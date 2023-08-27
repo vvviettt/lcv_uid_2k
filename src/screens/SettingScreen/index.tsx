@@ -1,19 +1,29 @@
-import {View, Switch, Linking} from 'react-native';
+import {View, Switch, Linking, ScrollView, Image} from 'react-native';
 import React, {useEffect, useRef, useState} from 'react';
 import {SettingItemProps} from './SettingItem/SettingItem.type';
 import SettingItem from './SettingItem';
 import {colors} from '../../constants/colors';
-import {useReduxDispatch, useReduxSelector} from '../../redux/store';
-import {logout} from '../../redux/slices/user/userSlice';
-import Dialog from 'react-native-dialog';
+import {useReduxSelector} from '../../redux/store';
 import NavigationService from '../../config/stack/navigationService';
 import useAuthBottomSheet from '../../hooks/useAuthBottomSheet';
 import {BottomSheetModal} from '@gorhom/bottom-sheet';
+import AboutIcon from '../../assets/images/about-us.png';
+import privacyIcon from '../../assets/images/privacy.png';
+import shippingIcon from '../../assets/images/shiping-policy.png';
+import returnIcon from '../../assets/images/return.png';
+import mailIcon from '../../assets/images/mail.png';
+import fbIcon from '../../assets/images/facebook_black.png';
+import instaIcon from '../../assets/images/insta.png';
+import notificationIcon from '../../assets/images/notification.png';
+import currencyIcon from '../../assets/images/curency.png';
+import locationIcon from '../../assets/images/location.png';
+import languageIcon from '../../assets/images/language.png';
+import loginIcon from '../../assets/images/login.png';
+import accountIcon from '../../assets/images/my-account.png';
+import nextIcon from '../../assets/images/next-icon.png';
 
 const SettingScreen = () => {
-  const [visible, setVisible] = useState(false);
   const [notificationEnable, setNotificationEnable] = useState(true);
-  const dispatch = useReduxDispatch();
   const ref = useRef<BottomSheetModal>(null);
   const {renderLogin, openLoginSheet, renderRegister, closeAll} =
     useAuthBottomSheet(ref);
@@ -25,8 +35,33 @@ const SettingScreen = () => {
   }, [user]);
 
   const list: SettingItemProps[] = [
-    {name: 'About Us', onPress: () => {}},
     {
+      name: user ? 'My Account' : 'Sign in',
+      onPress: () => {
+        if (user) {
+          NavigationService.push('MyAccount');
+        } else {
+          openLoginSheet();
+        }
+      },
+      icon: user ? (
+        <Image style={{width: 20, height: 20}} source={accountIcon} />
+      ) : (
+        <Image style={{width: 20, height: 20}} source={loginIcon} />
+      ),
+      subElement: !user ? (
+        <></>
+      ) : (
+        <Image style={{width: 16, height: 16}} source={nextIcon} />
+      ),
+    },
+    {
+      name: 'About Us',
+      onPress: () => {},
+      icon: <Image style={{width: 20, height: 20}} source={AboutIcon} />,
+    },
+    {
+      icon: <Image style={{width: 20, height: 20}} source={privacyIcon} />,
       name: 'Privacy Policy',
       onPress: () => {
         NavigationService.push('TermsOfService', {
@@ -36,6 +71,7 @@ const SettingScreen = () => {
     },
     {
       name: 'Shipping Policy',
+      icon: <Image style={{width: 20, height: 20}} source={shippingIcon} />,
       onPress: () => {
         NavigationService.push('TermsOfService', {
           type: 'shipping',
@@ -44,6 +80,7 @@ const SettingScreen = () => {
     },
     {
       name: 'Refund Policy',
+      icon: <Image style={{width: 20, height: 20}} source={returnIcon} />,
       onPress: () => {
         NavigationService.push('TermsOfService', {
           type: 'refund',
@@ -52,12 +89,14 @@ const SettingScreen = () => {
     },
     {
       name: 'Contact us',
+      icon: <Image style={{width: 20, height: 20}} source={mailIcon} />,
       onPress: () => {
         Linking.openURL('mailto:info@alahasdiamante.com');
       },
     },
     {
       name: 'Like us on Facebook',
+      icon: <Image style={{width: 20, height: 20}} source={fbIcon} />,
       onPress: () => {
         Linking.openURL('fb://profile/61550271264740/').catch(() => {
           Linking.openURL(
@@ -68,6 +107,7 @@ const SettingScreen = () => {
     },
     {
       name: 'Follow us on Instagram',
+      icon: <Image style={{width: 20, height: 20}} source={instaIcon} />,
       onPress: () => {
         Linking.openURL('instagram://user?username=alahasdiamante').catch(
           () => {
@@ -78,6 +118,7 @@ const SettingScreen = () => {
     },
     {
       name: 'Notification',
+      icon: <Image style={{width: 20, height: 20}} source={notificationIcon} />,
       onPress: () => {},
       subElement: (
         <Switch
@@ -88,47 +129,32 @@ const SettingScreen = () => {
         />
       ),
     },
-    {name: 'Currency', onPress: () => {}},
-    {name: 'Location', onPress: () => {}},
-    {name: 'Language', onPress: () => {}},
     {
-      name: !user ? 'Sign in' : 'Log out',
-      onPress: () => {
-        if (user) {
-          setVisible(true);
-        } else {
-          openLoginSheet();
-        }
-      },
+      name: 'Currency',
+      icon: <Image style={{width: 20, height: 20}} source={currencyIcon} />,
+      onPress: () => {},
+    },
+    {
+      name: 'Location',
+      icon: <Image style={{width: 20, height: 20}} source={locationIcon} />,
+      onPress: () => {},
+    },
+    {
+      name: 'Language',
+      icon: <Image style={{width: 20, height: 20}} source={languageIcon} />,
+      onPress: () => {},
     },
   ];
 
   return (
     <View>
-      {list.map((item, index) => {
-        return <SettingItem {...item} key={index} />;
-      })}
+      <ScrollView>
+        {list.map((item, index) => {
+          return <SettingItem {...item} key={index} />;
+        })}
+      </ScrollView>
       {renderLogin()}
       {renderRegister()}
-      <Dialog.Container visible={visible}>
-        <Dialog.Title>Log out</Dialog.Title>
-        <Dialog.Description>Do you want to log out?</Dialog.Description>
-        <Dialog.Button
-          onPress={() => {
-            setVisible(false);
-          }}
-          label="Cancel"
-        />
-        <Dialog.Button
-          onPress={() => {
-            if (user) {
-              dispatch(logout());
-              setVisible(false);
-            }
-          }}
-          label="Log out"
-        />
-      </Dialog.Container>
     </View>
   );
 };

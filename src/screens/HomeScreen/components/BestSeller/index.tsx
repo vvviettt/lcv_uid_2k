@@ -6,6 +6,7 @@ import {useReduxDispatch, useReduxSelector} from '../../../../redux/store';
 import {getBestSeller} from '../../../../redux/slices/static/staticSlice';
 import BestSellerItem from '../BestSellerItem';
 import {API_PROCESS} from '../../../../redux/enum';
+import NavigationService from '../../../../config/stack/navigationService';
 
 const BestSeller = () => {
   const dispatch = useReduxDispatch();
@@ -20,7 +21,12 @@ const BestSeller = () => {
   return (
     <View>
       <View style={styles.ph18}>
-        <SectionTitle name="Best Sellers" viewAllPressHandle={() => {}} />
+        <SectionTitle
+          name="Best Sellers"
+          viewAllPressHandle={() => {
+            NavigationService.push('BestSeller');
+          }}
+        />
       </View>
 
       <ScrollView showsHorizontalScrollIndicator={false} horizontal>

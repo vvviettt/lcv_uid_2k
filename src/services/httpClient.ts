@@ -9,6 +9,8 @@ const httpClient = axios.create({
 
 httpClient.interceptors.request.use(async config => {
   const token = getState().user.user?.token;
+  console.log(token);
+
   if (token) {
     const {exp} = jwtDecode(token);
     if (exp > (new Date().getTime() + 1) / 1000) {

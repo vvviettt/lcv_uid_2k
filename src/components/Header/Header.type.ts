@@ -3,4 +3,5 @@ export interface HeaderProps {
   startIcon?: JSX.Element;
   title?: string;
   subFeature?: JSX.Element;
+  hiddenSearch?: boolean;
 }

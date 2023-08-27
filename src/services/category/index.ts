@@ -3,7 +3,6 @@ import {IProduct} from '../../redux/slices/category/category.type';
 import {ICategory} from '../../redux/slices/static/static.type';
 import httpClient from '../httpClient';
 import categoryEndPoint from './categoryEndPoint';
-import {getState} from '../../redux/store';
 import {OderFormProps} from '../../components/forms/OderForm/OderForm.type';
 
 export const getProductCategory = async (

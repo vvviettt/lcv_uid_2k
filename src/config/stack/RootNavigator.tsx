@@ -10,7 +10,7 @@ import {
   DefaultTheme,
 } from '@react-navigation/native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import {Dimensions, Platform, Text, TouchableOpacity, View} from 'react-native';
+import {Dimensions, Text, TouchableOpacity, View} from 'react-native';
 import NavigationService from './navigationService';
 import HomeIcon from '../../assets/svgs/home.svg';
 import HomeSelectedIcon from '../../assets/svgs/home_selection.svg';
@@ -36,6 +36,11 @@ import BackIcon from '../../assets/svgs/back.svg';
 import CheckOutScreen from '../../screens/CheckOutScreen';
 import jwtDecode from 'jwt-decode';
 import {logout} from '../../redux/slices/user/userSlice';
+import CategoriesScreen from '../../screens/CategogiesScreen';
+import BestSellerScreen from '../../screens/BestSeller';
+import NewArrivalsScreen from '../../screens/NewArrivalsScreen';
+import SearchScreen from '../../screens/SearchScreen';
+import MyAccount from '../../screens/MyAccount';
 
 const Stack = createNativeStackNavigator<StackParams>();
 const Tab = createBottomTabNavigator();
@@ -75,22 +80,57 @@ const RootNavigation: FC = () => {
           component={ProductDetail}
         />
         <Stack.Screen
-          options={{
-            headerTitle: 'Terms Of Services',
-            headerTitleAlign: 'center',
-            headerTitleStyle: {
-              color: colors.green,
-              fontSize: 20,
-              fontWeight: '500',
-            },
-            // headerBackVisible: false,
-            headerLeft: () => {
-              return (
-                <TouchableOpacity onPress={() => NavigationService.goBack()}>
-                  <BackIcon />
-                </TouchableOpacity>
-              );
-            },
+          options={{headerShown: false}}
+          name="Categories"
+          component={CategoriesScreen}
+        />
+        <Stack.Screen
+          options={{headerShown: false}}
+          name="BestSeller"
+          component={BestSellerScreen}
+        />
+        <Stack.Screen
+          options={{headerShown: false}}
+          name="NewArrivals"
+          component={NewArrivalsScreen}
+        />
+        <Stack.Screen
+          options={{headerShown: false}}
+          name="Search"
+          component={SearchScreen}
+        />
+        <Stack.Screen
+          options={{headerShown: false}}
+          name="MyAccount"
+          component={MyAccount}
+        />
+        <Stack.Screen
+          options={({route}) => {
+            let title = '';
+            if (route.params.type === 'privacy') {
+              title = 'Privacy Policy';
+            } else if (route.params.type === 'refund') {
+              title = ' Refund Policy';
+            } else {
+              title = 'Shipping Policy';
+            }
+            return {
+              headerTitle: title,
+              headerTitleAlign: 'center',
+              headerTitleStyle: {
+                color: colors.green,
+                fontSize: 20,
+                fontWeight: '500',
+              },
+              // headerBackVisible: false,
+              headerLeft: () => {
+                return (
+                  <TouchableOpacity onPress={() => NavigationService.goBack()}>
+                    <BackIcon />
+                  </TouchableOpacity>
+                );
+              },
+            };
           }}
           name="TermsOfService"
           component={TermsOfServiceScreen}

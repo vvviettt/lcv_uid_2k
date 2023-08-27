@@ -12,6 +12,7 @@ import CategoryItem from '../CategoryItem';
 import RightArrowIcon from '../../../../assets/svgs/right_arrow.svg';
 import LeftArrowIcon from '../../../../assets/svgs/left_arrow.svg';
 import {colors} from '../../../../constants/colors';
+import NavigationService from '../../../../config/stack/navigationService';
 
 const Categories = () => {
   const dispatch = useReduxDispatch();
@@ -41,7 +42,12 @@ const Categories = () => {
   return (
     <View style={styles.wrapper}>
       <View style={styles.ph18}>
-        <SectionTitle name="Categories" />
+        <SectionTitle
+          name="Categories"
+          viewAllPressHandle={() => {
+            NavigationService.push('Categories');
+          }}
+        />
       </View>
 
       <ScrollView

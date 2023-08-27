@@ -22,7 +22,7 @@ export const getAllCategories = createAsyncThunk<
   {rejectValue: string}
 >('category/getAll', async (unknown, {rejectWithValue}) => {
   try {
-    return await getCategories();
+    return await getCategories(1);
   } catch (error) {
     rejectWithValue((error as any).message);
     return;
@@ -35,7 +35,7 @@ export const getBestSeller = createAsyncThunk<
   {rejectValue: string}
 >('static/getBessSeller', async (unknown, {rejectWithValue}) => {
   try {
-    return await getBessSeller();
+    return await getBessSeller(1);
   } catch (error) {
     rejectWithValue((error as any).message);
     return;
@@ -65,7 +65,7 @@ const staticSlice = createSlice({
     });
     builder.addCase(getAllCategories.fulfilled, (state, {payload}) => {
       state.getCategoriesStatus = API_PROCESS.SUCCESS;
-      state.categories = payload;
+      state.categories = payload.categories;
     });
     builder.addCase(getAllCategories.rejected, state => {
       state.getCategoriesStatus = API_PROCESS.FAIL;
@@ -76,7 +76,7 @@ const staticSlice = createSlice({
     });
     builder.addCase(getBestSeller.fulfilled, (state, {payload}) => {
       state.getBestSellerStatus = API_PROCESS.SUCCESS;
-      state.bestSeller = payload;
+      state.bestSeller = payload.products;
     });
     builder.addCase(getBestSeller.rejected, state => {
       state.getBestSellerStatus = API_PROCESS.FAIL;

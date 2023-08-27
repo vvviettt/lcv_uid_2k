@@ -3,4 +3,5 @@ export interface TextFieldProps {
   onTextChange?: (value: string) => void;
   placeholder?: string;
   error?: string;
+  height?: number;
 }

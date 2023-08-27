@@ -16,6 +16,7 @@ const Header: FC<HeaderProps> = ({
   startIcon,
   title,
   subFeature,
+  hiddenSearch,
 }) => {
   const handleBack = () => {
     if (NavigationService.canGoBack()) {
@@ -24,7 +25,7 @@ const Header: FC<HeaderProps> = ({
   };
   const {products} = useReduxSelector(state => state.cart);
   return (
-    <View style={styles.wrapper}>
+    <View style={[styles.wrapper, {paddingTop: !title ? 10 : 0}]}>
       <View style={[styles.leftContainer]}>
         {isCanBack && (
           <TouchableOpacity
@@ -45,9 +46,16 @@ const Header: FC<HeaderProps> = ({
           <View style={[styles.iconWrap, styles.searchIcon]}>{subFeature}</View>
         ) : (
           <>
-            <View style={[styles.iconWrap, styles.searchIcon]}>
-              <SearchIcon />
-            </View>
+            {!hiddenSearch && (
+              <TouchableOpacity
+                onPress={() => {
+                  NavigationService.push('Search');
+                }}>
+                <View style={[styles.iconWrap, styles.searchIcon]}>
+                  <SearchIcon />
+                </View>
+              </TouchableOpacity>
+            )}
             <TouchableOpacity
               onPress={() => {
                 TabNavigation.push('Cart', {
@@ -76,7 +84,6 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     marginHorizontal: 18,
     paddingBottom: 10,
-    paddingTop: 10,
   },
   rightContainer: {
     flexDirection: 'row',
@@ -118,11 +125,11 @@ const styles = StyleSheet.create({
   title: {
     height: 46,
     textAlignVertical: 'center',
-    fontSize: 18,
-    fontWeight: '600',
-    paddingLeft: 10,
+    fontSize: 20,
+    fontWeight: '400',
+    paddingLeft: 6,
     color: colors.green,
     marginTop: 10,
-    textTransform: 'uppercase',
+    textTransform: 'capitalize',
   },
 });

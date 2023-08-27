@@ -33,7 +33,7 @@ const TermsOfServiceScreen = ({route}) => {
             </Text>
             <Text style={styles.title}>Import Taxes and Duties:</Text>
             <Text style={styles.des}>
-              We ship the products from Dubai after completing all export
+              {'   '}We ship the products from Dubai after completing all export
               documentation, however all shipments undergo custom clearance in
               each destination country. The custom clearance team of Fed-ex will
               complete all custom clearance formalities and if customer is
@@ -45,7 +45,7 @@ const TermsOfServiceScreen = ({route}) => {
             </Text>
             <Text style={styles.title}>Delivery to Identified Person</Text>
             <Text style={styles.des}>
-              {'   '}CCustomer have to enter the correct details of Consignee /
+              {'   '}Customer have to enter the correct details of Consignee /
               Recipient Name (as it is stated in their photo identification that
               is approved by the Government) with complete Address, nearby
               landmark, postal code and contact number for hassle free delivery.
@@ -95,9 +95,6 @@ const TermsOfServiceScreen = ({route}) => {
               Dubai will be borne by customer and same shall be deducted from
               customer amount. So please make sure your availability during
               delivery of the shipment.
-            </Text>
-            <Text style={styles.des}>
-              {'   '}{' '}
               <Text
                 style={styles.link}
                 onPress={() => {

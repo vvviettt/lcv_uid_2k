@@ -127,7 +127,13 @@ export default function useAuthBottomSheet(ref: any) {
       </BottomSheetModal>
     );
   };
-  return {renderLogin, closeAll, renderRegister, openLoginSheet};
+
+  return {
+    renderLogin,
+    closeAll,
+    renderRegister,
+    openLoginSheet,
+  };
 }
 const styles = StyleSheet.create({
   wrapper: {

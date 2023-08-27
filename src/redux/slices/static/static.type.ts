@@ -25,6 +25,6 @@ export interface CategoryState {
   getCategoriesStatus: API_PROCESS;
   bestSeller: IProduct[];
   getBestSellerStatus: API_PROCESS;
-  newArrivals: IBestSeller[];
+  newArrivals: IProduct[];
   getNewArrivalsStatus: API_PROCESS;
 }

@@ -16,7 +16,7 @@ import convertHttp from '../../../../utils/convertHttp';
 import {ToastAndroid} from 'react-native';
 import getDiscount from '../../../../utils/getDiscount';
 
-const ProductItem: FC<ProductItemProps> = ({product}) => {
+const ProductItem: FC<ProductItemProps> = ({product, addWishListHandle}) => {
   const dispatch = useReduxDispatch();
   const {user} = useReduxSelector(state => state.user);
   return (
@@ -57,6 +57,10 @@ const ProductItem: FC<ProductItemProps> = ({product}) => {
               <TouchableWithoutFeedback
                 onPress={() => {
                   if (user) {
+                    if (addWishListHandle) {
+                      addWishListHandle();
+                      return;
+                    }
                     dispatch(likeOrUnlike({productId: product.id}));
                   } else {
                     ToastAndroid.show(

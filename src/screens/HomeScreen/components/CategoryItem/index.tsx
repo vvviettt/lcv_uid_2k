@@ -6,7 +6,11 @@ import {colors} from '../../../../constants/colors';
 import TabNavigation from '../../../../config/stack/tabNavigationService';
 import convertHttp from '../../../../utils/convertHttp';
 
-const CategoryItem: FC<CategoryItemProps> = ({category}) => {
+const CategoryItem: FC<CategoryItemProps> = ({
+  category,
+  wrapperStyle,
+  imageStyle,
+}) => {
   return (
     <TouchableOpacity
       onPress={() => {
@@ -15,11 +19,13 @@ const CategoryItem: FC<CategoryItemProps> = ({category}) => {
         });
       }}
       activeOpacity={1}
-      style={styles.wrapper}>
-      <Image
-        style={styles.img}
-        source={{uri: convertHttp(category.imageUrl)}}
-      />
+      style={[styles.wrapper, wrapperStyle]}>
+      <View style={[styles.imgWrapper, imageStyle]}>
+        <Image
+          style={styles.img}
+          source={{uri: convertHttp(category.imageUrl)}}
+        />
+      </View>
       <View style={styles.nameWrapper}>
         <Text style={styles.name}>{category.name}</Text>
       </View>
@@ -42,8 +48,11 @@ const styles = StyleSheet.create({
     borderStartColor: 'red',
     alignItems: 'center',
   },
-  img: {
+  imgWrapper: {
     width: '70%',
+  },
+  img: {
+    width: '100%',
     aspectRatio: 1,
     resizeMode: 'contain',
   },

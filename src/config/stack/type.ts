@@ -25,6 +25,11 @@ export type StackParams = {
   ProductDetail: {productId: string};
   TermsOfService: PrivacyType;
   Checkout: undefined;
+  Categories: undefined;
+  BestSeller: undefined;
+  NewArrivals: undefined;
+  Search: undefined;
+  MyAccount: undefined;
 };
 
 export type NavigatorScreenParams<

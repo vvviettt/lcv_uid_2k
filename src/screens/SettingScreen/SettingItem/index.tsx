@@ -1,20 +1,25 @@
-import {
-  StyleSheet,
-  Switch,
-  Text,
-  TouchableNativeFeedback,
-  TouchableOpacity,
-  View,
-} from 'react-native';
+import {StyleSheet, Text, TouchableWithoutFeedback, View} from 'react-native';
 import React, {FC} from 'react';
 import {SettingItemProps} from './SettingItem.type';
 import {colors} from '../../../constants/colors';
+import {TouchableOpacity} from 'react-native-gesture-handler';
 
-const SettingItem: FC<SettingItemProps> = ({name, onPress, subElement}) => {
+const SettingItem: FC<SettingItemProps> = ({
+  name,
+  onPress,
+  subElement,
+  icon,
+}) => {
   return (
-    <TouchableOpacity onPress={onPress}>
+    <TouchableOpacity
+      onPress={() => {
+        onPress();
+      }}>
       <View style={styles.wrapper}>
-        <Text style={styles.name}>{name}</Text>
+        <View style={styles.content}>
+          {icon}
+          <Text style={styles.name}>{name}</Text>
+        </View>
         {subElement && subElement}
       </View>
     </TouchableOpacity>
@@ -34,9 +39,13 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   name: {
-    fontSize: 16,
-    fontWeight: '500',
+    fontSize: 18,
     color: colors.mainTxt,
-    textTransform: 'uppercase',
+    textTransform: 'capitalize',
+  },
+  content: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 8,
   },
 });

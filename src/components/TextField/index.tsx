@@ -8,10 +8,11 @@ const TextField: FC<TextFieldProps> = ({
   placeholder,
   onTextChange,
   error,
+  height,
 }) => {
   return (
-    <View style={styles.wrapper}>
-      <View style={styles.inputContainer}>
+    <View style={[styles.wrapper]}>
+      <View style={[styles.inputContainer, {height: height}]}>
         <TextInput
           style={styles.input}
           secureTextEntry={isHidden}

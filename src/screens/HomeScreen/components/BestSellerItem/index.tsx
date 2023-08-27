@@ -44,11 +44,11 @@ const BestSellerItem: FC<BestSellerItemProps> = ({object}) => {
             </Text>
             <View>
               <Text style={styles.price}>
-                {getDiscount(Number(object.price), object.discount)} UED
+                {getDiscount(Number(object.price), object.discount)} AED
               </Text>
               {object.discount && (
                 <Text style={[styles.price, styles.oldPrice]}>
-                  {convertPrice(object.price)} UED
+                  {convertPrice(object.price)} AED
                 </Text>
               )}
             </View>

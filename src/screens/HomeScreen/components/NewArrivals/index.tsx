@@ -7,6 +7,7 @@ import Carousel, {Pagination} from 'react-native-snap-carousel';
 import {colors} from '../../../../constants/colors';
 import convertHttp from '../../../../utils/convertHttp';
 import {API_PROCESS} from '../../../../redux/enum';
+import NavigationService from '../../../../config/stack/navigationService';
 
 const NewArrivals = () => {
   const dispatch = useReduxDispatch();
@@ -26,7 +27,12 @@ const NewArrivals = () => {
   return (
     <View style={styles.wrapper}>
       <View style={styles.ph18}>
-        <SectionTitle name="New Arrivals" />
+        <SectionTitle
+          name="New Arrivals"
+          viewAllPressHandle={() => {
+            NavigationService.push('NewArrivals');
+          }}
+        />
         {newArrivals.length > 0 && (
           <View style={styles.styleWrp}>
             <Carousel
