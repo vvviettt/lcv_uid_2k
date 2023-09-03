@@ -1,22 +1,21 @@
 import axios, {AxiosError} from 'axios';
 import httpClient from '../httpClient';
 import {staticEndpoint} from './endpoint';
-import {
-  IBestSeller,
-  ICategory,
-  INewArrivals,
-} from '../../redux/slices/static/static.type';
+import {ICategory, INewArrivals} from '../../redux/slices/static/static.type';
 import {IProduct} from '../../redux/slices/category/category.type';
 
 export const getCategories = async (
   page: number,
 ): Promise<{categories: ICategory[]}> => {
   try {
+    console.log('OKOKOK1');
     const res = await httpClient.get(`${staticEndpoint.getAll}/${page}/10`);
-    console.log(res.data);
+    console.log('OKOKOK', res.data);
 
     return {categories: Object.values(res.data.results) as ICategory[]};
   } catch (error) {
+    console.log('ERR', error);
+
     if (axios.isAxiosError(error)) {
       throw Error(((error as AxiosError).response?.data as any)?.message ?? '');
     }
@@ -45,7 +44,6 @@ export const getBessSeller = async (
 
 export const getNewArrivals = async (): Promise<INewArrivals[]> => {
   try {
-    console.log('hello1');
 
     const res = await httpClient.get(staticEndpoint.getNewArrivals);
     console.log('hello', res.data);

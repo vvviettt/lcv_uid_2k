@@ -11,6 +11,13 @@ export interface IProduct {
   count?: number;
   isLiked?: boolean;
   discount?: string;
+  sizes: {
+    key: string;
+    value: string;
+  }[];
+  colors: {
+    name: string;
+  }[];
 }
 
 export interface CategoryState {

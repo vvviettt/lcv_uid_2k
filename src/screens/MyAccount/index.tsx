@@ -27,6 +27,7 @@ import useAuthBottomSheet from '../../hooks/useAuthBottomSheet';
 import {BottomSheetModal} from '@gorhom/bottom-sheet';
 import RegisterForm from '../../components/forms/RegisterForm';
 import ChangePassForm from '../../components/forms/ChangePassForm';
+import {clearOrderAutofill} from '../../redux/slices/persist/persistSlice';
 
 const MyAccount = () => {
   const dispatch = useReduxDispatch();
@@ -103,6 +104,7 @@ const MyAccount = () => {
           onPress={() => {
             if (user) {
               dispatch(logout());
+              dispatch(clearOrderAutofill());
               setVisible(false);
             }
           }}

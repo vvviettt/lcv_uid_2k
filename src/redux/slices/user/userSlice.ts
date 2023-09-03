@@ -6,6 +6,7 @@ import {RegisterFormField} from '../../../components/forms/RegisterForm/Register
 import {loginApi, registerApi} from '../../../services/user';
 import {ToastAndroid} from 'react-native';
 import {LoginFormField} from '../../../components/forms/LoginForm/LoginForm.type';
+import {updateOrderAutofill} from '../persist/persistSlice';
 
 const initialState: UserState = {
   loginStatus: API_PROCESS.INITIAL,
@@ -28,9 +29,16 @@ export const login = createAsyncThunk<
   any,
   LoginFormField,
   {rejectValue: string}
->('auth/login', async (data, {rejectWithValue}) => {
+>('auth/login', async (data, {rejectWithValue, dispatch}) => {
   try {
-    return await loginApi(data);
+    const res = await loginApi(data);
+    dispatch(
+      updateOrderAutofill({
+        name: res.fullName,
+        email: res.email,
+      }),
+    );
+    return res;
   } catch (error) {
     return rejectWithValue((error as any).message);
   }

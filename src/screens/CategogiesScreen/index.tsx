@@ -34,9 +34,7 @@ const CategoriesScreen = () => {
       {!isLoading && categories.length > 0 && (
         <FlatList
           data={categories}
-          onEndReached={() => {
-            console.log('hihi');
-          }}
+          onEndReached={() => {}}
           contentContainerStyle={styles.contentContainerStyle}
           showsVerticalScrollIndicator={false}
           style={styles.flatList}

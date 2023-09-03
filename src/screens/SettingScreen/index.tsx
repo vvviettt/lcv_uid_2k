@@ -21,6 +21,7 @@ import languageIcon from '../../assets/images/language.png';
 import loginIcon from '../../assets/images/login.png';
 import accountIcon from '../../assets/images/my-account.png';
 import nextIcon from '../../assets/images/next-icon.png';
+import OrderIcon from '../../assets/images/orders-icon.png';
 
 const SettingScreen = () => {
   const [notificationEnable, setNotificationEnable] = useState(true);
@@ -54,6 +55,11 @@ const SettingScreen = () => {
       ) : (
         <Image style={{width: 16, height: 16}} source={nextIcon} />
       ),
+    },
+    {
+      name: user ? 'History Order' : 'Current Order',
+      onPress: () => {},
+      icon: <Image style={{width: 20, height: 20}} source={OrderIcon} />,
     },
     {
       name: 'About Us',

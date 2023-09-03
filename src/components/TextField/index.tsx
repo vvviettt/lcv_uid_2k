@@ -9,6 +9,7 @@ const TextField: FC<TextFieldProps> = ({
   onTextChange,
   error,
   height,
+  value,
 }) => {
   return (
     <View style={[styles.wrapper]}>
@@ -19,6 +20,7 @@ const TextField: FC<TextFieldProps> = ({
           placeholder={placeholder}
           onChangeText={onTextChange}
           placeholderTextColor={colors.description}
+          value={value}
         />
       </View>
       {error && <Text style={styles.errorMessage}>{error}</Text>}

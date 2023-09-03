@@ -6,6 +6,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import {persistStore, persistReducer} from 'redux-persist';
 import cartSlice from './slices/cart/cartSlice';
 import userSlice from './slices/user/userSlice';
+import persistSlice from './slices/persist/persistSlice';
 
 const persistConfig = {
   key: 'root',
@@ -18,6 +19,7 @@ const rootReducer = combineReducers({
   category: categorySlice,
   cart: cartSlice,
   user: userSlice,
+  persist: persistSlice,
 });
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 export type RootState = ReturnType<typeof rootReducer>;

@@ -4,4 +4,5 @@ export interface TextFieldProps {
   placeholder?: string;
   error?: string;
   height?: number;
+  value?: string;
 }

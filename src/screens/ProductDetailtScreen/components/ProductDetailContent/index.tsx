@@ -20,9 +20,7 @@ import {useReduxDispatch, useReduxSelector} from '../../../../redux/store';
 import {likeOrUnlike} from '../../../../redux/slices/category/categorySlice';
 
 const ProductDetailContent: FC<ProductDetailContentProps> = ({product}) => {
-  const sizes = ['20 cm', '25 cm', '30 cm'];
   const [selectSize, setSelectSize] = useState<number | undefined>(undefined);
-  const sizesGuide = ['20uS', '25uS', '30uS'];
   const {addToCart} = useAddToCart();
   const {user} = useReduxSelector(state => state.user);
   const dispatch = useReduxDispatch();
@@ -67,10 +65,32 @@ const ProductDetailContent: FC<ProductDetailContentProps> = ({product}) => {
           </TouchableOpacity>
         </View>
       </View>
+
+      <View style={styles.guideCtn}>
+        <Text style={styles.guideText}>Select size</Text>
+        <SelectDropdown
+          defaultValue={product.sizes[0]}
+          onSelect={item => {}}
+          data={product.sizes}
+          renderDropdownIcon={() => {
+            return <DropdownIcon />;
+          }}
+          dropdownIconPosition={'right'}
+          rowTextStyle={styles.rowTextStyle}
+          buttonStyle={styles.buttonStyle}
+          buttonTextStyle={styles.buttonTextStyle}
+          buttonTextAfterSelection={item => {
+            return `${item.value} uS `;
+          }}
+          rowTextForSelection={item => {
+            return `${item.value} uS `;
+          }}
+        />
+      </View>
       <View style={styles.sizeWrapper}>
-        <Text style={styles.selectSizeText}>Select Size</Text>
+        <Text style={styles.selectSizeText}>Colors</Text>
         <View style={styles.listSizeWrapper}>
-          {sizes.map((size, index) => {
+          {product.colors.map((color, index) => {
             return (
               <TouchableOpacity
                 key={index}
@@ -86,32 +106,16 @@ const ProductDetailContent: FC<ProductDetailContentProps> = ({product}) => {
                     styles.sizeText,
                     index === selectSize ? styles.sizeTextSelected : undefined,
                   ]}>
-                  {size}
+                  {color.name}
                 </Text>
               </TouchableOpacity>
             );
           })}
         </View>
       </View>
-
       <View>
         <Text style={styles.productDetailText}>Product Detail</Text>
         <Text style={styles.productDesText}>{product.description}</Text>
-      </View>
-      <View style={styles.guideCtn}>
-        <Text style={styles.guideText}>Size Guide</Text>
-        <SelectDropdown
-          defaultValue={sizesGuide[0]}
-          onSelect={item => {}}
-          data={sizesGuide}
-          renderDropdownIcon={() => {
-            return <DropdownIcon />;
-          }}
-          dropdownIconPosition={'right'}
-          rowTextStyle={styles.rowTextStyle}
-          buttonStyle={styles.buttonStyle}
-          buttonTextStyle={styles.buttonTextStyle}
-        />
       </View>
     </View>
   );

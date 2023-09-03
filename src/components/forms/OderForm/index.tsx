@@ -25,8 +25,15 @@ const schema = yup.object({
 });
 
 const OrderForm = () => {
+  const {orderAutofill} = useReduxSelector(state => state.persist);
   const {handleSubmit, control} = useForm<OderFormProps>({
     resolver: yupResolver(schema),
+    defaultValues: {
+      email: orderAutofill.email,
+      name: orderAutofill.name,
+      address: orderAutofill.address,
+      phone: orderAutofill.phone,
+    },
   });
   const dispatch = useReduxDispatch();
   const onSubmit = (data: OderFormProps) => {
@@ -40,44 +47,48 @@ const OrderForm = () => {
         <Controller
           control={control}
           name="name"
-          render={({field: {onChange}, fieldState: {error}}) => (
+          render={({field: {onChange, value}, fieldState: {error}}) => (
             <TextField
               placeholder="Name"
               onTextChange={onChange}
               error={error?.message}
+              value={value}
             />
           )}
         />
         <Controller
           control={control}
           name="phone"
-          render={({field: {onChange}, fieldState: {error}}) => (
+          render={({field: {onChange, value}, fieldState: {error}}) => (
             <TextField
               placeholder="Phone"
               onTextChange={onChange}
               error={error?.message}
+              value={value}
             />
           )}
         />
         <Controller
           control={control}
           name="email"
-          render={({field: {onChange}, fieldState: {error}}) => (
+          render={({field: {onChange, value}, fieldState: {error}}) => (
             <TextField
               placeholder="Email"
               onTextChange={onChange}
               error={error?.message}
+              value={value}
             />
           )}
         />
         <Controller
           control={control}
           name="address"
-          render={({field: {onChange}, fieldState: {error}}) => (
+          render={({field: {onChange, value}, fieldState: {error}}) => (
             <TextField
               placeholder="Address"
               onTextChange={onChange}
               error={error?.message}
+              value={value}
             />
           )}
         />

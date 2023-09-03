@@ -6,13 +6,22 @@ import {checkoutAPI} from '../../../services/category';
 import {RootState} from '../../store';
 import {API_PROCESS} from '../../enum';
 import {ToastAndroid} from 'react-native';
+import {updateOrderAutofill} from '../persist/persistSlice';
 
 export const checkout = createAsyncThunk<
   any,
   OderFormProps,
   {rejectValue: string}
->('cart/order', async (order, {rejectWithValue, getState}) => {
+>('cart/order', async (order, {rejectWithValue, getState, dispatch}) => {
   try {
+    dispatch(
+      updateOrderAutofill({
+        email: order.email,
+        name: order.name,
+        phone: order.phone,
+        address: order.address,
+      }),
+    );
     const products = (getState() as RootState).cart.products.map(product => {
       return {
         productId: product.id,

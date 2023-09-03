@@ -24,8 +24,7 @@ export const getAllCategories = createAsyncThunk<
   try {
     return await getCategories(1);
   } catch (error) {
-    rejectWithValue((error as any).message);
-    return;
+    return rejectWithValue((error as any).message);
   }
 });
 
@@ -37,8 +36,7 @@ export const getBestSeller = createAsyncThunk<
   try {
     return await getBessSeller(1);
   } catch (error) {
-    rejectWithValue((error as any).message);
-    return;
+    return rejectWithValue((error as any).message);
   }
 });
 
@@ -50,8 +48,7 @@ export const getNewArrivals = createAsyncThunk<
   try {
     return await getNewArrivalsApi();
   } catch (error) {
-    rejectWithValue((error as any).message);
-    return;
+    return rejectWithValue((error as any).message);
   }
 });
 
