@@ -8,9 +8,7 @@ export const getCategories = async (
   page: number,
 ): Promise<{categories: ICategory[]}> => {
   try {
-    console.log('OKOKOK1');
     const res = await httpClient.get(`${staticEndpoint.getAll}/${page}/10`);
-    console.log('OKOKOK', res.data);
 
     return {categories: Object.values(res.data.results) as ICategory[]};
   } catch (error) {
@@ -44,7 +42,6 @@ export const getBessSeller = async (
 
 export const getNewArrivals = async (): Promise<INewArrivals[]> => {
   try {
-
     const res = await httpClient.get(staticEndpoint.getNewArrivals);
     console.log('hello', res.data);
     return res.data.results.data as INewArrivals[];

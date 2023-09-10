@@ -4,6 +4,8 @@ import {ICategory} from '../../redux/slices/static/static.type';
 import httpClient from '../httpClient';
 import categoryEndPoint from './categoryEndPoint';
 import {OderFormProps} from '../../components/forms/OderForm/OderForm.type';
+import {OrderHistoryItem} from '../../screens/OrderHistory/OrderHistory.type';
+import {OrderDetailItem} from '../../screens/OrderDetail/OrderDetail.type';
 
 export const getProductCategory = async (
   categoryId: string,
@@ -11,6 +13,8 @@ export const getProductCategory = async (
   filter?: any,
 ) => {
   try {
+    console.log(categoryId);
+
     const res = await httpClient.post(`${categoryEndPoint.getProducts}`, {
       page,
       categoryId,
@@ -50,7 +54,7 @@ export const getAllProductCategory = async (page: number, filter?: any) => {
 
 export const likeOrUnlikeApi = async (productId: string) => {
   try {
-    const res = await httpClient.get(`${categoryEndPoint.like}/${productId}`);
+    await httpClient.get(`${categoryEndPoint.like}/${productId}`);
     return;
   } catch (error) {
     if (axios.isAxiosError(error)) {
@@ -80,11 +84,16 @@ export const getWishListApi = async (page: number) => {
 
 export const checkoutAPI = async (
   checkoutInfo: OderFormProps,
-  products: {productId: string; quantity: string}[],
+  products: {
+    productId: string;
+    quantity: string;
+    color?: string;
+    size?: string;
+  }[],
 ) => {
   try {
     await httpClient.post(`${categoryEndPoint.order}`, {
-      user: checkoutInfo,
+      others: checkoutInfo,
       items: products,
     });
     return;
@@ -92,6 +101,45 @@ export const checkoutAPI = async (
   } catch (error) {
     if (axios.isAxiosError(error)) {
       throw ((error as AxiosError).response?.data as any)?.message ?? '';
+    }
+    throw 'Unknown  error.';
+  }
+};
+
+export const getOrderHistoryAPI = async (page?: number) => {
+  try {
+    const res = await httpClient.get(
+      `${categoryEndPoint.historyOrder}/${page ?? 1}/10`,
+    );
+    return {
+      data: res.data.results.data as OrderHistoryItem,
+      totalPage: res.data.results.totalPage,
+    };
+    // return {products: res.data.results.data, totalRecord: res.data.totalRecord};
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      throw (
+        ((error as AxiosError).response?.data as any)?.message ??
+        'Unknown  error'
+      );
+    }
+    throw 'Unknown  error.';
+  }
+};
+
+export const getOrderHistoryDetailAPI = async (id: string) => {
+  try {
+    const res = await httpClient.get(
+      `${categoryEndPoint.historyOrderDetail}/${id}`,
+    );
+    return res.data.results as OrderDetailItem;
+    // return {products: res.data.results.data, totalRecord: res.data.totalRecord};
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      throw (
+        ((error as AxiosError).response?.data as any)?.message ??
+        'Unknown  error'
+      );
     }
     throw 'Unknown  error.';
   }

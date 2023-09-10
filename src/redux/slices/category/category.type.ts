@@ -8,6 +8,7 @@ export interface IProduct {
   imageUrl: string;
   price: string;
   description?: string;
+  details?: string;
   count?: number;
   isLiked?: boolean;
   discount?: string;

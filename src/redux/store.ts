@@ -11,7 +11,7 @@ import persistSlice from './slices/persist/persistSlice';
 const persistConfig = {
   key: 'root',
   storage: AsyncStorage,
-  whitelist: ['cart', 'user'],
+  whitelist: ['cart', 'user', 'persist'],
 };
 
 const rootReducer = combineReducers({

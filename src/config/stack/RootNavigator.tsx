@@ -41,6 +41,8 @@ import BestSellerScreen from '../../screens/BestSeller';
 import NewArrivalsScreen from '../../screens/NewArrivalsScreen';
 import SearchScreen from '../../screens/SearchScreen';
 import MyAccount from '../../screens/MyAccount';
+import OrderHistory from '../../screens/OrderHistory';
+import OrderDetail from '../../screens/OrderDetail';
 
 const Stack = createNativeStackNavigator<StackParams>();
 const Tab = createBottomTabNavigator();
@@ -156,6 +158,52 @@ const RootNavigation: FC = () => {
           }}
           name="Checkout"
           component={CheckOutScreen}
+        />
+        <Stack.Screen
+          options={({route}) => {
+            return {
+              headerTitle: route.params.key,
+              headerTitleAlign: 'center',
+              headerTitleStyle: {
+                color: colors.green,
+                fontSize: 20,
+                fontWeight: '500',
+              },
+              headerShadowVisible: false,
+              // headerBackVisible: false,
+              headerLeft: () => {
+                return (
+                  <TouchableOpacity onPress={() => NavigationService.goBack()}>
+                    <BackIcon />
+                  </TouchableOpacity>
+                );
+              },
+            };
+          }}
+          name="OrderHistoryDetail"
+          component={OrderDetail}
+        />
+        <Stack.Screen
+          options={{
+            headerTitle: 'History Order',
+            headerTitleAlign: 'center',
+            headerTitleStyle: {
+              color: colors.green,
+              fontSize: 20,
+              fontWeight: '500',
+            },
+            headerShadowVisible: false,
+            // headerBackVisible: false,
+            headerLeft: () => {
+              return (
+                <TouchableOpacity onPress={() => NavigationService.goBack()}>
+                  <BackIcon />
+                </TouchableOpacity>
+              );
+            },
+          }}
+          name="OrderHistory"
+          component={OrderHistory}
         />
       </Stack.Navigator>
     </NavigationContainer>

@@ -1,5 +1,5 @@
-import {IProduct} from '../../../../redux/slices/category/category.type';
+import {CartItem} from '../../../../redux/slices/cart/cart.type';
 
 export interface CartItemProps {
-  product: IProduct;
+  product: CartItem;
 }

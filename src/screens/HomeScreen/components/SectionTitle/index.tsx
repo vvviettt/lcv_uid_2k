@@ -9,7 +9,7 @@ const SectionTitle: FC<SectionTitleProps> = ({name, viewAllPressHandle}) => {
   return (
     <View style={styles.wrapper}>
       <View style={styles.left}>
-        <DiamondIcon />
+        <DiamondIcon width={30} height={30} />
         <Text style={styles.text}>{name}</Text>
       </View>
       <View style={styles.right}>

@@ -17,6 +17,7 @@ const CategoryHeader: FC<CategoryHeaderProps> = ({category}) => {
         />
       </View>
       <Text style={styles.name}>{category.name}</Text>
+      <Text style={styles.desc}>{category.description}</Text>
     </View>
   );
 };
@@ -49,5 +50,12 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontWeight: '500',
     color: '#000',
+  },
+  desc: {
+    fontSize: 14,
+    paddingHorizontal: 30,
+    color: colors.description,
+    textAlign: 'center',
+    marginTop: 9,
   },
 });

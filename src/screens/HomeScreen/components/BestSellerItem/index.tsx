@@ -56,7 +56,15 @@ const BestSellerItem: FC<BestSellerItemProps> = ({object}) => {
           <View style={styles.btnWrp}>
             <TouchableWithoutFeedback
               onPress={() => {
-                addToCart(object);
+                addToCart(
+                  object,
+                  object.colors && object.colors.length > 0
+                    ? object.colors[0].name
+                    : undefined,
+                  object.sizes && object.sizes.length > 0
+                    ? object.sizes[0].value
+                    : undefined,
+                );
               }}>
               <View style={styles.btn}>
                 <CartIcon width={16} />

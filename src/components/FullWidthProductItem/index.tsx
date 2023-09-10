@@ -1,5 +1,5 @@
 import React, {FC, useState} from 'react';
-import {Dimensions, Image, StyleSheet, Text, View} from 'react-native';
+import {Alert, Dimensions, Image, StyleSheet, Text, View} from 'react-native';
 import {IProduct} from '../../redux/slices/category/category.type';
 import LoveIcon from '../../assets/svgs/wishlist_selection.svg';
 import LovedIcon from '../../assets/svgs/loved.svg';
@@ -14,6 +14,7 @@ import NavigationService from '../../config/stack/navigationService';
 import {useReduxDispatch} from '../../redux/store';
 import {selectProduct} from '../../redux/slices/category/categorySlice';
 import {addToCart} from '../../redux/slices/cart/cartSlice';
+import TabNavigation from '../../config/stack/tabNavigationService';
 
 interface FullWidthProductItemProps {
   product: IProduct;
@@ -27,7 +28,34 @@ const FullWidthProductItem: FC<FullWidthProductItemProps> = ({
   const [dotActive, setActiveDot] = useState(0);
   const dispatch = useReduxDispatch();
   const handleAddToCart = () => {
-    dispatch(addToCart({product: product}));
+    console.log('okok');
+
+    dispatch(
+      addToCart({
+        product: product,
+        color:
+          product.colors && product.colors.length > 0
+            ? product.colors[0].name
+            : undefined,
+        size:
+          product.sizes && product.sizes.length > 0
+            ? product.sizes[0].value
+            : undefined,
+      }),
+    );
+    Alert.alert('Added to cart', 'This product added to your cart.', [
+      {
+        text: 'Go to checkout',
+        style: 'cancel',
+        onPress: () => {
+          TabNavigation.push('Cart', {});
+        },
+      },
+      {
+        text: 'Ok',
+        style: 'cancel',
+      },
+    ]);
   };
 
   return (

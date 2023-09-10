@@ -18,10 +18,12 @@ import useAddToCart from '../../../../hooks/useAddToCart';
 import {debounce} from 'lodash';
 import {useReduxDispatch, useReduxSelector} from '../../../../redux/store';
 import {likeOrUnlike} from '../../../../redux/slices/category/categorySlice';
+import getDiscount from '../../../../utils/getDiscount';
 
 const ProductDetailContent: FC<ProductDetailContentProps> = ({product}) => {
-  const [selectSize, setSelectSize] = useState<number | undefined>(undefined);
   const {addToCart} = useAddToCart();
+  const [size, setSize] = useState(undefined);
+  const [color, setColor] = useState(undefined);
   const {user} = useReduxSelector(state => state.user);
   const dispatch = useReduxDispatch();
   const loveHandle = debounce(() => {
@@ -49,13 +51,20 @@ const ProductDetailContent: FC<ProductDetailContentProps> = ({product}) => {
       </View>
 
       <View style={styles.checkoutWrapper}>
-        <View>
-          <Text style={styles.price}>{convertPrice(product.price)} AED</Text>
+        <View style={{flexDirection: 'row', gap: 12}}>
+          {product.discount && (
+            <Text style={[styles.price, {textDecorationLine: 'line-through'}]}>
+              {convertPrice(product.price)} AED
+            </Text>
+          )}
+          <Text style={[styles.price]}>
+            {getDiscount(Number(product.price), product.discount)} AED
+          </Text>
         </View>
         <View>
           <TouchableOpacity
             onPress={() => {
-              addToCart(product);
+              addToCart(product, color, size);
             }}
             style={styles.checkOutBtn}>
             <>
@@ -66,56 +75,61 @@ const ProductDetailContent: FC<ProductDetailContentProps> = ({product}) => {
         </View>
       </View>
 
-      <View style={styles.guideCtn}>
-        <Text style={styles.guideText}>Select size</Text>
-        <SelectDropdown
-          defaultValue={product.sizes[0]}
-          onSelect={item => {}}
-          data={product.sizes}
-          renderDropdownIcon={() => {
-            return <DropdownIcon />;
-          }}
-          dropdownIconPosition={'right'}
-          rowTextStyle={styles.rowTextStyle}
-          buttonStyle={styles.buttonStyle}
-          buttonTextStyle={styles.buttonTextStyle}
-          buttonTextAfterSelection={item => {
-            return `${item.value} uS `;
-          }}
-          rowTextForSelection={item => {
-            return `${item.value} uS `;
-          }}
-        />
-      </View>
-      <View style={styles.sizeWrapper}>
-        <Text style={styles.selectSizeText}>Colors</Text>
-        <View style={styles.listSizeWrapper}>
-          {product.colors.map((color, index) => {
-            return (
-              <TouchableOpacity
-                key={index}
-                onPress={() => {
-                  setSelectSize(index);
-                }}
-                style={[
-                  styles.sizeBtn,
-                  index === selectSize ? styles.sizeBtnSelected : undefined,
-                ]}>
-                <Text
-                  style={[
-                    styles.sizeText,
-                    index === selectSize ? styles.sizeTextSelected : undefined,
-                  ]}>
-                  {color.name}
-                </Text>
-              </TouchableOpacity>
-            );
-          })}
+      {product?.sizes?.length && (
+        <View style={styles.guideCtn}>
+          <Text style={styles.guideText}>Select size</Text>
+          <SelectDropdown
+            onSelect={item => {
+              setSize(item.value);
+            }}
+            data={product.sizes}
+            renderDropdownIcon={() => {
+              return <DropdownIcon />;
+            }}
+            dropdownIconPosition={'right'}
+            rowTextStyle={styles.rowTextStyle}
+            defaultButtonText="Select size"
+            buttonStyle={styles.buttonStyle}
+            buttonTextStyle={styles.buttonTextStyle}
+            buttonTextAfterSelection={item => {
+              return `${item.value}`;
+            }}
+            rowTextForSelection={item => {
+              return `${item.value}`;
+            }}
+          />
         </View>
-      </View>
+      )}
+      {!!product?.colors?.length && (
+        <View style={styles.sizeWrapper}>
+          <Text style={styles.selectSizeText}>Colors</Text>
+          <View style={styles.listSizeWrapper}>
+            <SelectDropdown
+              defaultButtonText="Select color"
+              onSelect={item => {
+                setColor(item.name);
+              }}
+              data={product.colors}
+              renderDropdownIcon={() => {
+                return <DropdownIcon />;
+              }}
+              dropdownIconPosition={'right'}
+              rowTextStyle={styles.rowTextStyle}
+              buttonStyle={styles.buttonStyle}
+              buttonTextStyle={styles.buttonTextStyle}
+              buttonTextAfterSelection={item => {
+                return `${item.name}`;
+              }}
+              rowTextForSelection={item => {
+                return `${item.name}`;
+              }}
+            />
+          </View>
+        </View>
+      )}
       <View>
-        <Text style={styles.productDetailText}>Product Detail</Text>
-        <Text style={styles.productDesText}>{product.description}</Text>
+        <Text style={styles.productDetailText}>Product Details</Text>
+        <Text style={styles.productDesText}>{product.details}</Text>
       </View>
     </View>
   );
@@ -158,9 +172,9 @@ const styles = StyleSheet.create({
     paddingTop: 18,
   },
   price: {
-    fontSize: 24,
-    fontWeight: '700',
-    color: colors.greenBlue,
+    fontSize: 16,
+    fontWeight: '800',
+    color: colors.green,
   },
   checkOutBtn: {
     flexDirection: 'row',
@@ -169,7 +183,7 @@ const styles = StyleSheet.create({
     gap: 5,
     paddingHorizontal: 13,
     paddingVertical: 4,
-    borderRadius: 20,
+    borderRadius: 6,
   },
   checkoutText: {
     fontSize: 14,
@@ -214,7 +228,7 @@ const styles = StyleSheet.create({
   },
   productDesText: {
     marginTop: 18,
-    fontSize: 12,
+    fontSize: 14,
     lineHeight: 16,
     color: '#000',
   },

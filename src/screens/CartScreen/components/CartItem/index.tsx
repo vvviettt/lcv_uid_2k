@@ -29,42 +29,58 @@ const CartItem: FC<CartItemProps> = ({product}) => {
     <View style={styles.wrapper}>
       <View style={styles.imageWrapper}>
         <Image
-          source={{uri: convertHttp(product.imageUrls[0])}}
+          source={{uri: convertHttp(product.product.imageUrls[0])}}
           style={styles.img}
         />
-        {product.discount && (
+        {product.product.discount && (
           <View style={styles.offWrapper}>
-            <Text style={styles.offText}>{product.discount}% OFF</Text>
+            <Text style={styles.offText}>{product.product.discount}% OFF</Text>
           </View>
         )}
       </View>
       <View style={styles.contentWrapper}>
         {/* <View style={styles.n}> */}
         <Text ellipsizeMode="tail" numberOfLines={1} style={styles.name}>
-          {product.name}
+          {product.product.name}
         </Text>
+        <View>
+          {product.colors && (
+            <Text style={styles.price}>Color : {product.colors}</Text>
+          )}
+          {product.size && (
+            <Text style={styles.price}>Size : {product.size}</Text>
+          )}
+        </View>
         {/* </View> */}
         <View style={styles.bottomContent}>
           <View>
             <Text style={styles.price}>
-              {getDiscount(Number(product.price), product.discount)} AED
+              {getDiscount(
+                Number(product.product.price),
+                product.product.discount,
+              )}{' '}
+              AED
             </Text>
-            {product.discount && (
+            {product.product.discount && (
               <Text style={[styles.price, styles.oldPrice]}>
-                {convertPrice(product.price)} AED
+                {convertPrice(product.product.price)} AED
               </Text>
             )}
           </View>
           <View style={styles.countCtn}>
             <TouchableOpacity
-              onPress={() => dispatch(removeCount({productId: product.id}))}
+              onPress={() =>
+                dispatch(removeCount({productId: product.product.id}))
+              }
               style={styles.btn}>
               <MinusIcon />
             </TouchableOpacity>
-            <Text style={styles.count}>{product.count || 1}</Text>
+            <Text style={styles.count}>{product.quantity || 1}</Text>
             <TouchableOpacity
               style={styles.btn}
-              onPress={() => dispatch(addCount({productId: product.id}))}>
+              onPress={() =>
+                dispatch(addCount({productId: product.product.id}))
+              }>
               <PlusIcon />
             </TouchableOpacity>
           </View>
@@ -73,7 +89,7 @@ const CartItem: FC<CartItemProps> = ({product}) => {
       <View style={styles.removeBtnWrapper}>
         <TouchableNativeFeedback
           onPress={() => {
-            dispatch(removeToCart({productId: product.id}));
+            dispatch(removeToCart({productId: product.product.id}));
           }}>
           <View style={styles.removeBtn}>
             <RemoveIcon />
@@ -119,8 +135,8 @@ const styles = StyleSheet.create({
     backgroundColor: colors.white,
   },
   img: {
-    width: 80,
-    height: 80,
+    width: 90,
+    height: 90,
   },
   contentWrapper: {
     flexGrow: 1,
@@ -167,6 +183,7 @@ const styles = StyleSheet.create({
 
   imageWrapper: {
     position: 'relative',
+    justifyContent: 'center',
   },
   offWrapper: {
     position: 'absolute',

@@ -58,7 +58,11 @@ const SettingScreen = () => {
     },
     {
       name: user ? 'History Order' : 'Current Order',
-      onPress: () => {},
+      onPress: () => {
+        if (user) {
+          NavigationService.push('OrderHistory');
+        }
+      },
       icon: <Image style={{width: 20, height: 20}} source={OrderIcon} />,
     },
     {

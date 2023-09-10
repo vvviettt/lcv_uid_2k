@@ -30,6 +30,8 @@ export type StackParams = {
   NewArrivals: undefined;
   Search: undefined;
   MyAccount: undefined;
+  OrderHistory: undefined;
+  OrderHistoryDetail: {key: string};
 };
 
 export type NavigatorScreenParams<

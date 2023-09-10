@@ -6,7 +6,7 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import React from 'react';
+import React, {useState} from 'react';
 import TextField from '../../TextField';
 import {colors} from '../../../constants/colors';
 import {yupResolver} from '@hookform/resolvers/yup';
@@ -16,6 +16,7 @@ import {OderFormProps} from './OderForm.type';
 import {checkout} from '../../../redux/slices/cart/cartSlice';
 import {useReduxDispatch, useReduxSelector} from '../../../redux/store';
 import {API_PROCESS} from '../../../redux/enum';
+import BouncyCheckbox from 'react-native-bouncy-checkbox';
 
 const schema = yup.object({
   email: yup.string().email('Email invalid.').required('Email is required.'),
@@ -26,6 +27,7 @@ const schema = yup.object({
 
 const OrderForm = () => {
   const {orderAutofill} = useReduxSelector(state => state.persist);
+  const [saveInfo, setSaveInfo] = useState(true);
   const {handleSubmit, control} = useForm<OderFormProps>({
     resolver: yupResolver(schema),
     defaultValues: {
@@ -37,7 +39,7 @@ const OrderForm = () => {
   });
   const dispatch = useReduxDispatch();
   const onSubmit = (data: OderFormProps) => {
-    dispatch(checkout(data));
+    dispatch(checkout({order: data, isSave: saveInfo}));
   };
   const {orderStatus} = useReduxSelector(state => state.cart);
   return (
@@ -92,6 +94,16 @@ const OrderForm = () => {
             />
           )}
         />
+        <BouncyCheckbox
+          size={18}
+          text="Save your info for next order"
+          textStyle={styles.checkbox}
+          fillColor={colors.greenBlue}
+          isChecked={saveInfo}
+          onPress={() => {
+            setSaveInfo(!saveInfo);
+          }}
+        />
         <View style={styles.container}>
           <TouchableOpacity onPress={handleSubmit(onSubmit)}>
             <View style={styles.orderBtnWrapper}>
@@ -120,6 +132,11 @@ const styles = StyleSheet.create({
     color: colors.mainTxt,
     fontWeight: '500',
     marginBottom: 20,
+  },
+  checkbox: {
+    fontSize: 15,
+    color: colors.mainTxt,
+    textDecorationLine: 'none',
   },
   container: {alignItems: 'flex-start', marginTop: 10},
   orderBtnWrapper: {

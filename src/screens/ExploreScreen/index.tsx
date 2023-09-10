@@ -157,7 +157,7 @@ const ExploreScreen = ({route}) => {
         },
       },
       {
-        text: 'Low to high price',
+        text: 'High to low price',
         filter: {
           isHightToLow: true,
         },
