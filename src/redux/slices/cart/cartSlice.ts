@@ -14,11 +14,11 @@ import {updateOrderAutofill} from '../persist/persistSlice';
 
 export const checkout = createAsyncThunk<
   any,
-  {order: OderFormProps; isSave: boolean},
+  {order: OderFormProps; isSave: boolean; type: number},
   {rejectValue: string}
 >(
   'cart/order',
-  async ({order, isSave}, {rejectWithValue, getState, dispatch}) => {
+  async ({order, isSave, type}, {rejectWithValue, getState, dispatch}) => {
     try {
       if (isSave) {
         dispatch(
@@ -26,7 +26,7 @@ export const checkout = createAsyncThunk<
             email: order.email,
             name: order.name,
             phone: order.phone,
-            address: order.address,
+            address: order.addressDetail,
           }),
         );
       }
@@ -39,7 +39,7 @@ export const checkout = createAsyncThunk<
         };
       });
 
-      return await checkoutAPI(order, products);
+      return await checkoutAPI(order, products, type);
     } catch (error) {
       return rejectWithValue((error as any).message);
     }

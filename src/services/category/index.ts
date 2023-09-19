@@ -90,12 +90,22 @@ export const checkoutAPI = async (
     color?: string;
     size?: string;
   }[],
+  type: number,
 ) => {
   try {
-    await httpClient.post(`${categoryEndPoint.order}`, {
-      others: checkoutInfo,
+    const rs = await httpClient.post(`${categoryEndPoint.order}`, {
+      others: {
+        ...checkoutInfo,
+        address: `${type === 2 ? 'Work address: ' : 'Home Address: '}Country: ${
+          checkoutInfo.country
+        }, City: ${checkoutInfo.city}, Area: ${checkoutInfo.area}, Detail: ${
+          checkoutInfo.addressDetail
+        }  `,
+      },
       items: products,
     });
+    console.log(rs);
+
     return;
     // return {products: res.data.results.data, totalRecord: res.data.totalRecord};
   } catch (error) {

@@ -28,6 +28,8 @@ const OrderHistory = () => {
     dispatch(getOrderHistory());
   }, []);
   const loadMore = () => {
+    console.log(orderPage, totalOrderPage);
+
     if (
       loadMoreHistoryOrderStatus !== API_PROCESS.LOADING &&
       orderPage < totalOrderPage
