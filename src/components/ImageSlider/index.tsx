@@ -1,20 +1,23 @@
-import {Dimensions, Image, ScrollView, StyleSheet, View} from 'react-native';
+import {Image, ScrollView, StyleSheet, View} from 'react-native';
 import React, {FC, useState} from 'react';
 import {ImageSliderProps} from './ImageSlider.type';
-import Carousel, {Pagination} from 'react-native-snap-carousel';
 import {colors} from '../../constants/colors';
 import convertHttp from '../../utils/convertHttp';
 import {TouchableWithoutFeedback} from 'react-native-gesture-handler';
 
 const ImageSlider: FC<ImageSliderProps> = ({images, wrapperStyle}) => {
   const [imageIndex, setImageIndex] = useState(0);
+  console.log(images);
 
   return (
     <View style={wrapperStyle}>
       {images.length > 0 && (
         <View style={styles.styleWrp}>
           <View style={styles.imageWrapper}>
-            <Image style={styles.image} source={{uri: images[imageIndex]}} />
+            <Image
+              style={styles.image}
+              source={{uri: convertHttp(images[imageIndex])}}
+            />
           </View>
           <ScrollView horizontal showsHorizontalScrollIndicator={false}>
             <View style={styles.scroll}>

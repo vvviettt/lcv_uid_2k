@@ -43,6 +43,7 @@ import SearchScreen from '../../screens/SearchScreen';
 import MyAccount from '../../screens/MyAccount';
 import OrderHistory from '../../screens/OrderHistory';
 import OrderDetail from '../../screens/OrderDetail';
+import AboutUs from '../../screens/AboutUs';
 
 const Stack = createNativeStackNavigator<StackParams>();
 const Tab = createBottomTabNavigator();
@@ -182,6 +183,30 @@ const RootNavigation: FC = () => {
           }}
           name="OrderHistoryDetail"
           component={OrderDetail}
+        />
+        <Stack.Screen
+          options={() => {
+            return {
+              headerTitle: 'About Us',
+              headerTitleAlign: 'center',
+              headerTitleStyle: {
+                color: colors.green,
+                fontSize: 20,
+                fontWeight: '500',
+              },
+              headerShadowVisible: false,
+              // headerBackVisible: false,
+              headerLeft: () => {
+                return (
+                  <TouchableOpacity onPress={() => NavigationService.goBack()}>
+                    <BackIcon />
+                  </TouchableOpacity>
+                );
+              },
+            };
+          }}
+          name="AboutUs"
+          component={AboutUs}
         />
         <Stack.Screen
           options={{

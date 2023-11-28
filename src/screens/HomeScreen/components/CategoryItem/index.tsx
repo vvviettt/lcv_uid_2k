@@ -58,8 +58,7 @@ const styles = StyleSheet.create({
   },
   nameWrapper: {
     width: '100%',
-    backgroundColor: '#000000',
-    opacity: 0.43,
+    backgroundColor: colors.green,
   },
   name: {
     textAlign: 'center',

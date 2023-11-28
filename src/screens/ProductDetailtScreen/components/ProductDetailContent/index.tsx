@@ -36,6 +36,7 @@ const ProductDetailContent: FC<ProductDetailContentProps> = ({product}) => {
       );
     }
   }, 500);
+
   return (
     <View style={styles.wrapper}>
       <View style={styles.nameContainer}>
@@ -77,7 +78,7 @@ const ProductDetailContent: FC<ProductDetailContentProps> = ({product}) => {
 
       {product?.sizes?.length && (
         <View style={styles.guideCtn}>
-          <Text style={styles.guideText}>Select size</Text>
+          <Text style={styles.guideText}>Select Ring Size</Text>
           <SelectDropdown
             onSelect={item => {
               setSize(item.value);
@@ -102,10 +103,10 @@ const ProductDetailContent: FC<ProductDetailContentProps> = ({product}) => {
       )}
       {!!product?.colors?.length && (
         <View style={styles.sizeWrapper}>
-          <Text style={styles.selectSizeText}>Colors</Text>
+          <Text style={styles.selectSizeText}>Gold Colors</Text>
           <View style={styles.listSizeWrapper}>
             <SelectDropdown
-              defaultButtonText="Select color"
+              defaultButtonText="Select gold color"
               onSelect={item => {
                 setColor(item.name);
               }}
@@ -198,7 +199,7 @@ const styles = StyleSheet.create({
   selectSizeText: {
     fontSize: 18,
     fontWeight: '500',
-    color: '#000',
+    color: colors.green,
   },
   listSizeWrapper: {
     flexDirection: 'row',
@@ -254,12 +255,12 @@ const styles = StyleSheet.create({
   },
   guideText: {
     fontSize: 18,
-    color: colors.mainTxt,
+    color: colors.green,
     fontWeight: '500',
   },
   buttonTextStyle: {
     textAlign: 'center',
-    color: '#020202',
+    color: colors.green,
     fontSize: 14,
   },
   rowTextStyle: {

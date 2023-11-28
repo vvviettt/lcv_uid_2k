@@ -32,6 +32,7 @@ export type StackParams = {
   MyAccount: undefined;
   OrderHistory: undefined;
   OrderHistoryDetail: {key: string};
+  AboutUs: undefined;
 };
 
 export type NavigatorScreenParams<

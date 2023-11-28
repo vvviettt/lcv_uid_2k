@@ -67,7 +67,9 @@ const SettingScreen = () => {
     },
     {
       name: 'About Us',
-      onPress: () => {},
+      onPress: () => {
+        NavigationService.push('AboutUs');
+      },
       icon: <Image style={{width: 20, height: 20}} source={AboutIcon} />,
     },
     {

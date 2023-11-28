@@ -20,7 +20,7 @@ const TermsOfServiceScreen = ({route}) => {
                 alahasdiamante.com
               </Text>{' '}
               will reach to your doorstep in a durable condition and in a
-              tamper- proof packing. Our courier partner is Fed-Ex and the
+              tamper-proof packing. Our courier partner is Fed-Ex and the
               shipping AWB no is provided after we ship the order via Email.
             </Text>
             <Text style={styles.title}>Shipping Charges</Text>
@@ -68,11 +68,9 @@ const TermsOfServiceScreen = ({route}) => {
 
             <Text style={styles.title}>Delivery Location:</Text>
             <Text style={styles.des}>
-              {'   '}Orders can be delivered only to Consignee / Recipient’s
-              Residential or Work Location or can be delivered to any nearby
-              Malabar Gold and Diamonds Showroom in India. The delivery of the
-              orders cannot be done at any public places like Mall, Hotel,
-              Restaurant, Hostel, on street etc.
+              {'   '}Orders can be delivered to only Residential, Commercial
+              Location only. The delivery of the orders cannot be done to any
+              public places like Mall, Hotel, Restaurant, Hostel, On Road etc.
             </Text>
             <Text style={styles.des}>
               {'   '}If at all the recipient is unavailable during the time of
@@ -101,8 +99,8 @@ const TermsOfServiceScreen = ({route}) => {
           <>
             <Text style={styles.title}>No Questions Asked Refund Policy</Text>
             <Text style={styles.des}>
-              {'   '} If the customer wishes to return our product, he/she can
-              do so within 14 days. We will ensure that the entire amount is
+              {'   '}If the customer wishes to return our product, he/she can do
+              so within 14 days. We will ensure that the entire amount is
               refunded to the customer’s account within 10 working days. Below
               mentioned conditions are applicable for refund.
             </Text>
@@ -113,7 +111,7 @@ const TermsOfServiceScreen = ({route}) => {
               days.
             </Text>
             <Text style={styles.des}>
-              {'   '} Refund request can be done by informing our customer care
+              {'   '}Refund request can be done by informing our customer care
               team via email or call. We will send you a reverse packing kit, in
               which you need to pack the product as it was delivered to you and
               ship the product back to us at your own cost. Once the product is
@@ -124,9 +122,9 @@ const TermsOfServiceScreen = ({route}) => {
               {'   '}This refund is subject to quality confirmation by our
               skilled quality assurance team and on verification that the
               packaging of the same is complete with all the documents like
-              insurance certificate, original invoice and product certificate
+              insurance certificate, original invoice and product certificate.
             </Text>
-            <Text style={styles.title}>Diamond And Precious Gem Jewelry</Text>
+            <Text style={styles.title}>Diamond and Precious Gem Jewelry</Text>
             <Text style={styles.des}>
               {'   '}Diamond and precious gem jewelry purchased from our online
               store can be exchanged through online in GCC countries. Below are
@@ -153,11 +151,11 @@ const TermsOfServiceScreen = ({route}) => {
             </Text>
             <Text style={styles.des}>
               {'     '}
-              In case of exchange with diamond and precious gem jeweler after 15
+              In case of exchange with diamond and precious gem jewelry after 15
               days, the price calculation for the returning item will be either
               (a) 80% of the total invoice value or (b) 100% of the prevailing
               gold price + 80% of prevailing diamond price, whichever (a or b)
-              is higher.
+              is higher.``
             </Text>
             <Text style={styles.list}>
               <Text style={styles.dot}>-</Text> {'  '}
