@@ -13,8 +13,6 @@ export const getProductCategory = async (
   filter?: any,
 ) => {
   try {
-    console.log(categoryId);
-
     const res = await httpClient.post(`${categoryEndPoint.getProducts}`, {
       page,
       categoryId,
@@ -152,5 +150,55 @@ export const getOrderHistoryDetailAPI = async (id: string) => {
       );
     }
     throw 'Unknown  error.';
+  }
+};
+
+export const createOrderApi = async (
+  checkoutInfo: OderFormProps,
+  products: {
+    productId: string;
+    quantity: string;
+    color?: string;
+    size?: string;
+  }[],
+  type: number,
+) => {
+  try {
+    const rs = await httpClient.post(`${categoryEndPoint.order}`, {
+      others: {
+        ...checkoutInfo,
+        address: `${type === 2 ? 'Work address: ' : 'Home Address: '}Country: ${
+          checkoutInfo.country
+        }, City: ${checkoutInfo.city}, Area: ${checkoutInfo.area}, Detail: ${
+          checkoutInfo.addressDetail
+        }  `,
+      },
+      items: products,
+    });
+
+    return rs.data?.results;
+    // return {products: res.data.results.data, totalRecord: res.data.totalRecord};
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      console.log(((error as AxiosError).response?.data as any) ?? '');
+    }
+    console.log('Unknown  error.');
+    return null;
+  }
+};
+
+export const confirmOrderAPI = async (
+  orderId: string,
+  paymentStatus: number,
+) => {
+  try {
+    console.log(orderId, paymentStatus);
+
+    const response = await httpClient.put(`/payment/${orderId}`, {
+      paymentStatus: paymentStatus,
+    });
+    console.log(response.data);
+  } catch (error) {
+    console.log('err', error);
   }
 };

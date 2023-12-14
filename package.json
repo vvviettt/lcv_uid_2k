@@ -12,6 +12,7 @@
   "dependencies": {
     "@gorhom/bottom-sheet": "^4.4.7",
     "@hookform/resolvers": "^3.2.0",
+    "@network-international/react-native-ngenius": "^2.0.4",
     "@react-native-async-storage/async-storage": "^1.19.1",
     "@react-native-community/checkbox": "^0.5.16",
     "@react-navigation/bottom-tabs": "^6.5.8",
@@ -53,7 +54,7 @@
     "@babel/preset-env": "^7.20.0",
     "@babel/runtime": "^7.20.0",
     "@react-native/eslint-config": "^0.72.2",
-    "@react-native/metro-config": "^0.72.9",
+    "@react-native/metro-config": "^0.73.2",
     "@tsconfig/react-native": "^3.0.0",
     "@types/react": "^18.0.24",
     "@types/react-test-renderer": "^18.0.0",

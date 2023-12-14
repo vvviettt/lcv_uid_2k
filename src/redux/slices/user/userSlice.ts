@@ -55,6 +55,9 @@ const userSlice = createSlice({
     logout: state => {
       state.user = undefined;
     },
+    saveOrderInfo: (state, {payload}) => {
+      state.orderInfo = payload;
+    },
   },
   extraReducers: builder => {
     builder.addCase(register.pending, state => {
@@ -81,5 +84,5 @@ const userSlice = createSlice({
   },
 });
 
-export const {clearStatus, logout} = userSlice.actions;
+export const {clearStatus, logout, saveOrderInfo} = userSlice.actions;
 export default userSlice.reducer;

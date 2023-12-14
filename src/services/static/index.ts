@@ -8,6 +8,8 @@ export const getCategories = async (
   page: number,
 ): Promise<{categories: ICategory[]}> => {
   try {
+    console.log('123');
+
     const res = await httpClient.get(`${staticEndpoint.getAll}/${page}/10`);
 
     return {categories: Object.values(res.data.results) as ICategory[]};
@@ -25,6 +27,7 @@ export const getBessSeller = async (
   page: number,
 ): Promise<{products: IProduct[]; totalRecord: number}> => {
   try {
+    console.log('123e34');
     const res = await httpClient.get(
       `${staticEndpoint.getBestSeller}/${page}/5`,
     );
@@ -33,6 +36,8 @@ export const getBessSeller = async (
       totalRecord: res.data.results.totalRecord as number,
     };
   } catch (error) {
+    console.log('ERR', error);
+
     if (axios.isAxiosError(error)) {
       throw Error(((error as AxiosError).response?.data as any)?.message ?? '');
     }
@@ -42,11 +47,13 @@ export const getBessSeller = async (
 
 export const getNewArrivals = async (): Promise<INewArrivals[]> => {
   try {
+    console.log('hello');
     const res = await httpClient.get(staticEndpoint.getNewArrivals);
-    console.log('hello', res.data);
+    console.log('111');
+
     return res.data.results.data as INewArrivals[];
   } catch (error) {
-    console.log((error as AxiosError).response?.data);
+    console.log('ERR', error);
 
     if (axios.isAxiosError(error)) {
       throw Error(((error as AxiosError).response?.data as any)?.message ?? '');

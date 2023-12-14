@@ -31,7 +31,10 @@ const ImageSlider: FC<ImageSliderProps> = ({images, wrapperStyle}) => {
                         styles.miniImgContainer,
                         index === imageIndex ? styles.active : {},
                       ]}>
-                      <Image style={styles.miniImg} source={{uri: image}} />
+                      <Image
+                        style={styles.miniImg}
+                        source={{uri: convertHttp(image)}}
+                      />
                     </View>
                   </TouchableWithoutFeedback>
                 );

@@ -146,7 +146,7 @@ const categorySlice = createSlice({
       });
     },
     clearCartForm: state => {
-      state.orderStatus = API_PROCESS.INITIAL;
+      state.products = [];
     },
   },
   extraReducers: builder => {

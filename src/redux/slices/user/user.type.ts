@@ -1,3 +1,4 @@
+import {OderFormProps} from '../../../components/forms/OderForm/OderForm.type';
 import {API_PROCESS} from '../../enum';
 
 export interface IUser {
@@ -11,4 +12,5 @@ export interface UserState {
   user?: IUser;
   loginStatus: API_PROCESS;
   registerStatus: API_PROCESS;
+  orderInfo?: OderFormProps;
 }

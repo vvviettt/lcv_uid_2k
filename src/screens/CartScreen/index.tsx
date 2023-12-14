@@ -15,18 +15,23 @@ import CartItem from './components/CartItem';
 import useCheckout from '../../hooks/useCheckout';
 import {convertPrice} from '../../utils/convertPrice';
 import {colors} from '../../constants/colors';
-
+// @ts-ignore
+import {
+  initiateCardPayment,
+  configureSDK,
+} from '@network-international/react-native-ngenius';
 import data from '../../assets/jsons/countries.json';
 import * as yup from 'yup';
 import {Controller, useForm} from 'react-hook-form';
 import {yupResolver} from '@hookform/resolvers/yup';
 import {OderFormProps} from '../../components/forms/OderForm/OderForm.type';
 import CheckBox from '@react-native-community/checkbox';
-import {checkout, clearCartForm} from '../../redux/slices/cart/cartSlice';
 import {API_PROCESS} from '../../redux/enum';
 import SelectDropdown from 'react-native-select-dropdown';
 import {Country} from './type';
 import {RadioGroup} from 'react-native-radio-buttons-group';
+import {confirmOrderAPI, createOrderApi} from '../../services/category';
+import {saveOrderInfo} from '../../redux/slices/user/userSlice';
 
 const schema = yup.object({
   email: yup.string().email('Email invalid.').required('Email is required.'),
@@ -39,10 +44,20 @@ const schema = yup.object({
 });
 
 const CartScreen = () => {
+  useEffect(() => {
+    configureSDK({
+      language: 'en',
+      shouldShowOrderAmount: true,
+    });
+  }, []);
+
   const dispatch = useReduxDispatch();
-  const {products, orderStatus} = useReduxSelector(state => state.cart);
-  const {user} = useReduxSelector(state => state.user);
+  const {products} = useReduxSelector(state => state.cart);
+  const {user, orderInfo} = useReduxSelector(state => state.user);
   const [saveInfo, setSaveInfo] = useState(true);
+  const [paymentStatus, setPaymentStatus] = useState<API_PROCESS>(
+    API_PROCESS.INITIAL,
+  );
   const [val, setVal] = useState(1);
   const [country, setCountry] = useState<Country>({
     name: 'United Arab Emirates',
@@ -51,36 +66,34 @@ const CartScreen = () => {
     emoji: '🇦🇪',
   });
   const {getTotalPrice, getVatCost, getSum} = useCheckout();
-  const {handleSubmit, control, formState, getValues, reset} =
-    useForm<OderFormProps>({
-      resolver: yupResolver(schema),
-      defaultValues: {
-        country: 'UAE',
-      },
-      reValidateMode: 'onChange',
-    });
+  const {control, formState, trigger, getValues} = useForm<OderFormProps>({
+    resolver: yupResolver(schema),
+    defaultValues: {
+      name: orderInfo?.name,
+      country: orderInfo?.country,
+      city: orderInfo?.city,
+      phone: orderInfo?.phone,
+      area: orderInfo?.phone,
+      addressDetail: orderInfo?.addressDetail,
+      email: orderInfo?.email,
+    },
+  });
 
-  const onSubmit = (data: OderFormProps) => {
-    dispatch(
-      checkout({
-        order: {...data, phone: `${country.dial_code}${data.phone}`},
-        isSave: false,
-        type: val,
-      }),
-    );
-  };
   useLayoutEffect(() => {
-    reset();
-    setVal(1);
+    getValues();
+    trigger();
   }, []);
 
   useEffect(() => {
-    if (orderStatus === API_PROCESS.SUCCESS) {
-      dispatch(clearCartForm());
+    if (paymentStatus === API_PROCESS.SUCCESS) {
       ToastAndroid.show('Order successfully! Thankyou ', ToastAndroid.LONG);
+    } else if (paymentStatus === API_PROCESS.FAIL) {
+      ToastAndroid.show(
+        'Order fail! Try it after few minute',
+        ToastAndroid.LONG,
+      );
     }
-  }, [orderStatus]);
-
+  }, [paymentStatus]);
   const display = useMemo(() => {
     return products.length > 0 ? 'flex' : 'none';
   }, [products]);
@@ -392,16 +405,44 @@ const CartScreen = () => {
           </Text>
         </View>
         <TouchableOpacity
-          onPress={() => {
+          onPress={async () => {
+            trigger();
+
             if (!user) {
               ToastAndroid.show('Please login to checkout', ToastAndroid.LONG);
               return;
             }
             if (products.length > 0) {
-              console.log(formState.isValid);
-
+              dispatch(saveOrderInfo(getValues()));
               if (formState.isValid) {
-                onSubmit(getValues());
+                // onSubmit(getValues());
+                try {
+                  setPaymentStatus(API_PROCESS.LOADING);
+                  const order = await createOrderApi(
+                    getValues(),
+                    products.map(product => {
+                      return {
+                        productId: product.product.id,
+                        quantity: `${product.quantity ?? 1}`,
+                        color: `${product.colors ?? ''}`,
+                        size: `${product.size ?? ''}`,
+                      };
+                    }),
+                    val,
+                  );
+                  const datas = order.order;
+                  console.log(order.data.id);
+                  await initiateCardPayment(datas);
+                  console.log('respo');
+
+                  confirmOrderAPI(order.data.id, 0);
+                  setPaymentStatus(API_PROCESS.SUCCESS);
+                } catch (error) {
+                  console.log('error', error);
+
+                  setPaymentStatus(API_PROCESS.FAIL);
+                }
+                return;
               } else {
                 ToastAndroid.show(
                   'Please check your information',
@@ -416,7 +457,7 @@ const CartScreen = () => {
             }
           }}>
           <View style={styles.checkoutBtn}>
-            {orderStatus === API_PROCESS.LOADING ? (
+            {paymentStatus === API_PROCESS.LOADING ? (
               <ActivityIndicator size={'small'} color={colors.white} />
             ) : (
               <Text style={styles.checkoutText}>Order</Text>
