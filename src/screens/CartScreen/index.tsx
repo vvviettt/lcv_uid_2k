@@ -32,6 +32,7 @@ import {Country} from './type';
 import {RadioGroup} from 'react-native-radio-buttons-group';
 import {confirmOrderAPI, createOrderApi} from '../../services/category';
 import {saveOrderInfo} from '../../redux/slices/user/userSlice';
+import {clearCartForm} from '../../redux/slices/cart/cartSlice';
 
 const schema = yup.object({
   email: yup.string().email('Email invalid.').required('Email is required.'),
@@ -86,6 +87,7 @@ const CartScreen = () => {
 
   useEffect(() => {
     if (paymentStatus === API_PROCESS.SUCCESS) {
+      dispatch(clearCartForm());
       ToastAndroid.show('Order successfully! Thankyou ', ToastAndroid.LONG);
     } else if (paymentStatus === API_PROCESS.FAIL) {
       ToastAndroid.show(
@@ -93,7 +95,7 @@ const CartScreen = () => {
         ToastAndroid.LONG,
       );
     }
-  }, [paymentStatus]);
+  }, [paymentStatus, dispatch]);
   const display = useMemo(() => {
     return products.length > 0 ? 'flex' : 'none';
   }, [products]);
@@ -433,7 +435,6 @@ const CartScreen = () => {
                   const datas = order.order;
                   console.log(order.data.id);
                   await initiateCardPayment(datas);
-                  console.log('respo');
 
                   confirmOrderAPI(order.data.id, 0);
                   setPaymentStatus(API_PROCESS.SUCCESS);

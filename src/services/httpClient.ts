@@ -1,7 +1,6 @@
 import axios from 'axios';
 import {httpConfig} from '../constants/http';
 import {getState} from '../redux/store';
-import jwtDecode from 'jwt-decode';
 
 const httpClient = axios.create({
   baseURL: httpConfig.BASE_URL,
@@ -13,6 +12,7 @@ httpClient.interceptors.request.use(async config => {
   if (token) {
     config.headers.Authorization = `Bearer ${token}`;
   }
+  console.log(token);
 
   return config;
 });

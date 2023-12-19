@@ -10,7 +10,9 @@ export const getCategories = async (
   try {
     console.log('123');
 
-    const res = await httpClient.get(`${staticEndpoint.getAll}/${page}/10`);
+    const res = await httpClient.get(
+      `${staticEndpoint.getAll}/${page}/10000000000000`,
+    );
 
     return {categories: Object.values(res.data.results) as ICategory[]};
   } catch (error) {

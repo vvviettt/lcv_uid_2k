@@ -12,6 +12,7 @@ export interface IProduct {
   count?: number;
   isLiked?: boolean;
   discount?: string;
+  type?: number;
   sizes: {
     key: string;
     value: string;
@@ -37,4 +38,5 @@ export interface CategoryState {
   wishListTotalRecord: number;
   wishlistCurrentPage: number;
   isWishlistLoadMore: API_PROCESS;
+  getProductDetailStatus: API_PROCESS;
 }

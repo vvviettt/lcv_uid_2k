@@ -88,7 +88,7 @@ import NavigationService from '../../../../config/stack/navigationService';
 import convertHttp from '../../../../utils/convertHttp';
 import {API_PROCESS} from '../../../../redux/enum';
 import LinearGradient from 'react-native-linear-gradient';
-import {selectProduct} from '../../../../redux/slices/category/categorySlice';
+import {getProductDetailThunk} from '../../../../redux/slices/category/categorySlice';
 
 const Categories = () => {
   const {categories} = useReduxSelector(state => state.static);
@@ -153,7 +153,7 @@ const Categories = () => {
               <TouchableWithoutFeedback
                 key={index}
                 onPress={() => {
-                  dispatch(selectProduct({product: item}));
+                  dispatch(getProductDetailThunk({productId: item.id}));
                   NavigationService.push('ProductDetail', {
                     productId: item.id,
                   });

@@ -6,6 +6,7 @@ export interface OrderDetailItemProduct {
   quantity: number;
   colors: string;
   sizes: string;
+  discount?: string;
 }
 
 export interface OrderDetailItem {

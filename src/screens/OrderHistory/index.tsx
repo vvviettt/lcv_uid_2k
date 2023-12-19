@@ -5,7 +5,7 @@ import {
   Text,
   View,
 } from 'react-native';
-import React, {useLayoutEffect} from 'react';
+import React, {useLayoutEffect, useMemo} from 'react';
 import {useReduxDispatch, useReduxSelector} from '../../redux/store';
 import {
   getOrderHistory,
@@ -37,6 +37,14 @@ const OrderHistory = () => {
       dispatch(loadMoreOrderHistory());
     }
   };
+
+  const sortOrder = useMemo(() => {
+    return (
+      [...orders]?.sort((a, b) => (a.createDate < b.createDate ? 1 : -1)) ?? []
+    );
+  }, [orders]);
+  console.log(sortOrder);
+
   return (
     <View style={styles.wrapper}>
       {historyOrderStatus === API_PROCESS.LOADING ? (
@@ -45,7 +53,7 @@ const OrderHistory = () => {
         </View>
       ) : (
         <FlatList
-          data={orders}
+          data={sortOrder}
           renderItem={order => {
             return <OrderItem order={order.item} />;
           }}

@@ -12,7 +12,10 @@ import getDiscount from '../../utils/getDiscount';
 import {TouchableWithoutFeedback} from 'react-native-gesture-handler';
 import NavigationService from '../../config/stack/navigationService';
 import {useReduxDispatch} from '../../redux/store';
-import {selectProduct} from '../../redux/slices/category/categorySlice';
+import {
+  getProductDetailThunk,
+  selectProduct,
+} from '../../redux/slices/category/categorySlice';
 import {addToCart} from '../../redux/slices/cart/cartSlice';
 import TabNavigation from '../../config/stack/tabNavigationService';
 
@@ -61,7 +64,7 @@ const FullWidthProductItem: FC<FullWidthProductItemProps> = ({
   return (
     <TouchableWithoutFeedback
       onPress={() => {
-        dispatch(selectProduct({product: product}));
+        dispatch(getProductDetailThunk({productId: product.id}));
         NavigationService.push('ProductDetail', {
           productId: '',
         });

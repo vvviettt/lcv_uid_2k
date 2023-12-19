@@ -10,7 +10,7 @@ import {BestSellerItemProps} from './BestSeller.type';
 import {colors} from '../../../../constants/colors';
 import CartIcon from '../../../../assets/svgs/cart_white.svg';
 import {useReduxDispatch} from '../../../../redux/store';
-import {selectProduct} from '../../../../redux/slices/category/categorySlice';
+import {getProductDetailThunk} from '../../../../redux/slices/category/categorySlice';
 import NavigationService from '../../../../config/stack/navigationService';
 import useAddToCart from '../../../../hooks/useAddToCart';
 import convertHttp from '../../../../utils/convertHttp';
@@ -23,7 +23,7 @@ const BestSellerItem: FC<BestSellerItemProps> = ({object}) => {
   return (
     <TouchableWithoutFeedback
       onPress={() => {
-        dispatch(selectProduct({product: object}));
+        dispatch(getProductDetailThunk({productId: object.id}));
         NavigationService.push('ProductDetail', {productId: object.id});
       }}>
       <View style={styles.wrapper}>

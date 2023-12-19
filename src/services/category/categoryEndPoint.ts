@@ -6,6 +6,7 @@ const categoryEndPoint = {
   order: '/order/save',
   historyOrder: '/order/get-all-orders',
   historyOrderDetail: '/order/get-order-detail',
+  getProductDetail: 'mobile/get-product-detail',
 };
 
 export default categoryEndPoint;

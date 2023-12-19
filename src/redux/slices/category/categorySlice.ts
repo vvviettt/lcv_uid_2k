@@ -8,6 +8,7 @@ import {
   likeOrUnlikeApi,
 } from '../../../services/category';
 import {RootState} from '../../store';
+import {getProductDetail} from '../../../services/category/index';
 
 export const chooseCategory = createAsyncThunk<
   any,
@@ -92,6 +93,21 @@ export const getMoreWishList = createAsyncThunk<
   }
 });
 
+export const getProductDetailThunk = createAsyncThunk<
+  any,
+  {productId: string},
+  {
+    rejectValue: string;
+  }
+>('/product/detail', async ({productId}, {rejectWithValue}) => {
+  const product = await getProductDetail(productId);
+  if (product) {
+    return product;
+  }
+
+  return rejectWithValue('Error');
+});
+
 const initialState: CategoryState = {
   categorySelectedId: '',
   categorySelected: undefined,
@@ -107,15 +123,16 @@ const initialState: CategoryState = {
   wishList: [],
   wishListId: [],
   getWishListStatus: API_PROCESS.INITIAL,
+  getProductDetailStatus: API_PROCESS.INITIAL,
 };
 
 const categorySlice = createSlice({
   name: 'category',
   initialState,
   reducers: {
-    selectProduct: (state, action: PayloadAction<{product: IProduct}>) => {
-      state.productSelected = action.payload.product;
-    },
+    // selectProduct: (state, action: PayloadAction<{product: IProduct}>) => {
+    //   state.productSelected = action.payload.product;
+    // },
   },
   extraReducers: builder => {
     builder.addCase(chooseCategory.pending, (state, action) => {
@@ -232,8 +249,20 @@ const categorySlice = createSlice({
     builder.addCase(getMoreWishList.rejected, state => {
       state.isWishlistLoadMore = API_PROCESS.FAIL;
     });
+    builder.addCase(getProductDetailThunk.pending, state => {
+      state.getProductDetailStatus = API_PROCESS.LOADING;
+      state.productSelected = undefined;
+    });
+
+    builder.addCase(getProductDetailThunk.rejected, state => {
+      state.getProductDetailStatus = API_PROCESS.FAIL;
+    });
+    builder.addCase(getProductDetailThunk.fulfilled, (state, payload) => {
+      state.getProductDetailStatus = API_PROCESS.SUCCESS;
+      state.productSelected = payload.payload;
+    });
   },
 });
 
-export const {selectProduct} = categorySlice.actions;
+export const {} = categorySlice.actions;
 export default categorySlice.reducer;

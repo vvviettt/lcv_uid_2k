@@ -1,4 +1,4 @@
-import {ScrollView, SafeAreaView} from 'react-native';
+import {ScrollView, SafeAreaView, ActivityIndicator} from 'react-native';
 import React from 'react';
 import Header from '../../components/Header';
 import ImageSlider from '../../components/ImageSlider';
@@ -7,13 +7,23 @@ import {colors} from '../../constants/colors';
 import ProductDetailContent from './components/ProductDetailContent';
 import Media from '../../components/Media';
 import {View} from 'react-native';
+import {API_PROCESS} from '../../redux/enum';
 
 const ProductDetail = () => {
-  const {productSelected} = useReduxSelector(state => state.category);
+  const {productSelected, getListProductsStatus} = useReduxSelector(
+    state => state.category,
+  );
+  console.log(productSelected?.discount);
+
   return (
     <SafeAreaView style={{paddingBottom: 68}}>
       <Header />
       <ScrollView>
+        {getListProductsStatus === API_PROCESS.LOADING && (
+          <View style={{width: '100%', paddingTop: 300}}>
+            <ActivityIndicator size="large" color={colors.greenBlue} />
+          </View>
+        )}
         {productSelected && (
           <>
             <ImageSlider

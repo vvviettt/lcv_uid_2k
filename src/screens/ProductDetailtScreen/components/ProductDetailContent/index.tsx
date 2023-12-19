@@ -78,7 +78,9 @@ const ProductDetailContent: FC<ProductDetailContentProps> = ({product}) => {
 
       {product?.sizes?.length && (
         <View style={styles.guideCtn}>
-          <Text style={styles.guideText}>Select Ring Size</Text>
+          <Text style={styles.guideText}>
+            {product.type === 1 ? 'Select Chain Length' : 'Select Ring Size'}
+          </Text>
           <SelectDropdown
             onSelect={item => {
               setSize(item.value);

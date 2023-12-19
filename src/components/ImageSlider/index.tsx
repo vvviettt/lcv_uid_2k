@@ -4,21 +4,33 @@ import {ImageSliderProps} from './ImageSlider.type';
 import {colors} from '../../constants/colors';
 import convertHttp from '../../utils/convertHttp';
 import {TouchableWithoutFeedback} from 'react-native-gesture-handler';
+import ImageView from 'react-native-image-viewing';
 
 const ImageSlider: FC<ImageSliderProps> = ({images, wrapperStyle}) => {
   const [imageIndex, setImageIndex] = useState(0);
-  console.log(images);
-
+  const [visible, setIsVisible] = useState(false);
   return (
     <View style={wrapperStyle}>
+      <ImageView
+        images={images.map(item => ({uri: convertHttp(item)}))}
+        imageIndex={imageIndex}
+        visible={visible}
+        onRequestClose={() => setIsVisible(false)}
+        backgroundColor={colors.green}
+      />
       {images.length > 0 && (
         <View style={styles.styleWrp}>
-          <View style={styles.imageWrapper}>
-            <Image
-              style={styles.image}
-              source={{uri: convertHttp(images[imageIndex])}}
-            />
-          </View>
+          <TouchableWithoutFeedback
+            onPress={() => {
+              setIsVisible(true);
+            }}>
+            <View style={styles.imageWrapper}>
+              <Image
+                style={styles.image}
+                source={{uri: convertHttp(images[imageIndex])}}
+              />
+            </View>
+          </TouchableWithoutFeedback>
           <ScrollView horizontal showsHorizontalScrollIndicator={false}>
             <View style={styles.scroll}>
               {images.map((image, index) => {

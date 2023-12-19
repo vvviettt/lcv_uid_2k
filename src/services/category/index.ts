@@ -65,7 +65,7 @@ export const likeOrUnlikeApi = async (productId: string) => {
 export const getWishListApi = async (page: number) => {
   try {
     const res = await httpClient.get(
-      `${categoryEndPoint.getWishList}/${page}/10`,
+      `${categoryEndPoint.getWishList}/${page}/10000000000`,
     );
 
     return {
@@ -117,7 +117,7 @@ export const checkoutAPI = async (
 export const getOrderHistoryAPI = async (page?: number) => {
   try {
     const res = await httpClient.get(
-      `${categoryEndPoint.historyOrder}/${page ?? 1}/10`,
+      `${categoryEndPoint.historyOrder}/${page ?? 1}/10000000000000`,
     );
     return {
       data: res.data.results.data as OrderHistoryItem,
@@ -200,5 +200,18 @@ export const confirmOrderAPI = async (
     console.log(response.data);
   } catch (error) {
     console.log('err', error);
+  }
+};
+
+export const getProductDetail = async (productId: string) => {
+  try {
+    const response = await httpClient.get(
+      `${categoryEndPoint.getProductDetail}/${productId}`,
+    );
+    console.log('Product Detail: ', response.data?.results?.['0']);
+
+    return response.data?.results?.['0'];
+  } catch (error) {
+    return null;
   }
 };

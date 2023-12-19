@@ -1,15 +1,26 @@
-import {ActivityIndicator, Image, StyleSheet, Text, View} from 'react-native';
+import {
+  ActivityIndicator,
+  Image,
+  StyleSheet,
+  Text,
+  TouchableWithoutFeedback,
+  View,
+} from 'react-native';
 import React from 'react';
-import {useReduxSelector} from '../../redux/store';
+import {useReduxDispatch, useReduxSelector} from '../../redux/store';
 import {API_PROCESS} from '../../redux/enum';
 import {colors} from '../../constants/colors';
 import {convertPrice} from '../../utils/convertPrice';
+import NavigationService from '../../config/stack/navigationService';
+import {getProductDetailThunk} from '../../redux/slices/category/categorySlice';
+import getDiscount from '../../utils/getDiscount';
 
 const OrderDetail = () => {
   const {historyOrderDetailStatus, orderDetail} = useReduxSelector(
     state => state.cart,
   );
-  console.log(orderDetail);
+  const dispatch = useReduxDispatch();
+  console.log(orderDetail?.detail);
 
   return (
     <View style={styles.wrapper}>
@@ -36,13 +47,28 @@ const OrderDetail = () => {
               </View>
             )}
           </View>
+
           <Text style={styles.title}>Order information</Text>
           {orderDetail.detail.map((item, index) => {
             return (
               <View style={styles.orderItem} key={index}>
-                <View style={styles.imgWrapper}>
-                  <Image style={styles.img} source={{uri: item.imageUrl}} />
-                </View>
+                <TouchableWithoutFeedback
+                  onPress={() => {
+                    dispatch(
+                      getProductDetailThunk({
+                        productId: item.id,
+                      }),
+                    );
+                    console.log(item.id);
+
+                    NavigationService.push('ProductDetail', {
+                      productId: item.id,
+                    });
+                  }}>
+                  <View style={styles.imgWrapper}>
+                    <Image style={styles.img} source={{uri: item.imageUrl}} />
+                  </View>
+                </TouchableWithoutFeedback>
                 <View style={styles.content}>
                   <Text
                     ellipsizeMode="tail"
@@ -60,10 +86,23 @@ const OrderDetail = () => {
                     style={{
                       flexDirection: 'row',
                       justifyContent: 'space-between',
+                      alignItems: 'flex-end',
                     }}>
-                    <Text style={styles.price}>
-                      {convertPrice(item.price)} AED
-                    </Text>
+                    <View>
+                      <Text style={[styles.price]}>
+                        {getDiscount(Number(item.price), item.discount)} AED
+                      </Text>
+                      {item.discount && (
+                        <Text
+                          style={[
+                            styles.price,
+                            {textDecorationLine: 'line-through'},
+                          ]}>
+                          {convertPrice(item.price)} AED
+                        </Text>
+                      )}
+                    </View>
+
                     <Text style={styles.price}>No.{item.quantity}</Text>
                   </View>
                 </View>

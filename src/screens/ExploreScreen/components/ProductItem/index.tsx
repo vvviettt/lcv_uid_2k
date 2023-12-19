@@ -9,8 +9,8 @@ import {convertPrice} from '../../../../utils/convertPrice';
 import NavigationService from '../../../../config/stack/navigationService';
 import {useReduxDispatch, useReduxSelector} from '../../../../redux/store';
 import {
+  getProductDetailThunk,
   likeOrUnlike,
-  selectProduct,
 } from '../../../../redux/slices/category/categorySlice';
 import convertHttp from '../../../../utils/convertHttp';
 import {ToastAndroid} from 'react-native';
@@ -22,7 +22,7 @@ const ProductItem: FC<ProductItemProps> = ({product, addWishListHandle}) => {
   return (
     <TouchableWithoutFeedback
       onPress={() => {
-        dispatch(selectProduct({product: product}));
+        dispatch(getProductDetailThunk({productId: product.id}));
         NavigationService.push('ProductDetail', {productId: product.id});
       }}>
       <View style={styles.wrapper}>
