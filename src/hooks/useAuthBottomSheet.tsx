@@ -10,9 +10,11 @@ import {useEffect, useRef} from 'react';
 import {useReduxDispatch, useReduxSelector} from '../redux/store';
 import {clearStatus} from '../redux/slices/user/userSlice';
 import {API_PROCESS} from '../redux/enum';
+import ForgotPasswordForm from '../components/forms/ForgotPasswordForm';
 
 export default function useAuthBottomSheet(ref: any) {
   const registerRef = useRef<BottomSheetModal>(null);
+  const forgotRef = useRef<BottomSheetModal>(null);
   const {dismissAll: dismissAllModals} = useBottomSheetModal();
   const dispatch = useReduxDispatch();
   const {registerStatus} = useReduxSelector(state => state.user);
@@ -38,11 +40,19 @@ export default function useAuthBottomSheet(ref: any) {
     registerRef.current?.present({duration: 500});
   };
 
+  const openForgotSheet = () => {
+    forgotRef.current?.present({duration: 500});
+  };
+
   const closeLoginSheet = () => {
     ref.current?.forceClose({duration: 500});
   };
   const closeRegisterSheet = () => {
     registerRef.current?.forceClose({duration: 500});
+  };
+
+  const closeForgotSheet = () => {
+    forgotRef.current?.forceClose({duration: 500});
   };
 
   const renderLogin = () => {
@@ -56,11 +66,7 @@ export default function useAuthBottomSheet(ref: any) {
         onDismiss={() => {
           dismissAllModals();
         }}
-        handleStyle={{
-          backgroundColor: colors.green,
-          borderTopEndRadius: 12,
-          borderTopStartRadius: 12,
-        }}>
+        handleStyle={styles.handleStyle}>
         <ScrollView
           showsVerticalScrollIndicator={false}
           keyboardDismissMode="interactive">
@@ -70,7 +76,12 @@ export default function useAuthBottomSheet(ref: any) {
               <View>
                 <Text style={styles.signInText}>Sign In</Text>
                 <Text style={styles.welcome}>Welcome back</Text>
-                <LoginForm />
+                <LoginForm
+                  onForgotClick={() => {
+                    closeLoginSheet();
+                    openForgotSheet();
+                  }}
+                />
                 <View style={styles.signUpWrp}>
                   <Text style={styles.question}>Don't have an account ?</Text>
                   <TouchableOpacity
@@ -96,11 +107,7 @@ export default function useAuthBottomSheet(ref: any) {
         ref={registerRef}
         index={1}
         snapPoints={snapPoints}
-        handleStyle={{
-          backgroundColor: colors.green,
-          borderTopEndRadius: 12,
-          borderTopStartRadius: 12,
-        }}>
+        handleStyle={styles.handleStyle}>
         <ScrollView
           showsVerticalScrollIndicator={false}
           keyboardDismissMode="interactive">
@@ -115,6 +122,49 @@ export default function useAuthBottomSheet(ref: any) {
                   <TouchableOpacity
                     onPress={() => {
                       closeRegisterSheet();
+                      closeForgotSheet();
+                      //   openLoginSheet();
+                    }}>
+                    <Text style={styles.signUp}>Sign in</Text>
+                  </TouchableOpacity>
+                </View>
+              </View>
+            </View>
+          </View>
+        </ScrollView>
+      </BottomSheetModal>
+    );
+  };
+
+  const renderForgotPassword = () => {
+    const snapPoints = ['95%', '95%'];
+
+    return (
+      <BottomSheetModal
+        ref={forgotRef}
+        index={1}
+        snapPoints={snapPoints}
+        handleStyle={styles.handleStyle}>
+        <ScrollView
+          showsVerticalScrollIndicator={false}
+          keyboardDismissMode="interactive">
+          <View style={styles.wrapper}>
+            <Image style={styles.imgBg} source={loginBg} />
+            <View style={styles.formWrapper}>
+              <View>
+                <Text style={styles.signInText}>Forgot Password</Text>
+                <ForgotPasswordForm
+                  handleSuccess={() => {
+                    closeForgotSheet();
+                    // openLoginSheet();
+                  }}
+                />
+                <View style={styles.signUpWrp}>
+                  <Text style={styles.question}>Already have an account ?</Text>
+                  <TouchableOpacity
+                    onPress={() => {
+                      closeRegisterSheet();
+                      closeForgotSheet();
                       //   openLoginSheet();
                     }}>
                     <Text style={styles.signUp}>Sign in</Text>
@@ -133,6 +183,7 @@ export default function useAuthBottomSheet(ref: any) {
     closeAll,
     renderRegister,
     openLoginSheet,
+    renderForgotPassword,
   };
 }
 const styles = StyleSheet.create({
@@ -177,5 +228,10 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: colors.greenBlue,
     fontWeight: '700',
+  },
+  handleStyle: {
+    backgroundColor: colors.green,
+    borderTopEndRadius: 12,
+    borderTopStartRadius: 12,
   },
 });

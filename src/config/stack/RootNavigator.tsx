@@ -50,15 +50,6 @@ const Tab = createBottomTabNavigator();
 
 const RootNavigation: FC = () => {
   const {user} = useReduxSelector(state => state.user);
-  const dispatch = useReduxDispatch();
-  useEffect(() => {
-    if (user?.token) {
-      const {exp} = jwtDecode(user.token);
-      if (exp < (new Date().getTime() + 1) / 1000) {
-        dispatch(logout());
-      }
-    }
-  }, []);
   const navigationRef = useRef<NavigationContainerRef<StackParams>>(null);
   NavigationService.initialize(navigationRef);
   const MyTheme = {

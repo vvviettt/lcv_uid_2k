@@ -13,6 +13,7 @@ export interface CartState {
   historyOrderDetailStatus: API_PROCESS;
   orderPage: number;
   totalOrderPage: number;
+  cancelOrderStatus: API_PROCESS;
 }
 
 export interface CartItem {

@@ -1,42 +1,66 @@
-import {View, Text, StyleSheet, ActivityIndicator} from 'react-native';
-import React, {FC} from 'react';
+import {
+  View,
+  Text,
+  StyleSheet,
+  ActivityIndicator,
+  ToastAndroid,
+} from 'react-native';
+import React, {FC, useState} from 'react';
 import TextField from '../../TextField';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import {colors} from '../../../constants/colors';
 import {yupResolver} from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import {Controller, useForm} from 'react-hook-form';
-import {useReduxDispatch, useReduxSelector} from '../../../redux/store';
-import {LoginFormField} from './LoginForm.type';
-import {API_PROCESS} from '../../../redux/enum';
-import {login} from '../../../redux/slices/user/userSlice';
+import {forgotPassword} from '../../../services/user';
 
 const schema = yup.object({
   email: yup.string().email('Email invalid.').required('Email is required.'),
-  password: yup.string().required('Password is required.'),
 });
 
-interface LoginFormProps {
-  onForgotClick?: () => void;
+interface ForgotPasswordFormProps {
+  handleSuccess?: () => void;
 }
-
-const LoginForm: FC<LoginFormProps> = ({onForgotClick}) => {
-  const dispatch = useReduxDispatch();
-  const {loginStatus} = useReduxSelector(state => state.user);
-  const {handleSubmit, control} = useForm<LoginFormField>({
+const ForgotPasswordForm: FC<ForgotPasswordFormProps> = ({handleSuccess}) => {
+  const [isLoading, setIsLoading] = useState(false);
+  const {handleSubmit, control, reset} = useForm({
     resolver: yupResolver(schema),
   });
-  const onSubmit = (data: LoginFormField) => {
-    dispatch(login(data));
+  const onSubmit = (data: any) => {
+    if (data?.email) {
+      setIsLoading(true);
+      forgotPassword({email: data?.email})
+        .then(() => {
+          reset();
+          handleSuccess?.();
+          ToastAndroid.show(
+            'The new password has been sent to your email.',
+            ToastAndroid.SHORT,
+          );
+        })
+        .catch(e => {
+          ToastAndroid.show(
+            'Reset password fail! Try after few minute ',
+            ToastAndroid.SHORT,
+          );
+        })
+        .finally(() => {
+          setIsLoading(false);
+        });
+      return;
+    }
+    ToastAndroid.show('Data is invalid', ToastAndroid.SHORT);
   };
+
   return (
     <View style={styles.wrapper}>
       <Controller
         name={'email'}
         control={control}
-        render={({field: {onChange}, fieldState: {error}}) => {
+        render={({field: {onChange, value}, fieldState: {error}}) => {
           return (
             <TextField
+              value={value}
               placeholder="Email"
               error={error?.message}
               onTextChange={onChange}
@@ -44,41 +68,22 @@ const LoginForm: FC<LoginFormProps> = ({onForgotClick}) => {
           );
         }}
       />
-      <Controller
-        name={'password'}
-        control={control}
-        render={({field: {onChange}, fieldState: {error}}) => {
-          return (
-            <TextField
-              placeholder="Password"
-              isHidden
-              error={error?.message}
-              onTextChange={onChange}
-            />
-          );
-        }}
-      />
       <View style={styles.ctn}>
-        <TouchableOpacity
-          onPress={handleSubmit(onSubmit)}
-          disabled={loginStatus === API_PROCESS.LOADING}>
+        <TouchableOpacity onPress={handleSubmit(onSubmit)} disabled={isLoading}>
           <View style={styles.btnWrp}>
-            {loginStatus === API_PROCESS.LOADING ? (
+            {isLoading ? (
               <ActivityIndicator size={'small'} color={colors.white} />
             ) : (
-              <Text style={styles.btnText}>Sign In</Text>
+              <Text style={styles.btnText}>Reset Password</Text>
             )}
           </View>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={onForgotClick?.bind(this)}>
-          <Text style={styles.forgotPassword}>Forgot password ?</Text>
         </TouchableOpacity>
       </View>
     </View>
   );
 };
 
-export default LoginForm;
+export default ForgotPasswordForm;
 
 const styles = StyleSheet.create({
   wrapper: {

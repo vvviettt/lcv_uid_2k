@@ -1,13 +1,13 @@
 export const getShippingStatus = (status: number) => {
   switch (status) {
     case 1:
-      return 'Checking';
+      return 'Confirmed';
     case 2:
-      return 'Shipping';
+      return 'ON DELIVERY';
     case 3:
-      return 'Completed';
+      return 'DELIVERIED';
     case 4:
-      return 'cancel';
+      return 'canceled';
     default:
       return 'Unknown';
   }

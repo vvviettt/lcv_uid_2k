@@ -143,8 +143,8 @@ const CartScreen = () => {
                   <Text style={styles.freeShip}>Free Shipping</Text>
                 </View>
                 <Text style={styles.shippingNote}>
-                  ( * All local order for UAE will be shipped in 4-5 days and
-                  7-10 days for international orders)
+                  ( * All local order for UAE will be shipped in 6-7 days and
+                  1-2 weeks for international orders)
                 </Text>
               </View>
               <View
@@ -416,7 +416,7 @@ const CartScreen = () => {
             }
             if (products.length > 0) {
               dispatch(saveOrderInfo(getValues()));
-              if (formState.isValid) {
+              if (await schema.validate(getValues())) {
                 // onSubmit(getValues());
                 try {
                   setPaymentStatus(API_PROCESS.LOADING);
@@ -435,8 +435,7 @@ const CartScreen = () => {
                   const datas = order.order;
                   console.log(order.data.id);
                   await initiateCardPayment(datas);
-
-                  confirmOrderAPI(order.data.id, 0);
+                  await confirmOrderAPI(order.data.id, 0);
                   setPaymentStatus(API_PROCESS.SUCCESS);
                 } catch (error) {
                   console.log('error', error);

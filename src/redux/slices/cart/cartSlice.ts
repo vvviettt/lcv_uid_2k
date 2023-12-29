@@ -3,6 +3,7 @@ import {CartState} from './cart.type';
 import {IProduct} from '../category/category.type';
 import {OderFormProps} from '../../../components/forms/OderForm/OderForm.type';
 import {
+  cancelOrderAPI,
   checkoutAPI,
   getOrderHistoryAPI,
   getOrderHistoryDetailAPI,
@@ -83,6 +84,18 @@ export const getOrderHistoryDetail = createAsyncThunk<
   }
 });
 
+export const cancelOrderDetail = createAsyncThunk<
+  any,
+  {id: string},
+  {rejectValue: string}
+>('cart/cancel-order', async ({id}, {rejectWithValue}) => {
+  try {
+    return await cancelOrderAPI(id);
+  } catch (error) {
+    return rejectWithValue((error as any).message);
+  }
+});
+
 const initialState: CartState = {
   products: [],
   orderStatus: API_PROCESS.INITIAL,
@@ -92,6 +105,7 @@ const initialState: CartState = {
   orderPage: 1,
   totalOrderPage: 1,
   loadMoreHistoryOrderStatus: API_PROCESS.INITIAL,
+  cancelOrderStatus: API_PROCESS.INITIAL,
 };
 
 const categorySlice = createSlice({
@@ -209,6 +223,28 @@ const categorySlice = createSlice({
       state.orderDetail = undefined;
       ToastAndroid.show(
         payload ?? 'Order fail! Please try again after.',
+        ToastAndroid.LONG,
+      );
+    });
+
+    builder.addCase(cancelOrderDetail.pending, state => {
+      state.cancelOrderStatus = API_PROCESS.LOADING;
+    });
+    builder.addCase(cancelOrderDetail.fulfilled, (state, {payload}) => {
+      state.cancelOrderStatus = API_PROCESS.SUCCESS;
+      state.orders = state.orders.map(order => {
+        if (order.id === payload.id) {
+          return payload;
+        }
+        return order;
+      });
+
+      // state.orderDetail = payload;
+    });
+    builder.addCase(cancelOrderDetail.rejected, (state, {payload}) => {
+      state.cancelOrderStatus = API_PROCESS.FAIL;
+      ToastAndroid.show(
+        payload ?? 'Cancel fail! Please try again after.',
         ToastAndroid.LONG,
       );
     });

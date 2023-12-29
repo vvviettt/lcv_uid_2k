@@ -153,6 +153,25 @@ export const getOrderHistoryDetailAPI = async (id: string) => {
   }
 };
 
+export const cancelOrderAPI = async (id: string) => {
+  try {
+    console.log(id);
+
+    const res = await httpClient.put(`/order/${id}/cancel`);
+
+    return res.data.results as OrderHistoryItem;
+    // return {products: res.data.results.data, totalRecord: res.data.totalRecord};
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      throw (
+        ((error as AxiosError).response?.data as any)?.message ??
+        'Unknown  error'
+      );
+    }
+    throw 'Unknown  error.';
+  }
+};
+
 export const createOrderApi = async (
   checkoutInfo: OderFormProps,
   products: {
@@ -194,12 +213,11 @@ export const confirmOrderAPI = async (
   try {
     console.log(orderId, paymentStatus);
 
-    const response = await httpClient.put(`/payment/${orderId}`, {
+    return await httpClient.put(`/payment/${orderId}`, {
       paymentStatus: paymentStatus,
     });
-    console.log(response.data);
   } catch (error) {
-    console.log('err', error);
+    throw error;
   }
 };
 

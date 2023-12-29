@@ -19,8 +19,13 @@ import {colors} from '../../constants/colors';
 
 const WishlistScreen = ({navigation}) => {
   const ref = useRef<BottomSheetModal>(null);
-  const {renderLogin, openLoginSheet, renderRegister, closeAll} =
-    useAuthBottomSheet(ref);
+  const {
+    renderLogin,
+    openLoginSheet,
+    renderRegister,
+    closeAll,
+    renderForgotPassword,
+  } = useAuthBottomSheet(ref);
   const {user} = useReduxSelector(state => state.user);
   const {
     getWishListStatus,
@@ -111,6 +116,7 @@ const WishlistScreen = ({navigation}) => {
       </ScrollView>
       {renderRegister()}
       {renderLogin()}
+      {renderForgotPassword()}
     </View>
   );
 };

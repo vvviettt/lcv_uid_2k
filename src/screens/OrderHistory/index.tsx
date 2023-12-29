@@ -8,6 +8,7 @@ import {
 import React, {useLayoutEffect, useMemo} from 'react';
 import {useReduxDispatch, useReduxSelector} from '../../redux/store';
 import {
+  cancelOrderDetail,
   getOrderHistory,
   loadMoreOrderHistory,
 } from '../../redux/slices/cart/cartSlice';
@@ -23,13 +24,12 @@ const OrderHistory = () => {
     loadMoreHistoryOrderStatus,
     totalOrderPage,
     orderPage,
+    cancelOrderStatus,
   } = useReduxSelector(state => state.cart);
   useLayoutEffect(() => {
     dispatch(getOrderHistory());
-  }, []);
+  }, [dispatch]);
   const loadMore = () => {
-    console.log(orderPage, totalOrderPage);
-
     if (
       loadMoreHistoryOrderStatus !== API_PROCESS.LOADING &&
       orderPage < totalOrderPage
@@ -43,7 +43,12 @@ const OrderHistory = () => {
       [...orders]?.sort((a, b) => (a.createDate < b.createDate ? 1 : -1)) ?? []
     );
   }, [orders]);
-  console.log(sortOrder);
+
+  const handleCancel = (id: string) => {
+    if (cancelOrderStatus !== API_PROCESS.LOADING) {
+      dispatch(cancelOrderDetail({id: id}));
+    }
+  };
 
   return (
     <View style={styles.wrapper}>
@@ -55,7 +60,7 @@ const OrderHistory = () => {
         <FlatList
           data={sortOrder}
           renderItem={order => {
-            return <OrderItem order={order.item} />;
+            return <OrderItem order={order.item} handleCancel={handleCancel} />;
           }}
           showsVerticalScrollIndicator={false}
           onEndReached={() => {

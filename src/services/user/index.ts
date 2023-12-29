@@ -75,3 +75,7 @@ export const changePasswordAccount = async (data: ChangePassFormField) => {
     throw new Error('Error');
   }
 };
+
+export const forgotPassword = async (data: {email: string}) => {
+  return await httpClient.post(userEndPoint.forgot, data);
+};

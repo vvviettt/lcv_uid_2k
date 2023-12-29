@@ -4,8 +4,10 @@ export interface OrderHistoryItem {
   code: string;
   totalPrice: string;
   createDate: string;
+  taxes: string;
 }
 
 export interface OrderItemProps {
   order: OrderHistoryItem;
+  handleCancel: (id: string) => void;
 }

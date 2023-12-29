@@ -14,6 +14,7 @@ import {convertPrice} from '../../utils/convertPrice';
 import NavigationService from '../../config/stack/navigationService';
 import {getProductDetailThunk} from '../../redux/slices/category/categorySlice';
 import getDiscount from '../../utils/getDiscount';
+import convertHttp from '../../utils/convertHttp';
 
 const OrderDetail = () => {
   const {historyOrderDetailStatus, orderDetail} = useReduxSelector(
@@ -66,7 +67,10 @@ const OrderDetail = () => {
                     });
                   }}>
                   <View style={styles.imgWrapper}>
-                    <Image style={styles.img} source={{uri: item.imageUrl}} />
+                    <Image
+                      style={styles.img}
+                      source={{uri: convertHttp(item.imageUrl)}}
+                    />
                   </View>
                 </TouchableWithoutFeedback>
                 <View style={styles.content}>

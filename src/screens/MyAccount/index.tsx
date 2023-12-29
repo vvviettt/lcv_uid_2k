@@ -23,11 +23,10 @@ import {logout} from '../../redux/slices/user/userSlice';
 import NavigationService from '../../config/stack/navigationService';
 import {deleteAccount} from '../../services/user';
 import {colors} from '../../constants/colors';
-import useAuthBottomSheet from '../../hooks/useAuthBottomSheet';
 import {BottomSheetModal} from '@gorhom/bottom-sheet';
-import RegisterForm from '../../components/forms/RegisterForm';
 import ChangePassForm from '../../components/forms/ChangePassForm';
 import {clearOrderAutofill} from '../../redux/slices/persist/persistSlice';
+import {clearCartForm} from '../../redux/slices/cart/cartSlice';
 
 const MyAccount = () => {
   const dispatch = useReduxDispatch();
@@ -105,6 +104,7 @@ const MyAccount = () => {
             if (user) {
               dispatch(logout());
               dispatch(clearOrderAutofill());
+              dispatch(clearCartForm());
               setVisible(false);
             }
           }}
