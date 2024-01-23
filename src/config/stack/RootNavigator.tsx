@@ -3,7 +3,7 @@
 /* eslint-disable react/no-unstable-nested-components */
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {StackParams} from './type';
-import {FC, useEffect, useRef} from 'react';
+import {FC, useRef} from 'react';
 import {
   NavigationContainer,
   NavigationContainerRef,
@@ -30,12 +30,10 @@ import TabNavigation from './tabNavigationService';
 import {colors} from '../../constants/colors';
 import ExploreScreen from '../../screens/ExploreScreen';
 import ProductDetail from '../../screens/ProductDetailtScreen';
-import {useReduxDispatch, useReduxSelector} from '../../redux/store';
+import {useReduxSelector} from '../../redux/store';
 import TermsOfServiceScreen from '../../screens/TermsOfServices';
 import BackIcon from '../../assets/svgs/back.svg';
 import CheckOutScreen from '../../screens/CheckOutScreen';
-import jwtDecode from 'jwt-decode';
-import {logout} from '../../redux/slices/user/userSlice';
 import CategoriesScreen from '../../screens/CategogiesScreen';
 import BestSellerScreen from '../../screens/BestSeller';
 import NewArrivalsScreen from '../../screens/NewArrivalsScreen';
@@ -49,7 +47,6 @@ const Stack = createNativeStackNavigator<StackParams>();
 const Tab = createBottomTabNavigator();
 
 const RootNavigation: FC = () => {
-  const {user} = useReduxSelector(state => state.user);
   const navigationRef = useRef<NavigationContainerRef<StackParams>>(null);
   NavigationService.initialize(navigationRef);
   const MyTheme = {
@@ -229,9 +226,9 @@ const RootNavigation: FC = () => {
 const TabNavigator: FC = (props: any) => {
   TabNavigation.initialize(props.navigation);
   const {products} = useReduxSelector(state => state.cart);
-
   return (
     <Tab.Navigator
+      initialRouteName="Home"
       tabBar={({state, navigation, descriptors}) => {
         // setNavigation(navigation);
         return (

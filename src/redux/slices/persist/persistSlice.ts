@@ -1,7 +1,17 @@
 import {PayloadAction, createSlice} from '@reduxjs/toolkit';
-import {AutoFillForm, PersistState} from './persist.type';
+import {
+  AutoFillForm,
+  Currency,
+  Languages,
+  Locations,
+  PersistState,
+} from './persist.type';
 const initialState: PersistState = {
   orderAutofill: {},
+  location: Locations.UAE,
+  language: Languages.English,
+  currency: Currency.AED,
+  enableNotification: false,
 };
 
 const persistSlice = createSlice({
@@ -14,8 +24,27 @@ const persistSlice = createSlice({
     clearOrderAutofill: state => {
       state.orderAutofill = {};
     },
+    switchEnableNotification: state => {
+      state.enableNotification = !state.enableNotification;
+    },
+    changeLocation: (state, payload: PayloadAction<{location: Locations}>) => {
+      state.location = payload.payload.location;
+    },
+    changeLanguage: (state, payload: PayloadAction<{language: Languages}>) => {
+      state.language = payload.payload.language;
+    },
+    changeCurrency: (state, payload: PayloadAction<{currency: Currency}>) => {
+      state.currency = payload.payload.currency;
+    },
   },
 });
 
-export const {updateOrderAutofill, clearOrderAutofill} = persistSlice.actions;
+export const {
+  updateOrderAutofill,
+  clearOrderAutofill,
+  switchEnableNotification,
+  changeCurrency,
+  changeLanguage,
+  changeLocation,
+} = persistSlice.actions;
 export default persistSlice.reducer;

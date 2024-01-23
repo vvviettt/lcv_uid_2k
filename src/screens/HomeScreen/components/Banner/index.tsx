@@ -1,10 +1,12 @@
 import {View, Text, StyleSheet, Image, TouchableOpacity} from 'react-native';
 import React from 'react';
-import bannerImg from '../../../../assets/images/banner-1.png';
+import bannerImg from '../../../../assets/images/banner-1.jpg';
 import BannerText from '../../../../assets/svgs/bannerText.svg';
 import ChevronsRight from '../../../../assets/svgs/chevrons-right.svg';
 import {fonts} from '../../../../constants/fonts';
 import {colors} from '../../../../constants/colors';
+import NavigationService from '../../../../config/stack/navigationService';
+import TabNavigation from '../../../../config/stack/tabNavigationService';
 
 const Banner = () => {
   return (
@@ -12,7 +14,11 @@ const Banner = () => {
       <Image style={styles.img} source={bannerImg} />
       <View style={styles.content}>
         <BannerText />
-        <TouchableOpacity style={styles.btnWrapper}>
+        <TouchableOpacity
+          onPress={() => {
+            TabNavigation.push('Explore', {});
+          }}
+          style={styles.btnWrapper}>
           <Text style={styles.btnText}>Shop all</Text>
         </TouchableOpacity>
       </View>
@@ -36,6 +42,7 @@ const styles = StyleSheet.create({
   img: {
     position: 'absolute',
     width: '100%',
+    height: '100%',
     top: 0,
     left: 0,
     right: 0,
