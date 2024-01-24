@@ -1,4 +1,4 @@
-package com.lcv_uid_2k;
+package com.alahas_diamante;
 
 import com.facebook.react.ReactActivity;
 import com.facebook.react.ReactActivityDelegate;
@@ -17,7 +17,7 @@ public class MainActivity extends ReactActivity {
    */
   @Override
   protected String getMainComponentName() {
-    return "lcv_uid_2k";
+    return "alahas_diamante";
   }
 
   /**

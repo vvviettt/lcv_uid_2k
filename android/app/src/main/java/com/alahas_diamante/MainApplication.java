@@ -1,4 +1,4 @@
-package com.lcv_uid_2k;
+package com.alahas_diamante;
 
 import android.app.Application;
 import com.facebook.react.PackageList;
