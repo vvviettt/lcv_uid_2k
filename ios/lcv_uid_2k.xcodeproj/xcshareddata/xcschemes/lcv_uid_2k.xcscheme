@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-               BuildableName = "lcv_uid_2k.app"
-               BlueprintName = "lcv_uid_2k"
-               ReferencedContainer = "container:lcv_uid_2k.xcodeproj">
+               BuildableName = "alahas_diamante.app"
+               BlueprintName = "alahas_diamante"
+               ReferencedContainer = "container:alahas_diamante.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -33,9 +33,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "00E356ED1AD99517003FC87E"
-               BuildableName = "lcv_uid_2kTests.xctest"
-               BlueprintName = "lcv_uid_2kTests"
-               ReferencedContainer = "container:lcv_uid_2k.xcodeproj">
+               BuildableName = "alahas_diamanteTests.xctest"
+               BlueprintName = "alahas_diamanteTests"
+               ReferencedContainer = "container:alahas_diamante.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -55,9 +55,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "lcv_uid_2k.app"
-            BlueprintName = "lcv_uid_2k"
-            ReferencedContainer = "container:lcv_uid_2k.xcodeproj">
+            BuildableName = "alahas_diamante.app"
+            BlueprintName = "alahas_diamante"
+            ReferencedContainer = "container:alahas_diamante.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>
@@ -72,9 +72,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "lcv_uid_2k.app"
-            BlueprintName = "lcv_uid_2k"
-            ReferencedContainer = "container:lcv_uid_2k.xcodeproj">
+            BuildableName = "alahas_diamante.app"
+            BlueprintName = "alahas_diamante"
+            ReferencedContainer = "container:alahas_diamante.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

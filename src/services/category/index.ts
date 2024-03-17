@@ -183,6 +183,22 @@ export const createOrderApi = async (
   type: number,
 ) => {
   try {
+    console.log(
+      JSON.stringify({
+        others: {
+          ...checkoutInfo,
+          address: `${
+            type === 2 ? 'Work address: ' : 'Home Address: '
+          }Country: ${checkoutInfo.country}, City: ${
+            checkoutInfo.city
+          }, Area: ${checkoutInfo.area}, Detail: ${
+            checkoutInfo.addressDetail
+          }  `,
+        },
+        items: products,
+      }),
+    );
+
     const rs = await httpClient.post(`${categoryEndPoint.order}`, {
       others: {
         ...checkoutInfo,
@@ -194,6 +210,7 @@ export const createOrderApi = async (
       },
       items: products,
     });
+    console.log('huhu', rs);
 
     return rs.data?.results;
     // return {products: res.data.results.data, totalRecord: res.data.totalRecord};
@@ -201,7 +218,7 @@ export const createOrderApi = async (
     if (axios.isAxiosError(error)) {
       console.log(((error as AxiosError).response?.data as any) ?? '');
     }
-    console.log('Unknown  error.');
+    console.log('Unknown  error.', error);
     return null;
   }
 };
@@ -217,6 +234,9 @@ export const confirmOrderAPI = async (
       paymentStatus: paymentStatus,
     });
   } catch (error) {
+    console.log('HUHU');
+
+    console.log((error as AxiosError).response?.data);
     throw error;
   }
 };

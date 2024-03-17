@@ -71,9 +71,9 @@ const SettingScreen = () => {
         }
       },
       icon: user ? (
-        <Image style={{width: 20, height: 20}} source={accountIcon} />
+        <Image style={styles.icon} source={accountIcon} />
       ) : (
-        <Image style={{width: 20, height: 20}} source={loginIcon} />
+        <Image style={styles.icon} source={loginIcon} />
       ),
       subElement: !user ? (
         <></>
@@ -90,17 +90,17 @@ const SettingScreen = () => {
           openLoginSheet();
         }
       },
-      icon: <Image style={{width: 20, height: 20}} source={OrderIcon} />,
+      icon: <Image style={styles.icon} source={OrderIcon} />,
     },
     {
       name: 'About Us',
       onPress: () => {
         NavigationService.push('AboutUs');
       },
-      icon: <Image style={{width: 20, height: 20}} source={AboutIcon} />,
+      icon: <Image style={styles.icon} source={AboutIcon} />,
     },
     {
-      icon: <Image style={{width: 20, height: 20}} source={privacyIcon} />,
+      icon: <Image style={styles.icon} source={privacyIcon} />,
       name: 'Privacy Policy',
       onPress: () => {
         NavigationService.push('TermsOfService', {
@@ -110,7 +110,7 @@ const SettingScreen = () => {
     },
     {
       name: 'Shipping Policy',
-      icon: <Image style={{width: 20, height: 20}} source={shippingIcon} />,
+      icon: <Image style={styles.icon} source={shippingIcon} />,
       onPress: () => {
         NavigationService.push('TermsOfService', {
           type: 'shipping',
@@ -119,7 +119,7 @@ const SettingScreen = () => {
     },
     {
       name: 'Refund Policy',
-      icon: <Image style={{width: 20, height: 20}} source={returnIcon} />,
+      icon: <Image style={styles.icon} source={returnIcon} />,
       onPress: () => {
         NavigationService.push('TermsOfService', {
           type: 'refund',
@@ -128,14 +128,14 @@ const SettingScreen = () => {
     },
     {
       name: 'Contact us',
-      icon: <Image style={{width: 20, height: 20}} source={mailIcon} />,
+      icon: <Image style={styles.icon} source={mailIcon} />,
       onPress: () => {
         Linking.openURL('mailto:info@alahasdiamante.com');
       },
     },
     {
       name: 'Like us on Facebook',
-      icon: <Image style={{width: 20, height: 20}} source={fbIcon} />,
+      icon: <Image style={styles.icon} source={fbIcon} />,
       onPress: () => {
         Linking.openURL('fb://profile/61550271264740/').catch(() => {
           Linking.openURL(
@@ -146,7 +146,7 @@ const SettingScreen = () => {
     },
     {
       name: 'Follow us on Instagram',
-      icon: <Image style={{width: 20, height: 20}} source={instaIcon} />,
+      icon: <Image style={styles.icon} source={instaIcon} />,
       onPress: () => {
         Linking.openURL('instagram://user?username=alahasdiamante').catch(
           () => {
@@ -157,7 +157,7 @@ const SettingScreen = () => {
     },
     {
       name: 'Notification',
-      icon: <Image style={{width: 20, height: 20}} source={notificationIcon} />,
+      icon: <Image style={styles.icon} source={notificationIcon} />,
       onPress: () => {
         dispatch(switchEnableNotification());
       },
@@ -174,23 +174,23 @@ const SettingScreen = () => {
     },
     {
       name: 'Currency',
-      icon: <Image style={{width: 20, height: 20}} source={currencyIcon} />,
+      icon: <Image style={styles.icon} source={currencyIcon} />,
       onPress: () => {
-        setShowModal('CURRENCY');
+        NavigationService.push('CurrencyData');
       },
     },
     {
       name: 'Location',
-      icon: <Image style={{width: 20, height: 20}} source={locationIcon} />,
+      icon: <Image style={styles.icon} source={locationIcon} />,
       onPress: () => {
-        setShowModal('LOCATION');
+        NavigationService.push('FakeLocationData');
       },
     },
     {
       name: 'Language',
-      icon: <Image style={{width: 20, height: 20}} source={languageIcon} />,
+      icon: <Image style={styles.icon} source={languageIcon} />,
       onPress: () => {
-        setShowModal('LANGUAGE');
+        NavigationService.push('LanguageData');
       },
     },
   ];
@@ -333,4 +333,5 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     color: colors.mainTxt,
   },
+  icon: {width: 20, height: 20},
 });

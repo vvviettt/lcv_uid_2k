@@ -1,13 +1,23 @@
 import {IProduct} from '../redux/slices/category/category.type';
 import {addToCart as addToCartAction} from '../redux/slices/cart/cartSlice';
-import {useReduxDispatch} from '../redux/store';
+import {useReduxDispatch, useReduxSelector} from '../redux/store';
 import {Alert, ToastAndroid} from 'react-native';
 import TabNavigation from '../config/stack/tabNavigationService';
 
 const useAddToCart = () => {
   const dispatch = useReduxDispatch();
+  const {user} = useReduxSelector(state => state.user);
 
   const addToCart = (product: IProduct, color?: string, size?: string) => {
+    if (!user) {
+      Alert.alert('Alahas Diamante', 'Please login before order.', [
+        {
+          text: 'Ok',
+          style: 'cancel',
+        },
+      ]);
+      return;
+    }
     if (
       (product.colors && product.colors.length > 0 && !color) ||
       (product.sizes && product.sizes.length > 0 && !size)

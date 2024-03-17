@@ -67,7 +67,7 @@ const CartScreen = () => {
     emoji: '🇦🇪',
   });
   const {getTotalPrice, getVatCost, getSum} = useCheckout();
-  const {control, formState, trigger, getValues} = useForm<OderFormProps>({
+  const {control, trigger, getValues} = useForm<OderFormProps>({
     resolver: yupResolver(schema),
     defaultValues: {
       name: orderInfo?.name,
@@ -83,6 +83,7 @@ const CartScreen = () => {
   useLayoutEffect(() => {
     getValues();
     trigger();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
@@ -432,9 +433,13 @@ const CartScreen = () => {
                     }),
                     val,
                   );
+                  console.log(order);
+
                   const datas = order.order;
                   console.log(order.data.id);
+                  console.log('RUN');
                   await initiateCardPayment(datas);
+                  console.log('RUN 2');
                   await confirmOrderAPI(order.data.id, 0);
                   setPaymentStatus(API_PROCESS.SUCCESS);
                 } catch (error) {

@@ -11,11 +11,8 @@ import {convertPrice} from '../../utils/convertPrice';
 import getDiscount from '../../utils/getDiscount';
 import {TouchableWithoutFeedback} from 'react-native-gesture-handler';
 import NavigationService from '../../config/stack/navigationService';
-import {useReduxDispatch} from '../../redux/store';
-import {
-  getProductDetailThunk,
-  selectProduct,
-} from '../../redux/slices/category/categorySlice';
+import {useReduxDispatch, useReduxSelector} from '../../redux/store';
+import {getProductDetailThunk} from '../../redux/slices/category/categorySlice';
 import {addToCart} from '../../redux/slices/cart/cartSlice';
 import TabNavigation from '../../config/stack/tabNavigationService';
 
@@ -30,35 +27,43 @@ const FullWidthProductItem: FC<FullWidthProductItemProps> = ({
 }) => {
   const [dotActive, setActiveDot] = useState(0);
   const dispatch = useReduxDispatch();
+  const {user} = useReduxSelector(state => state.user);
   const handleAddToCart = () => {
-    console.log('okok');
-
-    dispatch(
-      addToCart({
-        product: product,
-        color:
-          product.colors && product.colors.length > 0
-            ? product.colors[0].name
-            : undefined,
-        size:
-          product.sizes && product.sizes.length > 0
-            ? product.sizes[0].value
-            : undefined,
-      }),
-    );
-    Alert.alert('Added to cart', 'This product added to your cart.', [
-      {
-        text: 'Go to checkout',
-        style: 'cancel',
-        onPress: () => {
-          TabNavigation.push('Cart', {});
+    if (user) {
+      dispatch(
+        addToCart({
+          product: product,
+          color:
+            product.colors && product.colors.length > 0
+              ? product.colors[0].name
+              : undefined,
+          size:
+            product.sizes && product.sizes.length > 0
+              ? product.sizes[0].value
+              : undefined,
+        }),
+      );
+      Alert.alert('Added to cart', 'This product added to your cart.', [
+        {
+          text: 'Go to checkout',
+          style: 'cancel',
+          onPress: () => {
+            TabNavigation.push('Cart', {});
+          },
         },
-      },
-      {
-        text: 'Ok',
-        style: 'cancel',
-      },
-    ]);
+        {
+          text: 'Ok',
+          style: 'cancel',
+        },
+      ]);
+    } else {
+      Alert.alert('Alahas Diamante', 'Please login before order.', [
+        {
+          text: 'Ok',
+          style: 'cancel',
+        },
+      ]);
+    }
   };
 
   return (

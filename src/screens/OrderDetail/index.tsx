@@ -21,7 +21,6 @@ const OrderDetail = () => {
     state => state.cart,
   );
   const dispatch = useReduxDispatch();
-  console.log(orderDetail?.detail);
 
   return (
     <View style={styles.wrapper}>

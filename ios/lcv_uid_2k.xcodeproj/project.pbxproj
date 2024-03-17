@@ -7,13 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		00E356F31AD99517003FC87E /* lcv_uid_2kTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* lcv_uid_2kTests.m */; };
-		0C80B921A6F3F58F76C31292 /* libPods-lcv_uid_2k.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5DCACB8F33CDC322A6C60F78 /* libPods-lcv_uid_2k.a */; };
+		00E356F31AD99517003FC87E /* alahas_diamanteTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* alahas_diamanteTests.m */; };
+		0C80B921A6F3F58F76C31292 /* libPods-alahas_diamante.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5DCACB8F33CDC322A6C60F78 /* libPods-alahas_diamante.a */; };
 		13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.mm */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		3199F82E2F8B407297DE59F7 /* sansita_regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F55E036D4FD1454990F08DB1 /* sansita_regular.ttf */; };
-		7699B88040F8A987B510C191 /* libPods-lcv_uid_2k-lcv_uid_2kTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 19F6CBCC0A4E27FBF8BF4A61 /* libPods-lcv_uid_2k-lcv_uid_2kTests.a */; };
+		7699B88040F8A987B510C191 /* libPods-alahas_diamante-alahas_diamanteTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 19F6CBCC0A4E27FBF8BF4A61 /* libPods-alahas_diamante-alahas_diamanteTests.a */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		8DC52EF6139B42D5AF4D87D6 /* Inter-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3788DA7E0EDD4E3F95601F45 /* Inter-Regular.ttf */; };
 		D8B51407E6C5419B8FEF5A5B /* Poppins-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 35512867998C443EB37F9D0F /* Poppins-Medium.ttf */; };
@@ -26,29 +26,29 @@
 			containerPortal = 83CBB9F71A601CBA00E9B192 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = 13B07F861A680F5B00A75B9A;
-			remoteInfo = lcv_uid_2k;
+			remoteInfo = alahas_diamante;
 		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		00E356EE1AD99517003FC87E /* lcv_uid_2kTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = lcv_uid_2kTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		00E356EE1AD99517003FC87E /* alahas_diamanteTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = alahas_diamanteTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		00E356F21AD99517003FC87E /* lcv_uid_2kTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = lcv_uid_2kTests.m; sourceTree = "<group>"; };
-		13B07F961A680F5B00A75B9A /* lcv_uid_2k.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = lcv_uid_2k.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = lcv_uid_2k/AppDelegate.h; sourceTree = "<group>"; };
-		13B07FB01A68108700A75B9A /* AppDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = AppDelegate.mm; path = lcv_uid_2k/AppDelegate.mm; sourceTree = "<group>"; };
-		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = lcv_uid_2k/Images.xcassets; sourceTree = "<group>"; };
-		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = lcv_uid_2k/Info.plist; sourceTree = "<group>"; };
-		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = lcv_uid_2k/main.m; sourceTree = "<group>"; };
-		19F6CBCC0A4E27FBF8BF4A61 /* libPods-lcv_uid_2k-lcv_uid_2kTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-lcv_uid_2k-lcv_uid_2kTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		00E356F21AD99517003FC87E /* alahas_diamanteTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = alahas_diamanteTests.m; sourceTree = "<group>"; };
+		13B07F961A680F5B00A75B9A /* alahas_diamante.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = alahas_diamante.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = alahas_diamante/AppDelegate.h; sourceTree = "<group>"; };
+		13B07FB01A68108700A75B9A /* AppDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = AppDelegate.mm; path = alahas_diamante/AppDelegate.mm; sourceTree = "<group>"; };
+		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = alahas_diamante/Images.xcassets; sourceTree = "<group>"; };
+		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = alahas_diamante/Info.plist; sourceTree = "<group>"; };
+		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = alahas_diamante/main.m; sourceTree = "<group>"; };
+		19F6CBCC0A4E27FBF8BF4A61 /* libPods-alahas_diamante-alahas_diamanteTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-alahas_diamante-alahas_diamanteTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		35512867998C443EB37F9D0F /* Poppins-Medium.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Poppins-Medium.ttf"; path = "../src/assets/fonts/Poppins-Medium.ttf"; sourceTree = "<group>"; };
 		3788DA7E0EDD4E3F95601F45 /* Inter-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Inter-Regular.ttf"; path = "../src/assets/fonts/Inter-Regular.ttf"; sourceTree = "<group>"; };
-		3B4392A12AC88292D35C810B /* Pods-lcv_uid_2k.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-lcv_uid_2k.debug.xcconfig"; path = "Target Support Files/Pods-lcv_uid_2k/Pods-lcv_uid_2k.debug.xcconfig"; sourceTree = "<group>"; };
-		5709B34CF0A7D63546082F79 /* Pods-lcv_uid_2k.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-lcv_uid_2k.release.xcconfig"; path = "Target Support Files/Pods-lcv_uid_2k/Pods-lcv_uid_2k.release.xcconfig"; sourceTree = "<group>"; };
-		5B7EB9410499542E8C5724F5 /* Pods-lcv_uid_2k-lcv_uid_2kTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-lcv_uid_2k-lcv_uid_2kTests.debug.xcconfig"; path = "Target Support Files/Pods-lcv_uid_2k-lcv_uid_2kTests/Pods-lcv_uid_2k-lcv_uid_2kTests.debug.xcconfig"; sourceTree = "<group>"; };
-		5DCACB8F33CDC322A6C60F78 /* libPods-lcv_uid_2k.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-lcv_uid_2k.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = lcv_uid_2k/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		89C6BE57DB24E9ADA2F236DE /* Pods-lcv_uid_2k-lcv_uid_2kTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-lcv_uid_2k-lcv_uid_2kTests.release.xcconfig"; path = "Target Support Files/Pods-lcv_uid_2k-lcv_uid_2kTests/Pods-lcv_uid_2k-lcv_uid_2kTests.release.xcconfig"; sourceTree = "<group>"; };
+		3B4392A12AC88292D35C810B /* Pods-alahas_diamante.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-alahas_diamante.debug.xcconfig"; path = "Target Support Files/Pods-alahas_diamante/Pods-alahas_diamante.debug.xcconfig"; sourceTree = "<group>"; };
+		5709B34CF0A7D63546082F79 /* Pods-alahas_diamante.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-alahas_diamante.release.xcconfig"; path = "Target Support Files/Pods-alahas_diamante/Pods-alahas_diamante.release.xcconfig"; sourceTree = "<group>"; };
+		5B7EB9410499542E8C5724F5 /* Pods-alahas_diamante-alahas_diamanteTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-alahas_diamante-alahas_diamanteTests.debug.xcconfig"; path = "Target Support Files/Pods-alahas_diamante-alahas_diamanteTests/Pods-alahas_diamante-alahas_diamanteTests.debug.xcconfig"; sourceTree = "<group>"; };
+		5DCACB8F33CDC322A6C60F78 /* libPods-alahas_diamante.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-alahas_diamante.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = alahas_diamante/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		89C6BE57DB24E9ADA2F236DE /* Pods-alahas_diamante-alahas_diamanteTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-alahas_diamante-alahas_diamanteTests.release.xcconfig"; path = "Target Support Files/Pods-alahas_diamante-alahas_diamanteTests/Pods-alahas_diamante-alahas_diamanteTests.release.xcconfig"; sourceTree = "<group>"; };
 		B4384EC17773484AB16A72AC /* Poppins-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Poppins-Regular.ttf"; path = "../src/assets/fonts/Poppins-Regular.ttf"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		F55E036D4FD1454990F08DB1 /* sansita_regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = sansita_regular.ttf; path = ../src/assets/fonts/sansita_regular.ttf; sourceTree = "<group>"; };
@@ -59,7 +59,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7699B88040F8A987B510C191 /* libPods-lcv_uid_2k-lcv_uid_2kTests.a in Frameworks */,
+				7699B88040F8A987B510C191 /* libPods-alahas_diamante-alahas_diamanteTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -67,20 +67,20 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0C80B921A6F3F58F76C31292 /* libPods-lcv_uid_2k.a in Frameworks */,
+				0C80B921A6F3F58F76C31292 /* libPods-alahas_diamante.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		00E356EF1AD99517003FC87E /* lcv_uid_2kTests */ = {
+		00E356EF1AD99517003FC87E /* alahas_diamanteTests */ = {
 			isa = PBXGroup;
 			children = (
-				00E356F21AD99517003FC87E /* lcv_uid_2kTests.m */,
+				00E356F21AD99517003FC87E /* alahas_diamanteTests.m */,
 				00E356F01AD99517003FC87E /* Supporting Files */,
 			);
-			path = lcv_uid_2kTests;
+			path = alahas_diamanteTests;
 			sourceTree = "<group>";
 		};
 		00E356F01AD99517003FC87E /* Supporting Files */ = {
@@ -91,7 +91,7 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		13B07FAE1A68108700A75B9A /* lcv_uid_2k */ = {
+		13B07FAE1A68108700A75B9A /* alahas_diamante */ = {
 			isa = PBXGroup;
 			children = (
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
@@ -101,7 +101,7 @@
 				81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */,
 				13B07FB71A68108700A75B9A /* main.m */,
 			);
-			name = lcv_uid_2k;
+			name = alahas_diamante;
 			sourceTree = "<group>";
 		};
 		28C9E47D6EA44239B33B86E5 /* Resources */ = {
@@ -120,8 +120,8 @@
 			isa = PBXGroup;
 			children = (
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
-				5DCACB8F33CDC322A6C60F78 /* libPods-lcv_uid_2k.a */,
-				19F6CBCC0A4E27FBF8BF4A61 /* libPods-lcv_uid_2k-lcv_uid_2kTests.a */,
+				5DCACB8F33CDC322A6C60F78 /* libPods-alahas_diamante.a */,
+				19F6CBCC0A4E27FBF8BF4A61 /* libPods-alahas_diamante-alahas_diamanteTests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -136,9 +136,9 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
-				13B07FAE1A68108700A75B9A /* lcv_uid_2k */,
+				13B07FAE1A68108700A75B9A /* alahas_diamante */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
-				00E356EF1AD99517003FC87E /* lcv_uid_2kTests */,
+				00E356EF1AD99517003FC87E /* alahas_diamanteTests */,
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				BBD78D7AC51CEA395F1C20DB /* Pods */,
@@ -152,8 +152,8 @@
 		83CBBA001A601CBA00E9B192 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				13B07F961A680F5B00A75B9A /* lcv_uid_2k.app */,
-				00E356EE1AD99517003FC87E /* lcv_uid_2kTests.xctest */,
+				13B07F961A680F5B00A75B9A /* alahas_diamante.app */,
+				00E356EE1AD99517003FC87E /* alahas_diamanteTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -161,10 +161,10 @@
 		BBD78D7AC51CEA395F1C20DB /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				3B4392A12AC88292D35C810B /* Pods-lcv_uid_2k.debug.xcconfig */,
-				5709B34CF0A7D63546082F79 /* Pods-lcv_uid_2k.release.xcconfig */,
-				5B7EB9410499542E8C5724F5 /* Pods-lcv_uid_2k-lcv_uid_2kTests.debug.xcconfig */,
-				89C6BE57DB24E9ADA2F236DE /* Pods-lcv_uid_2k-lcv_uid_2kTests.release.xcconfig */,
+				3B4392A12AC88292D35C810B /* Pods-alahas_diamante.debug.xcconfig */,
+				5709B34CF0A7D63546082F79 /* Pods-alahas_diamante.release.xcconfig */,
+				5B7EB9410499542E8C5724F5 /* Pods-alahas_diamante-alahas_diamanteTests.debug.xcconfig */,
+				89C6BE57DB24E9ADA2F236DE /* Pods-alahas_diamante-alahas_diamanteTests.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -172,9 +172,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		00E356ED1AD99517003FC87E /* lcv_uid_2kTests */ = {
+		00E356ED1AD99517003FC87E /* alahas_diamanteTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "lcv_uid_2kTests" */;
+			buildConfigurationList = 00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "alahas_diamanteTests" */;
 			buildPhases = (
 				A55EABD7B0C7F3A422A6CC61 /* [CP] Check Pods Manifest.lock */,
 				00E356EA1AD99517003FC87E /* Sources */,
@@ -188,14 +188,14 @@
 			dependencies = (
 				00E356F51AD99517003FC87E /* PBXTargetDependency */,
 			);
-			name = lcv_uid_2kTests;
-			productName = lcv_uid_2kTests;
-			productReference = 00E356EE1AD99517003FC87E /* lcv_uid_2kTests.xctest */;
+			name = alahas_diamanteTests;
+			productName = alahas_diamanteTests;
+			productReference = 00E356EE1AD99517003FC87E /* alahas_diamanteTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		13B07F861A680F5B00A75B9A /* lcv_uid_2k */ = {
+		13B07F861A680F5B00A75B9A /* alahas_diamante */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "lcv_uid_2k" */;
+			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "alahas_diamante" */;
 			buildPhases = (
 				C38B50BA6285516D6DCD4F65 /* [CP] Check Pods Manifest.lock */,
 				FD10A7F022414F080027D42C /* Start Packager */,
@@ -210,9 +210,9 @@
 			);
 			dependencies = (
 			);
-			name = lcv_uid_2k;
-			productName = lcv_uid_2k;
-			productReference = 13B07F961A680F5B00A75B9A /* lcv_uid_2k.app */;
+			name = alahas_diamante;
+			productName = alahas_diamante;
+			productReference = 13B07F961A680F5B00A75B9A /* alahas_diamante.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -232,7 +232,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "lcv_uid_2k" */;
+			buildConfigurationList = 83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "alahas_diamante" */;
 			compatibilityVersion = "Xcode 12.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -245,8 +245,8 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				13B07F861A680F5B00A75B9A /* lcv_uid_2k */,
-				00E356ED1AD99517003FC87E /* lcv_uid_2kTests */,
+				13B07F861A680F5B00A75B9A /* alahas_diamante */,
+				00E356ED1AD99517003FC87E /* alahas_diamanteTests */,
 			);
 		};
 /* End PBXProject section */
@@ -297,15 +297,15 @@
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-lcv_uid_2k/Pods-lcv_uid_2k-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-alahas_diamante/Pods-alahas_diamante-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-lcv_uid_2k/Pods-lcv_uid_2k-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-alahas_diamante/Pods-alahas_diamante-frameworks-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-lcv_uid_2k/Pods-lcv_uid_2k-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-alahas_diamante/Pods-alahas_diamante-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		A55EABD7B0C7F3A422A6CC61 /* [CP] Check Pods Manifest.lock */ = {
@@ -323,7 +323,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-lcv_uid_2k-lcv_uid_2kTests-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-alahas_diamante-alahas_diamanteTests-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -345,7 +345,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-lcv_uid_2k-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-alahas_diamante-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -358,15 +358,15 @@
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-lcv_uid_2k-lcv_uid_2kTests/Pods-lcv_uid_2k-lcv_uid_2kTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-alahas_diamante-alahas_diamanteTests/Pods-alahas_diamante-alahas_diamanteTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-lcv_uid_2k-lcv_uid_2kTests/Pods-lcv_uid_2k-lcv_uid_2kTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-alahas_diamante-alahas_diamanteTests/Pods-alahas_diamante-alahas_diamanteTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-lcv_uid_2k-lcv_uid_2kTests/Pods-lcv_uid_2k-lcv_uid_2kTests-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-alahas_diamante-alahas_diamanteTests/Pods-alahas_diamante-alahas_diamanteTests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		E235C05ADACE081382539298 /* [CP] Copy Pods Resources */ = {
@@ -375,15 +375,15 @@
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-lcv_uid_2k/Pods-lcv_uid_2k-resources-${CONFIGURATION}-input-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-alahas_diamante/Pods-alahas_diamante-resources-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-lcv_uid_2k/Pods-lcv_uid_2k-resources-${CONFIGURATION}-output-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-alahas_diamante/Pods-alahas_diamante-resources-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-lcv_uid_2k/Pods-lcv_uid_2k-resources.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-alahas_diamante/Pods-alahas_diamante-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		F6A41C54EA430FDDC6A6ED99 /* [CP] Copy Pods Resources */ = {
@@ -392,15 +392,15 @@
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-lcv_uid_2k-lcv_uid_2kTests/Pods-lcv_uid_2k-lcv_uid_2kTests-resources-${CONFIGURATION}-input-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-alahas_diamante-alahas_diamanteTests/Pods-alahas_diamante-alahas_diamanteTests-resources-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-lcv_uid_2k-lcv_uid_2kTests/Pods-lcv_uid_2k-lcv_uid_2kTests-resources-${CONFIGURATION}-output-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-alahas_diamante-alahas_diamanteTests/Pods-alahas_diamante-alahas_diamanteTests-resources-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-lcv_uid_2k-lcv_uid_2kTests/Pods-lcv_uid_2k-lcv_uid_2kTests-resources.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-alahas_diamante-alahas_diamanteTests/Pods-alahas_diamante-alahas_diamanteTests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		FD10A7F022414F080027D42C /* Start Packager */ = {
@@ -429,7 +429,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				00E356F31AD99517003FC87E /* lcv_uid_2kTests.m in Sources */,
+				00E356F31AD99517003FC87E /* alahas_diamanteTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -447,7 +447,7 @@
 /* Begin PBXTargetDependency section */
 		00E356F51AD99517003FC87E /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 13B07F861A680F5B00A75B9A /* lcv_uid_2k */;
+			target = 13B07F861A680F5B00A75B9A /* alahas_diamante */;
 			targetProxy = 00E356F41AD99517003FC87E /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -455,14 +455,14 @@
 /* Begin XCBuildConfiguration section */
 		00E356F61AD99517003FC87E /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 5B7EB9410499542E8C5724F5 /* Pods-lcv_uid_2k-lcv_uid_2kTests.debug.xcconfig */;
+			baseConfigurationReference = 5B7EB9410499542E8C5724F5 /* Pods-alahas_diamante-alahas_diamanteTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = lcv_uid_2kTests/Info.plist;
+				INFOPLIST_FILE = alahas_diamanteTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -476,17 +476,17 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/lcv_uid_2k.app/lcv_uid_2k";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/alahas_diamante.app/alahas_diamante";
 			};
 			name = Debug;
 		};
 		00E356F71AD99517003FC87E /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 89C6BE57DB24E9ADA2F236DE /* Pods-lcv_uid_2k-lcv_uid_2kTests.release.xcconfig */;
+			baseConfigurationReference = 89C6BE57DB24E9ADA2F236DE /* Pods-alahas_diamante-alahas_diamanteTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
-				INFOPLIST_FILE = lcv_uid_2kTests/Info.plist;
+				INFOPLIST_FILE = alahas_diamanteTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -500,19 +500,19 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/lcv_uid_2k.app/lcv_uid_2k";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/alahas_diamante.app/alahas_diamante";
 			};
 			name = Release;
 		};
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 3B4392A12AC88292D35C810B /* Pods-lcv_uid_2k.debug.xcconfig */;
+			baseConfigurationReference = 3B4392A12AC88292D35C810B /* Pods-alahas_diamante.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				ENABLE_BITCODE = NO;
-				INFOPLIST_FILE = lcv_uid_2k/Info.plist;
+				INFOPLIST_FILE = alahas_diamante/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -524,7 +524,7 @@
 					"-lc++",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
-				PRODUCT_NAME = lcv_uid_2k;
+				PRODUCT_NAME = alahas_diamante;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -533,12 +533,12 @@
 		};
 		13B07F951A680F5B00A75B9A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 5709B34CF0A7D63546082F79 /* Pods-lcv_uid_2k.release.xcconfig */;
+			baseConfigurationReference = 5709B34CF0A7D63546082F79 /* Pods-alahas_diamante.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
-				INFOPLIST_FILE = lcv_uid_2k/Info.plist;
+				INFOPLIST_FILE = alahas_diamante/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -550,7 +550,7 @@
 					"-lc++",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
-				PRODUCT_NAME = lcv_uid_2k;
+				PRODUCT_NAME = alahas_diamante;
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -698,7 +698,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "lcv_uid_2kTests" */ = {
+		00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "alahas_diamanteTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				00E356F61AD99517003FC87E /* Debug */,
@@ -707,7 +707,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "lcv_uid_2k" */ = {
+		13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "alahas_diamante" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				13B07F941A680F5B00A75B9A /* Debug */,
@@ -716,7 +716,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "lcv_uid_2k" */ = {
+		83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "alahas_diamante" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				83CBBA201A601CBA00E9B192 /* Debug */,

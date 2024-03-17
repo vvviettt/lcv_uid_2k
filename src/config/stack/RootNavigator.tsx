@@ -42,6 +42,10 @@ import MyAccount from '../../screens/MyAccount';
 import OrderHistory from '../../screens/OrderHistory';
 import OrderDetail from '../../screens/OrderDetail';
 import AboutUs from '../../screens/AboutUs';
+import CurrencyData from '../../screens/CurrencyScreen';
+import LanguageScreen from '../../screens/LanguageScreen';
+import LocationScreen from '../../screens/LocationScreen';
+import PaymentScreen from '../../screens/PaymentScreen';
 
 const Stack = createNativeStackNavigator<StackParams>();
 const Tab = createBottomTabNavigator();
@@ -64,6 +68,69 @@ const RootNavigation: FC = () => {
           options={{headerShown: false}}
           name="Root"
           component={TabNavigator}
+        />
+        <Stack.Screen
+          options={{
+            headerTitle: 'Currencies',
+            headerTitleAlign: 'center',
+            headerTitleStyle: {
+              color: colors.green,
+              fontSize: 20,
+              fontWeight: '500',
+            },
+            // headerBackVisible: false,
+            headerLeft: () => {
+              return (
+                <TouchableOpacity onPress={() => NavigationService.goBack()}>
+                  <BackIcon />
+                </TouchableOpacity>
+              );
+            },
+          }}
+          name="CurrencyData"
+          component={CurrencyData}
+        />
+        <Stack.Screen
+          options={{
+            headerTitle: 'Languages',
+            headerTitleAlign: 'center',
+            headerTitleStyle: {
+              color: colors.green,
+              fontSize: 20,
+              fontWeight: '500',
+            },
+            // headerBackVisible: false,
+            headerLeft: () => {
+              return (
+                <TouchableOpacity onPress={() => NavigationService.goBack()}>
+                  <BackIcon />
+                </TouchableOpacity>
+              );
+            },
+          }}
+          name="LanguageData"
+          component={LanguageScreen}
+        />
+        <Stack.Screen
+          options={{
+            headerTitle: 'Location',
+            headerTitleAlign: 'center',
+            headerTitleStyle: {
+              color: colors.green,
+              fontSize: 20,
+              fontWeight: '500',
+            },
+            // headerBackVisible: false,
+            headerLeft: () => {
+              return (
+                <TouchableOpacity onPress={() => NavigationService.goBack()}>
+                  <BackIcon />
+                </TouchableOpacity>
+              );
+            },
+          }}
+          name="FakeLocationData"
+          component={LocationScreen}
         />
         <Stack.Screen
           options={{headerShown: false}}
@@ -218,6 +285,28 @@ const RootNavigation: FC = () => {
           name="OrderHistory"
           component={OrderHistory}
         />
+        <Stack.Screen
+          options={{
+            headerTitle: 'History Order',
+            headerTitleAlign: 'center',
+            headerTitleStyle: {
+              color: colors.green,
+              fontSize: 20,
+              fontWeight: '500',
+            },
+            headerShadowVisible: false,
+            // headerBackVisible: false,
+            headerLeft: () => {
+              return (
+                <TouchableOpacity onPress={() => NavigationService.goBack()}>
+                  <BackIcon />
+                </TouchableOpacity>
+              );
+            },
+          }}
+          name="Payment"
+          component={PaymentScreen}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );
@@ -278,7 +367,7 @@ const TabNavigator: FC = (props: any) => {
                   <View
                     style={{justifyContent: 'center', alignItems: 'center'}}>
                     <View>
-                      {options.tabBarIcon!({
+                      {options.tabBarIcon?.({
                         focused: isFocused,
                         color: '',
                         size: 0,

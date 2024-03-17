@@ -1,5 +1,5 @@
 {
-  "name": "lcv_uid_2k",
+  "name": "alahas_diamante",
   "version": "0.0.1",
   "private": true,
   "scripts": {
@@ -48,6 +48,7 @@
     "react-native-splash-screen": "^3.3.0",
     "react-native-svg": "^13.11.0",
     "react-native-svg-transformer": "^1.1.0",
+    "react-native-webview": "^13.8.1",
     "react-redux": "^8.1.2",
     "redux-persist": "^6.0.0",
     "yup": "^1.2.0"

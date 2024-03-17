@@ -33,6 +33,10 @@ export type StackParams = {
   OrderHistory: undefined;
   OrderHistoryDetail: {key: string};
   AboutUs: undefined;
+  CurrencyData: undefined;
+  FakeLocationData: undefined;
+  LanguageData: undefined;
+  Payment: {link: string};
 };
 
 export type NavigatorScreenParams<
